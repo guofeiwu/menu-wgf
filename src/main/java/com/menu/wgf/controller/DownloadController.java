@@ -15,12 +15,12 @@ import java.util.List;
  * @Date 2017/9/19 13:46
  */
 @RestController
-@Api(value = "downloadFileController",description = "文件下载测试")
+@Api(value = "downloadFileController",description = "文件上传下载测试")
 @RequestMapping(value = "/file")
 public class DownloadController {
     @RequestMapping(value = "/testDownload", method = RequestMethod.GET)
     public void testDownload(HttpServletResponse res) {
-        String fileName = "upload.jpg";
+        String fileName = "aa.png";
         res.setHeader("content-type", "application/octet-stream");
         res.setContentType("application/octet-stream");
         res.setHeader("Content-Disposition", "attachment;filename=" + fileName);
@@ -29,7 +29,7 @@ public class DownloadController {
         OutputStream os = null;
         try {
             os = res.getOutputStream();
-            bis = new BufferedInputStream(new FileInputStream(new File("G://"
+            bis = new BufferedInputStream(new FileInputStream(new File("D://Work//idea//menu-wgf//file"+File.separator
                     + fileName)));
             int i = bis.read(buff);
             while (i != -1) {

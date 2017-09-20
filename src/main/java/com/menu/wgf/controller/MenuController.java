@@ -1,6 +1,6 @@
 package com.menu.wgf.controller;
 
-import com.menu.wgf.model.MenuConditionDataObject;
+import com.menu.wgf.dto.MenuConditionDataObject;
 import com.menu.wgf.model.ResultMsg;
 import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
@@ -40,14 +40,16 @@ public class MenuController {
     }
 
 
-
     @ApiOperation(value ="获取用户收藏的菜谱列表",httpMethod = "GET")
     @GetMapping(value = "/{userPkId}")
     @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userPkId",value = "用户的主键",paramType = "path",required = true)
+            @ApiImplicitParam(name = "userPkId",value = "用户的主键",paramType = "path",dataType = "int",required = true),
+            @ApiImplicitParam(name = "pageSize",value = "每页返回的大小",paramType = "query",dataType = "int",required = true),
+            @ApiImplicitParam(name = "pageNo",value = "第几页",paramType = "query",dataType = "int",required = true)
     })
-    public ResultMsg getUserCollectMenuList(@PathVariable Integer userPkId){
+    public ResultMsg getUserCollectMenuList(@PathVariable Integer userPkId,@RequestParam("pageSize") Integer pageSize,
+                                            @RequestParam("pageNo") Integer pageNo){
         return ResultMsg.success().addContent("collectMenuList",null);
     }
 

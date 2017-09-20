@@ -3,9 +3,11 @@ package com.menu.wgf.controller;
 import com.menu.wgf.model.ResultMsg;
 import com.menu.wgf.model.Test;
 import io.swagger.annotations.*;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
 
@@ -18,7 +20,7 @@ import java.io.*;
 @Api(value = "UserInformationController", description = "用户信息管理")
 public class UserInformationController {
 
-    @ApiOperation(value = "用户上传头像", httpMethod = "POST")
+    @ApiOperation(value = "用户上传头像", httpMethod = "PUT")
     @PutMapping(value = "/icon/{userPkId}")
     @ApiImplicitParams({
             @ApiImplicitParam(value = "用户主键", name = "userPkId", required = true, dataType = "int", paramType = "path"),
@@ -26,7 +28,7 @@ public class UserInformationController {
     @ApiResponse(code = 500,message = "服务器相应出错",response = Integer.class)
     public ResultMsg uploadIcon(@PathVariable(value = "userPkId") Integer userPkId, @ApiParam(value = "用户头像", name = "icon") @RequestParam("icon") MultipartFile icon) {
         // TODO: 2017/9/20 根据用户主键获取用户名
-        String userName = null;
+        String userName = "wgf";
         String fileName = icon.getOriginalFilename();
         BufferedInputStream bis =null;
         BufferedOutputStream bos = null;
@@ -34,7 +36,7 @@ public class UserInformationController {
             InputStream is = icon.getInputStream();
             bis = new BufferedInputStream(is);
             //TODO 之后可以更改路径
-            String userPath = "G://userInfo//" + userName;//用户的头像的文件夹
+            String userPath = "D://Work//idea//menu-wgf//" + userName;//用户的头像的文件夹
             File userFile = new File(userPath);
 
             if (!userFile.exists()){
@@ -96,6 +98,52 @@ public class UserInformationController {
     // TODO: 2017/9/20  这里需要修改dto
     public ResultMsg modifyUserInfo(@RequestBody Test test){
 
+        return ResultMsg.success();
+    }
+
+
+    @ApiOperation(value = "下载用户头像",httpMethod = "GET",response = ResultMsg.class)
+    @GetMapping(value = "/{userName}/download")
+    @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userName",value = "用户名",required = true,paramType = "path",dataType = "string"),
+            @ApiImplicitParam(name = "pictureName",value = "图片名称",required = true,paramType = "query",dataType = "string")
+    })
+    public ResultMsg downloadPicture(HttpServletResponse response,@PathVariable("userName") String userName,@RequestParam("pictureName") String pictureName){
+        response.setHeader("content-type", "application/octet-stream");
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment;filename=" + pictureName);
+
+        BufferedInputStream bis = null;
+
+        File file = new File("D://Work//idea//menu-wgf//file//"+userName+File.separator+pictureName);
+        if(!file.exists()){
+            return ResultMsg.failed();//文件不存在直接返回
+        }
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            bis = new BufferedInputStream(fis);
+
+            OutputStream os = response.getOutputStream();
+            int len;
+            byte buff[] = new byte[1024];
+            while ((len=bis.read(buff))!=-1){
+                os.write(buff,0,len);
+            }
+            os.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if(bis!=null){
+                try {
+                    bis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         return ResultMsg.success();
     }
 
