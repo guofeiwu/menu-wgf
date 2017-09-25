@@ -2,6 +2,7 @@ package com.menu.wgf.controller;
 
 import com.menu.wgf.model.ResultMsg;
 import com.menu.wgf.model.Test;
+import com.menu.wgf.utils.IOUtils;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
@@ -58,17 +59,7 @@ public class UserInformationController {
             e.printStackTrace();
             return ResultMsg.failed();
         } finally {
-            try {
-                if (bis!=null){
-                    bis.close();
-                }
-                if(bos!=null)
-                {
-                    bos.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            IOUtils.colse(bos,bis);
         }
         return ResultMsg.success().addContent("userName",userName);
     }
@@ -106,14 +97,15 @@ public class UserInformationController {
     @GetMapping(value = "/{userName}/download")
     @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userName",value = "用户名",required = true,paramType = "path",dataType = "string"),
+            @ApiImplicitParam(name = "userPkId",value = "用户主键",required = true,paramType = "path",dataType = "string"),
             @ApiImplicitParam(name = "pictureName",value = "图片名称",required = true,paramType = "query",dataType = "string")
     })
-    public ResultMsg downloadPicture(HttpServletResponse response,@PathVariable("userName") String userName,@RequestParam("pictureName") String pictureName){
+    public ResultMsg downloadPicture(HttpServletResponse response,@PathVariable("userPkId") int userPkId,@RequestParam("pictureName") String pictureName){
         response.setHeader("content-type", "application/octet-stream");
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment;filename=" + pictureName);
-
+        // TODO: 2017/9/25  根据userPkId 获取用户名
+        String userName = null;
         BufferedInputStream bis = null;
 
         File file = new File("D://Work//idea//menu-wgf//file//"+userName+File.separator+pictureName);

@@ -30,7 +30,7 @@ public class LoginController {
     })
     //,produces = {"application/json;charset=UTF-8"}
     @PostMapping(value = "")
-    @ApiResponse(code = 500,message = "用户登录失败",response = Integer.class)
+    @ApiResponses(@ApiResponse(code = 500,message = "用户登录失败",response = Integer.class))
     public ResultMsg loginApp(@RequestBody Map param){
         String username = (String) param.get("userName");
         String password = (String) param.get("password");
