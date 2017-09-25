@@ -48,4 +48,18 @@ public interface ShaiService {
      * @return
      */
     ResultMsg deleteShai(int shaiPkId);
+
+
+    /**
+     * 获取某个用户的晒一晒
+     * @param userPkId
+     * @return
+     */
+    ResultMsg getShai(int userPkId);
+
+    /**
+     * 获取所有的晒一晒，分页
+     * @return
+     */
+    ResultMsg getShaiList();
 }

@@ -75,4 +75,39 @@ public interface MenuService {
      */
     ResultMsg getUserCollectMenuList(int userPkId,int pageSize,int pageNo);
 
+
+    /**
+     * 搜索菜谱
+     * @param keyword 关键字
+     * @return
+     */
+    ResultMsg searchMenu(String keyword);
+
+
+    /**
+     * 分享菜谱
+     * @param userPkId
+     * @param menuPkId
+     * @return
+     */
+    ResultMsg shareMenu(int userPkId,int menuPkId);
+
+
+    /**
+     * 浏览足迹
+     * @param userPkId
+     * @param menuPkId
+     * @return
+     */
+    ResultMsg recordMenu(int userPkId,int menuPkId);
+
+
+    /**
+     * 获取菜谱的排行
+     * @param type 1 表示点赞， 2 表示收藏 3 表示浏览
+     * @return
+     */
+    ResultMsg getMenuRank(int type);
+
+
 }

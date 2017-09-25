@@ -1,7 +1,8 @@
 package com.menu.wgf.controller;
 
+import com.menu.wgf.dto.CommentDataObject;
 import com.menu.wgf.model.ResultMsg;
-import com.menu.wgf.utils.IOUtils;
+import com.menu.wgf.util.IOUtils;
 import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @Author guofei_wu
- * @Date 2017/9/25 9:50
  */
 @Api(value = "ShaiController",description = "晒一晒管理")
 @RestController
@@ -19,13 +19,8 @@ public class ShaiController {
     @ApiOperation(value ="评论晒一晒",httpMethod = "POST")
     @PostMapping(value = "/comment")
     @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userPkId",value = "用户主键",paramType = "query",dataType = "int",required = true),
-            @ApiImplicitParam(name = "shaiPkId",value = "晒晒主键",paramType = "query",dataType = "int",required = true),
-            @ApiImplicitParam(name = "commentContent",value = "评论的内容",paramType = "query",dataType = "string",required = true)
-    })
-    public ResultMsg addCommentShai(@RequestParam("userPkId") int userPkId, @RequestParam("shaiPkId") int shaiPkId, @RequestParam("commentContent") String commentContent){
-        System.out.println("userId:"+userPkId+",shaiPkId:"+shaiPkId+",commentContent:"+commentContent);
+    public ResultMsg addCommentShai(@ApiParam(value = "评论对象", name = "commentDataObject") @RequestBody CommentDataObject commentDataObject){
+        System.out.println("commentDataObject:"+commentDataObject.content);
         return ResultMsg.success();
     }
 
@@ -63,4 +58,45 @@ public class ShaiController {
                                 @ApiParam(value = "晒一晒", name = "shaiPicture") @RequestParam("shaiPicture") MultipartFile shaiPicture) {
         return IOUtils.uploadFile(userPkId,type,shaiPicture);
     }
+
+    @ApiOperation(value ="删除晒一晒",httpMethod = "DELETE")
+    @DeleteMapping(value = "/{shaiPkId}")
+    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "shaiPkId",value = "晒晒主键",paramType = "path",dataType = "int",required = true),
+    })
+    public ResultMsg deleteShai(@PathVariable("shaiPkId") int shaiPkId) {
+
+        return ResultMsg.success();
+    }
+
+    @ApiOperation(value ="获取某个用户的晒一晒",httpMethod = "GET")
+    @GetMapping(value = "/{userPkId}")
+    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userPkId",value = "用户主键",paramType = "path",dataType = "int",required = true),
+    })
+    public ResultMsg getUserShai(@PathVariable("userPkId") int userPkId) {
+
+        return ResultMsg.success();
+    }
+
+
+    @ApiOperation(value ="获取所有的晒一晒",httpMethod = "GET")
+    @GetMapping(value = "")
+    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "userPkId",value = "用户主键",paramType = "path",dataType = "int",required = true),
+//    })
+    // TODO: 2017/9/25 使用pageHelper
+    public ResultMsg getShaiList() {
+
+        return ResultMsg.success();
+    }
+
+
+
+
+
+
 }
