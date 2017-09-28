@@ -28,16 +28,32 @@ public class UserSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("t_user");
         
-        if (record.gettUserPkid() != null) {
-            sql.VALUES("t_user_pkid", "#{tUserPkid,jdbcType=INTEGER}");
-        }
-        
         if (record.gettUserName() != null) {
             sql.VALUES("t_user_name", "#{tUserName,jdbcType=VARCHAR}");
         }
         
+        if (record.gettUserPhone() != null) {
+            sql.VALUES("t_user_phone", "#{tUserPhone,jdbcType=VARCHAR}");
+        }
+        
+        if (record.gettUserPassword() != null) {
+            sql.VALUES("t_user_password", "#{tUserPassword,jdbcType=VARCHAR}");
+        }
+        
         if (record.gettUserSex() != null) {
             sql.VALUES("t_user_sex", "#{tUserSex,jdbcType=INTEGER}");
+        }
+        
+        if (record.gettUserPoint() != null) {
+            sql.VALUES("t_user_point", "#{tUserPoint,jdbcType=INTEGER}");
+        }
+        
+        if (record.gettUserSign() != null) {
+            sql.VALUES("t_user_sign", "#{tUserSign,jdbcType=INTEGER}");
+        }
+        
+        if (record.gettUserLevel() != null) {
+            sql.VALUES("t_user_level", "#{tUserLevel,jdbcType=VARCHAR}");
         }
         
         if (record.gettUserBirthday() != null) {
@@ -67,7 +83,12 @@ public class UserSqlProvider {
             sql.SELECT("t_user_pkid");
         }
         sql.SELECT("t_user_name");
+        sql.SELECT("t_user_phone");
+        sql.SELECT("t_user_password");
         sql.SELECT("t_user_sex");
+        sql.SELECT("t_user_point");
+        sql.SELECT("t_user_sign");
+        sql.SELECT("t_user_level");
         sql.SELECT("t_user_birthday");
         sql.SELECT("t_user_icon");
         sql.SELECT("t_user_udt");
@@ -97,8 +118,28 @@ public class UserSqlProvider {
             sql.SET("t_user_name = #{record.tUserName,jdbcType=VARCHAR}");
         }
         
+        if (record.gettUserPhone() != null) {
+            sql.SET("t_user_phone = #{record.tUserPhone,jdbcType=VARCHAR}");
+        }
+        
+        if (record.gettUserPassword() != null) {
+            sql.SET("t_user_password = #{record.tUserPassword,jdbcType=VARCHAR}");
+        }
+        
         if (record.gettUserSex() != null) {
             sql.SET("t_user_sex = #{record.tUserSex,jdbcType=INTEGER}");
+        }
+        
+        if (record.gettUserPoint() != null) {
+            sql.SET("t_user_point = #{record.tUserPoint,jdbcType=INTEGER}");
+        }
+        
+        if (record.gettUserSign() != null) {
+            sql.SET("t_user_sign = #{record.tUserSign,jdbcType=INTEGER}");
+        }
+        
+        if (record.gettUserLevel() != null) {
+            sql.SET("t_user_level = #{record.tUserLevel,jdbcType=VARCHAR}");
         }
         
         if (record.gettUserBirthday() != null) {
@@ -127,7 +168,12 @@ public class UserSqlProvider {
         
         sql.SET("t_user_pkid = #{record.tUserPkid,jdbcType=INTEGER}");
         sql.SET("t_user_name = #{record.tUserName,jdbcType=VARCHAR}");
+        sql.SET("t_user_phone = #{record.tUserPhone,jdbcType=VARCHAR}");
+        sql.SET("t_user_password = #{record.tUserPassword,jdbcType=VARCHAR}");
         sql.SET("t_user_sex = #{record.tUserSex,jdbcType=INTEGER}");
+        sql.SET("t_user_point = #{record.tUserPoint,jdbcType=INTEGER}");
+        sql.SET("t_user_sign = #{record.tUserSign,jdbcType=INTEGER}");
+        sql.SET("t_user_level = #{record.tUserLevel,jdbcType=VARCHAR}");
         sql.SET("t_user_birthday = #{record.tUserBirthday,jdbcType=VARCHAR}");
         sql.SET("t_user_icon = #{record.tUserIcon,jdbcType=VARCHAR}");
         sql.SET("t_user_udt = #{record.tUserUdt,jdbcType=TIMESTAMP}");
@@ -146,8 +192,28 @@ public class UserSqlProvider {
             sql.SET("t_user_name = #{tUserName,jdbcType=VARCHAR}");
         }
         
+        if (record.gettUserPhone() != null) {
+            sql.SET("t_user_phone = #{tUserPhone,jdbcType=VARCHAR}");
+        }
+        
+        if (record.gettUserPassword() != null) {
+            sql.SET("t_user_password = #{tUserPassword,jdbcType=VARCHAR}");
+        }
+        
         if (record.gettUserSex() != null) {
             sql.SET("t_user_sex = #{tUserSex,jdbcType=INTEGER}");
+        }
+        
+        if (record.gettUserPoint() != null) {
+            sql.SET("t_user_point = #{tUserPoint,jdbcType=INTEGER}");
+        }
+        
+        if (record.gettUserSign() != null) {
+            sql.SET("t_user_sign = #{tUserSign,jdbcType=INTEGER}");
+        }
+        
+        if (record.gettUserLevel() != null) {
+            sql.SET("t_user_level = #{tUserLevel,jdbcType=VARCHAR}");
         }
         
         if (record.gettUserBirthday() != null) {

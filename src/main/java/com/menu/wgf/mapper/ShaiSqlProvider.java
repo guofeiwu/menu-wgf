@@ -1,69 +1,69 @@
 package com.menu.wgf.mapper;
 
-import com.menu.wgf.model.Record;
-import com.menu.wgf.model.RecordCriteria.Criteria;
-import com.menu.wgf.model.RecordCriteria.Criterion;
-import com.menu.wgf.model.RecordCriteria;
+import com.menu.wgf.model.Shai;
+import com.menu.wgf.model.ShaiCriteria.Criteria;
+import com.menu.wgf.model.ShaiCriteria.Criterion;
+import com.menu.wgf.model.ShaiCriteria;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
 
-public class RecordSqlProvider {
+public class ShaiSqlProvider {
 
-    public String countByExample(RecordCriteria example) {
+    public String countByExample(ShaiCriteria example) {
         SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("t_record");
+        sql.SELECT("count(*)").FROM("t_shai");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String deleteByExample(RecordCriteria example) {
+    public String deleteByExample(ShaiCriteria example) {
         SQL sql = new SQL();
-        sql.DELETE_FROM("t_record");
+        sql.DELETE_FROM("t_shai");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String insertSelective(Record record) {
+    public String insertSelective(Shai record) {
         SQL sql = new SQL();
-        sql.INSERT_INTO("t_record");
+        sql.INSERT_INTO("t_shai");
         
-        if (record.gettRecordUserPkid() != null) {
-            sql.VALUES("t_record_user_pkid", "#{tRecordUserPkid,jdbcType=INTEGER}");
+        if (record.gettShaiUserPkid() != null) {
+            sql.VALUES("t_shai_user_pkid", "#{tShaiUserPkid,jdbcType=INTEGER}");
         }
         
-        if (record.gettRecordMenuPkid() != null) {
-            sql.VALUES("t_record_menu_pkid", "#{tRecordMenuPkid,jdbcType=INTEGER}");
+        if (record.gettShaiPictureAddress() != null) {
+            sql.VALUES("t_shai_picture_address", "#{tShaiPictureAddress,jdbcType=VARCHAR}");
         }
         
-        if (record.gettRecordCdt() != null) {
-            sql.VALUES("t_record_cdt", "#{tRecordCdt,jdbcType=TIMESTAMP}");
+        if (record.gettShaiCdt() != null) {
+            sql.VALUES("t_shai_cdt", "#{tShaiCdt,jdbcType=TIMESTAMP}");
         }
         
-        if (record.gettRecordDelete() != null) {
-            sql.VALUES("t_record_delete", "#{tRecordDelete,jdbcType=INTEGER}");
+        if (record.gettShaiUdt() != null) {
+            sql.VALUES("t_shai_udt", "#{tShaiUdt,jdbcType=TIMESTAMP}");
         }
         
-        if (record.gettRecordUdt() != null) {
-            sql.VALUES("t_record_udt", "#{tRecordUdt,jdbcType=TIMESTAMP}");
+        if (record.gettShaiDelete() != null) {
+            sql.VALUES("t_shai_delete", "#{tShaiDelete,jdbcType=INTEGER}");
         }
         
         return sql.toString();
     }
 
-    public String selectByExample(RecordCriteria example) {
+    public String selectByExample(ShaiCriteria example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
-            sql.SELECT_DISTINCT("t_record_pkid");
+            sql.SELECT_DISTINCT("t_shai_Pkid");
         } else {
-            sql.SELECT("t_record_pkid");
+            sql.SELECT("t_shai_Pkid");
         }
-        sql.SELECT("t_record_user_pkid");
-        sql.SELECT("t_record_menu_pkid");
-        sql.SELECT("t_record_cdt");
-        sql.SELECT("t_record_delete");
-        sql.SELECT("t_record_udt");
-        sql.FROM("t_record");
+        sql.SELECT("t_shai_user_pkid");
+        sql.SELECT("t_shai_picture_address");
+        sql.SELECT("t_shai_cdt");
+        sql.SELECT("t_shai_udt");
+        sql.SELECT("t_shai_delete");
+        sql.FROM("t_shai");
         applyWhere(sql, example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -74,34 +74,34 @@ public class RecordSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        Record record = (Record) parameter.get("record");
-        RecordCriteria example = (RecordCriteria) parameter.get("example");
+        Shai record = (Shai) parameter.get("record");
+        ShaiCriteria example = (ShaiCriteria) parameter.get("example");
         
         SQL sql = new SQL();
-        sql.UPDATE("t_record");
+        sql.UPDATE("t_shai");
         
-        if (record.gettRecordPkid() != null) {
-            sql.SET("t_record_pkid = #{record.tRecordPkid,jdbcType=INTEGER}");
+        if (record.gettShaiPkid() != null) {
+            sql.SET("t_shai_Pkid = #{record.tShaiPkid,jdbcType=INTEGER}");
         }
         
-        if (record.gettRecordUserPkid() != null) {
-            sql.SET("t_record_user_pkid = #{record.tRecordUserPkid,jdbcType=INTEGER}");
+        if (record.gettShaiUserPkid() != null) {
+            sql.SET("t_shai_user_pkid = #{record.tShaiUserPkid,jdbcType=INTEGER}");
         }
         
-        if (record.gettRecordMenuPkid() != null) {
-            sql.SET("t_record_menu_pkid = #{record.tRecordMenuPkid,jdbcType=INTEGER}");
+        if (record.gettShaiPictureAddress() != null) {
+            sql.SET("t_shai_picture_address = #{record.tShaiPictureAddress,jdbcType=VARCHAR}");
         }
         
-        if (record.gettRecordCdt() != null) {
-            sql.SET("t_record_cdt = #{record.tRecordCdt,jdbcType=TIMESTAMP}");
+        if (record.gettShaiCdt() != null) {
+            sql.SET("t_shai_cdt = #{record.tShaiCdt,jdbcType=TIMESTAMP}");
         }
         
-        if (record.gettRecordDelete() != null) {
-            sql.SET("t_record_delete = #{record.tRecordDelete,jdbcType=INTEGER}");
+        if (record.gettShaiUdt() != null) {
+            sql.SET("t_shai_udt = #{record.tShaiUdt,jdbcType=TIMESTAMP}");
         }
         
-        if (record.gettRecordUdt() != null) {
-            sql.SET("t_record_udt = #{record.tRecordUdt,jdbcType=TIMESTAMP}");
+        if (record.gettShaiDelete() != null) {
+            sql.SET("t_shai_delete = #{record.tShaiDelete,jdbcType=INTEGER}");
         }
         
         applyWhere(sql, example, true);
@@ -110,50 +110,50 @@ public class RecordSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
-        sql.UPDATE("t_record");
+        sql.UPDATE("t_shai");
         
-        sql.SET("t_record_pkid = #{record.tRecordPkid,jdbcType=INTEGER}");
-        sql.SET("t_record_user_pkid = #{record.tRecordUserPkid,jdbcType=INTEGER}");
-        sql.SET("t_record_menu_pkid = #{record.tRecordMenuPkid,jdbcType=INTEGER}");
-        sql.SET("t_record_cdt = #{record.tRecordCdt,jdbcType=TIMESTAMP}");
-        sql.SET("t_record_delete = #{record.tRecordDelete,jdbcType=INTEGER}");
-        sql.SET("t_record_udt = #{record.tRecordUdt,jdbcType=TIMESTAMP}");
+        sql.SET("t_shai_Pkid = #{record.tShaiPkid,jdbcType=INTEGER}");
+        sql.SET("t_shai_user_pkid = #{record.tShaiUserPkid,jdbcType=INTEGER}");
+        sql.SET("t_shai_picture_address = #{record.tShaiPictureAddress,jdbcType=VARCHAR}");
+        sql.SET("t_shai_cdt = #{record.tShaiCdt,jdbcType=TIMESTAMP}");
+        sql.SET("t_shai_udt = #{record.tShaiUdt,jdbcType=TIMESTAMP}");
+        sql.SET("t_shai_delete = #{record.tShaiDelete,jdbcType=INTEGER}");
         
-        RecordCriteria example = (RecordCriteria) parameter.get("example");
+        ShaiCriteria example = (ShaiCriteria) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
 
-    public String updateByPrimaryKeySelective(Record record) {
+    public String updateByPrimaryKeySelective(Shai record) {
         SQL sql = new SQL();
-        sql.UPDATE("t_record");
+        sql.UPDATE("t_shai");
         
-        if (record.gettRecordUserPkid() != null) {
-            sql.SET("t_record_user_pkid = #{tRecordUserPkid,jdbcType=INTEGER}");
+        if (record.gettShaiUserPkid() != null) {
+            sql.SET("t_shai_user_pkid = #{tShaiUserPkid,jdbcType=INTEGER}");
         }
         
-        if (record.gettRecordMenuPkid() != null) {
-            sql.SET("t_record_menu_pkid = #{tRecordMenuPkid,jdbcType=INTEGER}");
+        if (record.gettShaiPictureAddress() != null) {
+            sql.SET("t_shai_picture_address = #{tShaiPictureAddress,jdbcType=VARCHAR}");
         }
         
-        if (record.gettRecordCdt() != null) {
-            sql.SET("t_record_cdt = #{tRecordCdt,jdbcType=TIMESTAMP}");
+        if (record.gettShaiCdt() != null) {
+            sql.SET("t_shai_cdt = #{tShaiCdt,jdbcType=TIMESTAMP}");
         }
         
-        if (record.gettRecordDelete() != null) {
-            sql.SET("t_record_delete = #{tRecordDelete,jdbcType=INTEGER}");
+        if (record.gettShaiUdt() != null) {
+            sql.SET("t_shai_udt = #{tShaiUdt,jdbcType=TIMESTAMP}");
         }
         
-        if (record.gettRecordUdt() != null) {
-            sql.SET("t_record_udt = #{tRecordUdt,jdbcType=TIMESTAMP}");
+        if (record.gettShaiDelete() != null) {
+            sql.SET("t_shai_delete = #{tShaiDelete,jdbcType=INTEGER}");
         }
         
-        sql.WHERE("t_record_pkid = #{tRecordPkid,jdbcType=INTEGER}");
+        sql.WHERE("t_shai_Pkid = #{tShaiPkid,jdbcType=INTEGER}");
         
         return sql.toString();
     }
 
-    protected void applyWhere(SQL sql, RecordCriteria example, boolean includeExamplePhrase) {
+    protected void applyWhere(SQL sql, ShaiCriteria example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }

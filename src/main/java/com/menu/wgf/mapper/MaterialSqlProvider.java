@@ -28,12 +28,8 @@ public class MaterialSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("t_material");
         
-        if (record.gettMaterialPkid() != null) {
-            sql.VALUES("t_material_pkid", "#{tMaterialPkid,jdbcType=INTEGER}");
-        }
-        
         if (record.gettMaterialName() != null) {
-            sql.VALUES("t_material_name", "#{tMaterialName,jdbcType=INTEGER}");
+            sql.VALUES("t_material_name", "#{tMaterialName,jdbcType=VARCHAR}");
         }
         
         if (record.gettMaterialMenuPkid() != null) {
@@ -89,7 +85,7 @@ public class MaterialSqlProvider {
         }
         
         if (record.gettMaterialName() != null) {
-            sql.SET("t_material_name = #{record.tMaterialName,jdbcType=INTEGER}");
+            sql.SET("t_material_name = #{record.tMaterialName,jdbcType=VARCHAR}");
         }
         
         if (record.gettMaterialMenuPkid() != null) {
@@ -117,7 +113,7 @@ public class MaterialSqlProvider {
         sql.UPDATE("t_material");
         
         sql.SET("t_material_pkid = #{record.tMaterialPkid,jdbcType=INTEGER}");
-        sql.SET("t_material_name = #{record.tMaterialName,jdbcType=INTEGER}");
+        sql.SET("t_material_name = #{record.tMaterialName,jdbcType=VARCHAR}");
         sql.SET("t_material_menu_pkid = #{record.tMaterialMenuPkid,jdbcType=INTEGER}");
         sql.SET("t_material_cdt = #{record.tMaterialCdt,jdbcType=TIMESTAMP}");
         sql.SET("t_material_udt = #{record.tMaterialUdt,jdbcType=TIMESTAMP}");
@@ -133,7 +129,7 @@ public class MaterialSqlProvider {
         sql.UPDATE("t_material");
         
         if (record.gettMaterialName() != null) {
-            sql.SET("t_material_name = #{tMaterialName,jdbcType=INTEGER}");
+            sql.SET("t_material_name = #{tMaterialName,jdbcType=VARCHAR}");
         }
         
         if (record.gettMaterialMenuPkid() != null) {

@@ -28,16 +28,16 @@ public class LikeSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("t_like");
         
-        if (record.gettLikePkid() != null) {
-            sql.VALUES("t_like_pkid", "#{tLikePkid,jdbcType=INTEGER}");
-        }
-        
         if (record.gettLikeUserPkid() != null) {
             sql.VALUES("t_like_user_pkid", "#{tLikeUserPkid,jdbcType=INTEGER}");
         }
         
         if (record.gettLikeMenuPkid() != null) {
             sql.VALUES("t_like_menu_pkid", "#{tLikeMenuPkid,jdbcType=INTEGER}");
+        }
+        
+        if (record.gettLikeShaiPkid() != null) {
+            sql.VALUES("t_like_shai_pkid", "#{tLikeShaiPkid,jdbcType=INTEGER}");
         }
         
         if (record.gettLikeCdt() != null) {
@@ -64,6 +64,7 @@ public class LikeSqlProvider {
         }
         sql.SELECT("t_like_user_pkid");
         sql.SELECT("t_like_menu_pkid");
+        sql.SELECT("t_like_shai_pkid");
         sql.SELECT("t_like_cdt");
         sql.SELECT("t_like_udt");
         sql.SELECT("t_like_delete");
@@ -96,6 +97,10 @@ public class LikeSqlProvider {
             sql.SET("t_like_menu_pkid = #{record.tLikeMenuPkid,jdbcType=INTEGER}");
         }
         
+        if (record.gettLikeShaiPkid() != null) {
+            sql.SET("t_like_shai_pkid = #{record.tLikeShaiPkid,jdbcType=INTEGER}");
+        }
+        
         if (record.gettLikeCdt() != null) {
             sql.SET("t_like_cdt = #{record.tLikeCdt,jdbcType=TIMESTAMP}");
         }
@@ -119,6 +124,7 @@ public class LikeSqlProvider {
         sql.SET("t_like_pkid = #{record.tLikePkid,jdbcType=INTEGER}");
         sql.SET("t_like_user_pkid = #{record.tLikeUserPkid,jdbcType=INTEGER}");
         sql.SET("t_like_menu_pkid = #{record.tLikeMenuPkid,jdbcType=INTEGER}");
+        sql.SET("t_like_shai_pkid = #{record.tLikeShaiPkid,jdbcType=INTEGER}");
         sql.SET("t_like_cdt = #{record.tLikeCdt,jdbcType=TIMESTAMP}");
         sql.SET("t_like_udt = #{record.tLikeUdt,jdbcType=TIMESTAMP}");
         sql.SET("t_like_delete = #{record.tLikeDelete,jdbcType=INTEGER}");
@@ -138,6 +144,10 @@ public class LikeSqlProvider {
         
         if (record.gettLikeMenuPkid() != null) {
             sql.SET("t_like_menu_pkid = #{tLikeMenuPkid,jdbcType=INTEGER}");
+        }
+        
+        if (record.gettLikeShaiPkid() != null) {
+            sql.SET("t_like_shai_pkid = #{tLikeShaiPkid,jdbcType=INTEGER}");
         }
         
         if (record.gettLikeCdt() != null) {

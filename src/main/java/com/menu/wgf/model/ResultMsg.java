@@ -10,20 +10,20 @@ import java.util.Map;
  * 通用的返回结果的类
  */
 public class ResultMsg {
-    private int code;//0表示失败，1表示成功
+    private int code;//100表示失败，200表示成功
     private String msg;
 
     private Map<String,Object> extend = new HashMap<>();
     public static ResultMsg success(){
         ResultMsg msg = new ResultMsg();
-        msg.setCode(1);
+        msg.setCode(200);
         msg.setMsg("成功");
         return msg;
     }
 
     public static ResultMsg failed(){
         ResultMsg msg = new ResultMsg();
-        msg.setCode(0);
+        msg.setCode(100);
         msg.setMsg("失败");
         return msg;
     }

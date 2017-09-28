@@ -9,6 +9,8 @@ public class Like {
 
     private Integer tLikeMenuPkid;
 
+    private Integer tLikeShaiPkid;
+
     private Date tLikeCdt;
 
     private Date tLikeUdt;
@@ -37,6 +39,14 @@ public class Like {
 
     public void settLikeMenuPkid(Integer tLikeMenuPkid) {
         this.tLikeMenuPkid = tLikeMenuPkid;
+    }
+
+    public Integer gettLikeShaiPkid() {
+        return tLikeShaiPkid;
+    }
+
+    public void settLikeShaiPkid(Integer tLikeShaiPkid) {
+        this.tLikeShaiPkid = tLikeShaiPkid;
     }
 
     public Date gettLikeCdt() {

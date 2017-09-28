@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
@@ -30,22 +31,24 @@ public interface MaterialMapper {
     int deleteByPrimaryKey(Integer tMaterialPkid);
 
     @Insert({
-        "insert into t_material (t_material_pkid, t_material_name, ",
-        "t_material_menu_pkid, t_material_cdt, ",
-        "t_material_udt, t_material_delete)",
-        "values (#{tMaterialPkid,jdbcType=INTEGER}, #{tMaterialName,jdbcType=INTEGER}, ",
-        "#{tMaterialMenuPkid,jdbcType=INTEGER}, #{tMaterialCdt,jdbcType=TIMESTAMP}, ",
-        "#{tMaterialUdt,jdbcType=TIMESTAMP}, #{tMaterialDelete,jdbcType=INTEGER})"
+        "insert into t_material (t_material_name, t_material_menu_pkid, ",
+        "t_material_cdt, t_material_udt, ",
+        "t_material_delete)",
+        "values (#{tMaterialName,jdbcType=VARCHAR}, #{tMaterialMenuPkid,jdbcType=INTEGER}, ",
+        "#{tMaterialCdt,jdbcType=TIMESTAMP}, #{tMaterialUdt,jdbcType=TIMESTAMP}, ",
+        "#{tMaterialDelete,jdbcType=INTEGER})"
     })
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="tMaterialPkid", before=false, resultType=Integer.class)
     int insert(Material record);
 
     @InsertProvider(type=MaterialSqlProvider.class, method="insertSelective")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="tMaterialPkid", before=false, resultType=Integer.class)
     int insertSelective(Material record);
 
     @SelectProvider(type=MaterialSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="t_material_pkid", property="tMaterialPkid", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="t_material_name", property="tMaterialName", jdbcType=JdbcType.INTEGER),
+        @Result(column="t_material_name", property="tMaterialName", jdbcType=JdbcType.VARCHAR),
         @Result(column="t_material_menu_pkid", property="tMaterialMenuPkid", jdbcType=JdbcType.INTEGER),
         @Result(column="t_material_cdt", property="tMaterialCdt", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="t_material_udt", property="tMaterialUdt", jdbcType=JdbcType.TIMESTAMP),
@@ -62,7 +65,7 @@ public interface MaterialMapper {
     })
     @Results({
         @Result(column="t_material_pkid", property="tMaterialPkid", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="t_material_name", property="tMaterialName", jdbcType=JdbcType.INTEGER),
+        @Result(column="t_material_name", property="tMaterialName", jdbcType=JdbcType.VARCHAR),
         @Result(column="t_material_menu_pkid", property="tMaterialMenuPkid", jdbcType=JdbcType.INTEGER),
         @Result(column="t_material_cdt", property="tMaterialCdt", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="t_material_udt", property="tMaterialUdt", jdbcType=JdbcType.TIMESTAMP),
@@ -81,7 +84,7 @@ public interface MaterialMapper {
 
     @Update({
         "update t_material",
-        "set t_material_name = #{tMaterialName,jdbcType=INTEGER},",
+        "set t_material_name = #{tMaterialName,jdbcType=VARCHAR},",
           "t_material_menu_pkid = #{tMaterialMenuPkid,jdbcType=INTEGER},",
           "t_material_cdt = #{tMaterialCdt,jdbcType=TIMESTAMP},",
           "t_material_udt = #{tMaterialUdt,jdbcType=TIMESTAMP},",

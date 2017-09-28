@@ -3,8 +3,10 @@ package com.menu.wgf.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.menu.wgf.model.ResultMsg;
 import com.menu.wgf.model.Test;
+import com.menu.wgf.service.UserService;
 import com.menu.wgf.util.IOUtils;
 import io.swagger.annotations.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,11 +19,12 @@ import java.util.Map;
  * @Author guofei_wu
  */
 @RestController
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/app/user")
 @Api(value = "UserController", description = "用户管理")
 public class UserController {
 
-
+    @Autowired
+    private UserService userService;
     private static final String LOGIN_APP_PARAM_EXAMPLE = "{\n" +
             "    \"userName\":\"userName\",\n" +
             "    \"password\":\"password\"\n" +
@@ -36,49 +39,15 @@ public class UserController {
             "    \"oldPhone\":\"oldPhone\"\n" +
             "}";
 
-    @ApiOperation(value = "APP登录", httpMethod = "POST",response = JSONObject.class, notes = "")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "param", value = LOGIN_APP_PARAM_EXAMPLE, dataType = "map", paramType = "body", required = true)
-    })
-    @PostMapping(value = "")
-    @ApiResponses(@ApiResponse(code = 500,message = "用户登录失败",response = Integer.class))
-    public ResultMsg loginApp(@RequestBody Map param){
-        String username = (String) param.get("userName");
-        String password = (String) param.get("password");
-        if(username.equals("app")){
-            return ResultMsg.failed();
-        }
-        return ResultMsg.success();
-    }
 
-
-    @ApiOperation(value = "用户注册", httpMethod = "POST",response = JSONObject.class, notes = "")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "param", value = REGISTER_APP_PARAM_EXAMPLE, dataType = "map", paramType = "body", required = true)
-    })
-    @PostMapping(value = "")
-    @ApiResponses(@ApiResponse(code = 500,message = "用户注册失败",response = Integer.class))
-    public ResultMsg register(@RequestBody Map param){
-        return ResultMsg.success();
-    }
-
-    @ApiOperation(value = "用户修改（忘记）密码", httpMethod = "POST",response = JSONObject.class, notes = "")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "param", value = REGISTER_APP_PARAM_EXAMPLE, dataType = "map", paramType = "body", required = true)
-    })
-    @PostMapping(value = "")
-    @ApiResponses(@ApiResponse(code = 500,message = "用户登录失败",response = Integer.class))
-    public ResultMsg modifyPassword(@RequestBody Map param){
-        return ResultMsg.success();
-    }
 
 
     @ApiOperation(value = "修改手机号码", httpMethod = "POST",response = JSONObject.class, notes = "")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "param", value = MODIFY_PHONE_PARAM_EXAMPLE, dataType = "map", paramType = "body", required = true)
     })
-    @PostMapping(value = "")
-    @ApiResponses(@ApiResponse(code = 500,message = "用户登录失败",response = Integer.class))
+    @PostMapping(value = "/modifyPhone")
+    @ApiResponses(@ApiResponse(code = 500,message = "修改手机号码失败",response = Integer.class))
     public ResultMsg modifyPhone(@RequestBody Map param){
         return ResultMsg.success();
     }
@@ -136,7 +105,7 @@ public class UserController {
             @ApiImplicitParam(value = "用户主键", name = "userPkId", required = true, dataType = "int", paramType = "path")
     })
     public ResultMsg getUserInfo(@PathVariable Integer userPkId){
-        return ResultMsg.success().addContent("userInfo",null);
+        return userService.getUserInfo(userPkId);
     }
 
 

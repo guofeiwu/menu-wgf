@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Api(value = "ShaiController",description = "晒一晒管理")
 @RestController
-@RequestMapping("/shai")
+@RequestMapping("/app/shai")
 public class ShaiController {
 
     @ApiOperation(value ="评论晒一晒",httpMethod = "POST")

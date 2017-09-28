@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Author guofei_wu
  */
 @RestController
-@RequestMapping(value = "/menu")
+@RequestMapping(value = "/app/menu")
 @Api(value = "MenuController",description = "菜谱管理")
 public class MenuController {
 
@@ -26,6 +26,7 @@ public class MenuController {
             @ApiImplicitParam(name = "menuConditionDataObject",value = "获取菜谱的条件",paramType = "body",required = true)
     })
     public ResultMsg getMenuList(@RequestBody MenuConditionDataObject menuConditionDataObject){
+
         return ResultMsg.success().addContent("menuList",null);
     }
 
@@ -138,7 +139,6 @@ public class MenuController {
     }
 
 
-
     @ApiOperation(value = "上传菜谱(多张图片)", httpMethod = "POST")
     @PostMapping(value = "/multi/{userPkId}/{type}")
     @ApiImplicitParams({
@@ -149,14 +149,4 @@ public class MenuController {
                                     @ApiParam(value = "菜谱", name = "menu") @RequestParam("menu") HttpServletRequest menu) {
         return IOUtils.multifileUpload(userPkId,type,menu);
     }
-
-
-
-
-
-
-
-
-
-
 }

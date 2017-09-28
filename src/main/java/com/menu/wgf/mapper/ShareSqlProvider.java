@@ -1,69 +1,64 @@
 package com.menu.wgf.mapper;
 
-import com.menu.wgf.model.Record;
-import com.menu.wgf.model.RecordCriteria.Criteria;
-import com.menu.wgf.model.RecordCriteria.Criterion;
-import com.menu.wgf.model.RecordCriteria;
+import com.menu.wgf.model.Share;
+import com.menu.wgf.model.ShareCriteria.Criteria;
+import com.menu.wgf.model.ShareCriteria.Criterion;
+import com.menu.wgf.model.ShareCriteria;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
 
-public class RecordSqlProvider {
+public class ShareSqlProvider {
 
-    public String countByExample(RecordCriteria example) {
+    public String countByExample(ShareCriteria example) {
         SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("t_record");
+        sql.SELECT("count(*)").FROM("t_share");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String deleteByExample(RecordCriteria example) {
+    public String deleteByExample(ShareCriteria example) {
         SQL sql = new SQL();
-        sql.DELETE_FROM("t_record");
+        sql.DELETE_FROM("t_share");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String insertSelective(Record record) {
+    public String insertSelective(Share record) {
         SQL sql = new SQL();
-        sql.INSERT_INTO("t_record");
+        sql.INSERT_INTO("t_share");
         
-        if (record.gettRecordUserPkid() != null) {
-            sql.VALUES("t_record_user_pkid", "#{tRecordUserPkid,jdbcType=INTEGER}");
+        if (record.gettShareUserPkid() != null) {
+            sql.VALUES("t_share_user_pkid", "#{tShareUserPkid,jdbcType=INTEGER}");
         }
         
-        if (record.gettRecordMenuPkid() != null) {
-            sql.VALUES("t_record_menu_pkid", "#{tRecordMenuPkid,jdbcType=INTEGER}");
+        if (record.gettShareMenuPkid() != null) {
+            sql.VALUES("t_share_menu_pkid", "#{tShareMenuPkid,jdbcType=INTEGER}");
         }
         
-        if (record.gettRecordCdt() != null) {
-            sql.VALUES("t_record_cdt", "#{tRecordCdt,jdbcType=TIMESTAMP}");
+        if (record.gettShareCdt() != null) {
+            sql.VALUES("t_share_cdt", "#{tShareCdt,jdbcType=TIMESTAMP}");
         }
         
-        if (record.gettRecordDelete() != null) {
-            sql.VALUES("t_record_delete", "#{tRecordDelete,jdbcType=INTEGER}");
-        }
-        
-        if (record.gettRecordUdt() != null) {
-            sql.VALUES("t_record_udt", "#{tRecordUdt,jdbcType=TIMESTAMP}");
+        if (record.gettShareUdt() != null) {
+            sql.VALUES("t_share_udt", "#{tShareUdt,jdbcType=TIMESTAMP}");
         }
         
         return sql.toString();
     }
 
-    public String selectByExample(RecordCriteria example) {
+    public String selectByExample(ShareCriteria example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
-            sql.SELECT_DISTINCT("t_record_pkid");
+            sql.SELECT_DISTINCT("t_share_pkid");
         } else {
-            sql.SELECT("t_record_pkid");
+            sql.SELECT("t_share_pkid");
         }
-        sql.SELECT("t_record_user_pkid");
-        sql.SELECT("t_record_menu_pkid");
-        sql.SELECT("t_record_cdt");
-        sql.SELECT("t_record_delete");
-        sql.SELECT("t_record_udt");
-        sql.FROM("t_record");
+        sql.SELECT("t_share_user_pkid");
+        sql.SELECT("t_share_menu_pkid");
+        sql.SELECT("t_share_cdt");
+        sql.SELECT("t_share_udt");
+        sql.FROM("t_share");
         applyWhere(sql, example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -74,34 +69,30 @@ public class RecordSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        Record record = (Record) parameter.get("record");
-        RecordCriteria example = (RecordCriteria) parameter.get("example");
+        Share record = (Share) parameter.get("record");
+        ShareCriteria example = (ShareCriteria) parameter.get("example");
         
         SQL sql = new SQL();
-        sql.UPDATE("t_record");
+        sql.UPDATE("t_share");
         
-        if (record.gettRecordPkid() != null) {
-            sql.SET("t_record_pkid = #{record.tRecordPkid,jdbcType=INTEGER}");
+        if (record.gettSharePkid() != null) {
+            sql.SET("t_share_pkid = #{record.tSharePkid,jdbcType=INTEGER}");
         }
         
-        if (record.gettRecordUserPkid() != null) {
-            sql.SET("t_record_user_pkid = #{record.tRecordUserPkid,jdbcType=INTEGER}");
+        if (record.gettShareUserPkid() != null) {
+            sql.SET("t_share_user_pkid = #{record.tShareUserPkid,jdbcType=INTEGER}");
         }
         
-        if (record.gettRecordMenuPkid() != null) {
-            sql.SET("t_record_menu_pkid = #{record.tRecordMenuPkid,jdbcType=INTEGER}");
+        if (record.gettShareMenuPkid() != null) {
+            sql.SET("t_share_menu_pkid = #{record.tShareMenuPkid,jdbcType=INTEGER}");
         }
         
-        if (record.gettRecordCdt() != null) {
-            sql.SET("t_record_cdt = #{record.tRecordCdt,jdbcType=TIMESTAMP}");
+        if (record.gettShareCdt() != null) {
+            sql.SET("t_share_cdt = #{record.tShareCdt,jdbcType=TIMESTAMP}");
         }
         
-        if (record.gettRecordDelete() != null) {
-            sql.SET("t_record_delete = #{record.tRecordDelete,jdbcType=INTEGER}");
-        }
-        
-        if (record.gettRecordUdt() != null) {
-            sql.SET("t_record_udt = #{record.tRecordUdt,jdbcType=TIMESTAMP}");
+        if (record.gettShareUdt() != null) {
+            sql.SET("t_share_udt = #{record.tShareUdt,jdbcType=TIMESTAMP}");
         }
         
         applyWhere(sql, example, true);
@@ -110,50 +101,45 @@ public class RecordSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
-        sql.UPDATE("t_record");
+        sql.UPDATE("t_share");
         
-        sql.SET("t_record_pkid = #{record.tRecordPkid,jdbcType=INTEGER}");
-        sql.SET("t_record_user_pkid = #{record.tRecordUserPkid,jdbcType=INTEGER}");
-        sql.SET("t_record_menu_pkid = #{record.tRecordMenuPkid,jdbcType=INTEGER}");
-        sql.SET("t_record_cdt = #{record.tRecordCdt,jdbcType=TIMESTAMP}");
-        sql.SET("t_record_delete = #{record.tRecordDelete,jdbcType=INTEGER}");
-        sql.SET("t_record_udt = #{record.tRecordUdt,jdbcType=TIMESTAMP}");
+        sql.SET("t_share_pkid = #{record.tSharePkid,jdbcType=INTEGER}");
+        sql.SET("t_share_user_pkid = #{record.tShareUserPkid,jdbcType=INTEGER}");
+        sql.SET("t_share_menu_pkid = #{record.tShareMenuPkid,jdbcType=INTEGER}");
+        sql.SET("t_share_cdt = #{record.tShareCdt,jdbcType=TIMESTAMP}");
+        sql.SET("t_share_udt = #{record.tShareUdt,jdbcType=TIMESTAMP}");
         
-        RecordCriteria example = (RecordCriteria) parameter.get("example");
+        ShareCriteria example = (ShareCriteria) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
 
-    public String updateByPrimaryKeySelective(Record record) {
+    public String updateByPrimaryKeySelective(Share record) {
         SQL sql = new SQL();
-        sql.UPDATE("t_record");
+        sql.UPDATE("t_share");
         
-        if (record.gettRecordUserPkid() != null) {
-            sql.SET("t_record_user_pkid = #{tRecordUserPkid,jdbcType=INTEGER}");
+        if (record.gettShareUserPkid() != null) {
+            sql.SET("t_share_user_pkid = #{tShareUserPkid,jdbcType=INTEGER}");
         }
         
-        if (record.gettRecordMenuPkid() != null) {
-            sql.SET("t_record_menu_pkid = #{tRecordMenuPkid,jdbcType=INTEGER}");
+        if (record.gettShareMenuPkid() != null) {
+            sql.SET("t_share_menu_pkid = #{tShareMenuPkid,jdbcType=INTEGER}");
         }
         
-        if (record.gettRecordCdt() != null) {
-            sql.SET("t_record_cdt = #{tRecordCdt,jdbcType=TIMESTAMP}");
+        if (record.gettShareCdt() != null) {
+            sql.SET("t_share_cdt = #{tShareCdt,jdbcType=TIMESTAMP}");
         }
         
-        if (record.gettRecordDelete() != null) {
-            sql.SET("t_record_delete = #{tRecordDelete,jdbcType=INTEGER}");
+        if (record.gettShareUdt() != null) {
+            sql.SET("t_share_udt = #{tShareUdt,jdbcType=TIMESTAMP}");
         }
         
-        if (record.gettRecordUdt() != null) {
-            sql.SET("t_record_udt = #{tRecordUdt,jdbcType=TIMESTAMP}");
-        }
-        
-        sql.WHERE("t_record_pkid = #{tRecordPkid,jdbcType=INTEGER}");
+        sql.WHERE("t_share_pkid = #{tSharePkid,jdbcType=INTEGER}");
         
         return sql.toString();
     }
 
-    protected void applyWhere(SQL sql, RecordCriteria example, boolean includeExamplePhrase) {
+    protected void applyWhere(SQL sql, ShareCriteria example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }

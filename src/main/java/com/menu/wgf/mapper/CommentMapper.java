@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
@@ -30,18 +31,20 @@ public interface CommentMapper {
     int deleteByPrimaryKey(Integer tCommentPkid);
 
     @Insert({
-        "insert into t_comment (t_comment_pkid, t_comment_user_pkid, ",
-        "t_comment_menu_pkid, t_comment_content, ",
+        "insert into t_comment (t_comment_user_pkid, t_comment_menu_pkid, ",
+        "t_comment_shai_pkid, t_comment_content, ",
         "t_comment_cdt, t_comment_udt, ",
         "t_comment_delete)",
-        "values (#{tCommentPkid,jdbcType=INTEGER}, #{tCommentUserPkid,jdbcType=INTEGER}, ",
-        "#{tCommentMenuPkid,jdbcType=INTEGER}, #{tCommentContent,jdbcType=VARCHAR}, ",
+        "values (#{tCommentUserPkid,jdbcType=INTEGER}, #{tCommentMenuPkid,jdbcType=INTEGER}, ",
+        "#{tCommentShaiPkid,jdbcType=INTEGER}, #{tCommentContent,jdbcType=VARCHAR}, ",
         "#{tCommentCdt,jdbcType=TIMESTAMP}, #{tCommentUdt,jdbcType=TIMESTAMP}, ",
         "#{tCommentDelete,jdbcType=INTEGER})"
     })
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="tCommentPkid", before=false, resultType=Integer.class)
     int insert(Comment record);
 
     @InsertProvider(type=CommentSqlProvider.class, method="insertSelective")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="tCommentPkid", before=false, resultType=Integer.class)
     int insertSelective(Comment record);
 
     @SelectProvider(type=CommentSqlProvider.class, method="selectByExample")
@@ -49,6 +52,7 @@ public interface CommentMapper {
         @Result(column="t_comment_pkid", property="tCommentPkid", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="t_comment_user_pkid", property="tCommentUserPkid", jdbcType=JdbcType.INTEGER),
         @Result(column="t_comment_menu_pkid", property="tCommentMenuPkid", jdbcType=JdbcType.INTEGER),
+        @Result(column="t_comment_shai_pkid", property="tCommentShaiPkid", jdbcType=JdbcType.INTEGER),
         @Result(column="t_comment_content", property="tCommentContent", jdbcType=JdbcType.VARCHAR),
         @Result(column="t_comment_cdt", property="tCommentCdt", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="t_comment_udt", property="tCommentUdt", jdbcType=JdbcType.TIMESTAMP),
@@ -58,8 +62,8 @@ public interface CommentMapper {
 
     @Select({
         "select",
-        "t_comment_pkid, t_comment_user_pkid, t_comment_menu_pkid, t_comment_content, ",
-        "t_comment_cdt, t_comment_udt, t_comment_delete",
+        "t_comment_pkid, t_comment_user_pkid, t_comment_menu_pkid, t_comment_shai_pkid, ",
+        "t_comment_content, t_comment_cdt, t_comment_udt, t_comment_delete",
         "from t_comment",
         "where t_comment_pkid = #{tCommentPkid,jdbcType=INTEGER}"
     })
@@ -67,6 +71,7 @@ public interface CommentMapper {
         @Result(column="t_comment_pkid", property="tCommentPkid", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="t_comment_user_pkid", property="tCommentUserPkid", jdbcType=JdbcType.INTEGER),
         @Result(column="t_comment_menu_pkid", property="tCommentMenuPkid", jdbcType=JdbcType.INTEGER),
+        @Result(column="t_comment_shai_pkid", property="tCommentShaiPkid", jdbcType=JdbcType.INTEGER),
         @Result(column="t_comment_content", property="tCommentContent", jdbcType=JdbcType.VARCHAR),
         @Result(column="t_comment_cdt", property="tCommentCdt", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="t_comment_udt", property="tCommentUdt", jdbcType=JdbcType.TIMESTAMP),
@@ -87,6 +92,7 @@ public interface CommentMapper {
         "update t_comment",
         "set t_comment_user_pkid = #{tCommentUserPkid,jdbcType=INTEGER},",
           "t_comment_menu_pkid = #{tCommentMenuPkid,jdbcType=INTEGER},",
+          "t_comment_shai_pkid = #{tCommentShaiPkid,jdbcType=INTEGER},",
           "t_comment_content = #{tCommentContent,jdbcType=VARCHAR},",
           "t_comment_cdt = #{tCommentCdt,jdbcType=TIMESTAMP},",
           "t_comment_udt = #{tCommentUdt,jdbcType=TIMESTAMP},",

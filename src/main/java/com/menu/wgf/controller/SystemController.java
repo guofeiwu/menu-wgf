@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Api
 @RestController
-@RequestMapping(value = "/system")
+@RequestMapping(value = "/app/system")
 public class SystemController {
 
     @ApiOperation(value ="意见反馈",httpMethod = "POST")
@@ -37,6 +37,4 @@ public class SystemController {
         // TODO: 2017/9/25  返回更新信息
         return ResultMsg.success();
     }
-
-
 }

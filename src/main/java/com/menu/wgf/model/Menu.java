@@ -7,6 +7,10 @@ public class Menu {
 
     private String tMenuName;
 
+    private String tMenuDescription;
+
+    private Integer tMenuUserPkid;
+
     private Integer tMenuType;
 
     private Integer tMenuDelete;
@@ -29,6 +33,22 @@ public class Menu {
 
     public void settMenuName(String tMenuName) {
         this.tMenuName = tMenuName == null ? null : tMenuName.trim();
+    }
+
+    public String gettMenuDescription() {
+        return tMenuDescription;
+    }
+
+    public void settMenuDescription(String tMenuDescription) {
+        this.tMenuDescription = tMenuDescription == null ? null : tMenuDescription.trim();
+    }
+
+    public Integer gettMenuUserPkid() {
+        return tMenuUserPkid;
+    }
+
+    public void settMenuUserPkid(Integer tMenuUserPkid) {
+        this.tMenuUserPkid = tMenuUserPkid;
     }
 
     public Integer gettMenuType() {

@@ -235,6 +235,146 @@ public class UserCriteria {
             return (Criteria) this;
         }
 
+        public Criteria andTUserPhoneIsNull() {
+            addCriterion("t_user_phone is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPhoneIsNotNull() {
+            addCriterion("t_user_phone is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPhoneEqualTo(String value) {
+            addCriterion("t_user_phone =", value, "tUserPhone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPhoneNotEqualTo(String value) {
+            addCriterion("t_user_phone <>", value, "tUserPhone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPhoneGreaterThan(String value) {
+            addCriterion("t_user_phone >", value, "tUserPhone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPhoneGreaterThanOrEqualTo(String value) {
+            addCriterion("t_user_phone >=", value, "tUserPhone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPhoneLessThan(String value) {
+            addCriterion("t_user_phone <", value, "tUserPhone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPhoneLessThanOrEqualTo(String value) {
+            addCriterion("t_user_phone <=", value, "tUserPhone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPhoneLike(String value) {
+            addCriterion("t_user_phone like", value, "tUserPhone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPhoneNotLike(String value) {
+            addCriterion("t_user_phone not like", value, "tUserPhone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPhoneIn(List<String> values) {
+            addCriterion("t_user_phone in", values, "tUserPhone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPhoneNotIn(List<String> values) {
+            addCriterion("t_user_phone not in", values, "tUserPhone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPhoneBetween(String value1, String value2) {
+            addCriterion("t_user_phone between", value1, value2, "tUserPhone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPhoneNotBetween(String value1, String value2) {
+            addCriterion("t_user_phone not between", value1, value2, "tUserPhone");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPasswordIsNull() {
+            addCriterion("t_user_password is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPasswordIsNotNull() {
+            addCriterion("t_user_password is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPasswordEqualTo(String value) {
+            addCriterion("t_user_password =", value, "tUserPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPasswordNotEqualTo(String value) {
+            addCriterion("t_user_password <>", value, "tUserPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPasswordGreaterThan(String value) {
+            addCriterion("t_user_password >", value, "tUserPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPasswordGreaterThanOrEqualTo(String value) {
+            addCriterion("t_user_password >=", value, "tUserPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPasswordLessThan(String value) {
+            addCriterion("t_user_password <", value, "tUserPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPasswordLessThanOrEqualTo(String value) {
+            addCriterion("t_user_password <=", value, "tUserPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPasswordLike(String value) {
+            addCriterion("t_user_password like", value, "tUserPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPasswordNotLike(String value) {
+            addCriterion("t_user_password not like", value, "tUserPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPasswordIn(List<String> values) {
+            addCriterion("t_user_password in", values, "tUserPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPasswordNotIn(List<String> values) {
+            addCriterion("t_user_password not in", values, "tUserPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPasswordBetween(String value1, String value2) {
+            addCriterion("t_user_password between", value1, value2, "tUserPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPasswordNotBetween(String value1, String value2) {
+            addCriterion("t_user_password not between", value1, value2, "tUserPassword");
+            return (Criteria) this;
+        }
+
         public Criteria andTUserSexIsNull() {
             addCriterion("t_user_sex is null");
             return (Criteria) this;
@@ -292,6 +432,196 @@ public class UserCriteria {
 
         public Criteria andTUserSexNotBetween(Integer value1, Integer value2) {
             addCriterion("t_user_sex not between", value1, value2, "tUserSex");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPointIsNull() {
+            addCriterion("t_user_point is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPointIsNotNull() {
+            addCriterion("t_user_point is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPointEqualTo(Integer value) {
+            addCriterion("t_user_point =", value, "tUserPoint");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPointNotEqualTo(Integer value) {
+            addCriterion("t_user_point <>", value, "tUserPoint");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPointGreaterThan(Integer value) {
+            addCriterion("t_user_point >", value, "tUserPoint");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPointGreaterThanOrEqualTo(Integer value) {
+            addCriterion("t_user_point >=", value, "tUserPoint");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPointLessThan(Integer value) {
+            addCriterion("t_user_point <", value, "tUserPoint");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPointLessThanOrEqualTo(Integer value) {
+            addCriterion("t_user_point <=", value, "tUserPoint");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPointIn(List<Integer> values) {
+            addCriterion("t_user_point in", values, "tUserPoint");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPointNotIn(List<Integer> values) {
+            addCriterion("t_user_point not in", values, "tUserPoint");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPointBetween(Integer value1, Integer value2) {
+            addCriterion("t_user_point between", value1, value2, "tUserPoint");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserPointNotBetween(Integer value1, Integer value2) {
+            addCriterion("t_user_point not between", value1, value2, "tUserPoint");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserSignIsNull() {
+            addCriterion("t_user_sign is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserSignIsNotNull() {
+            addCriterion("t_user_sign is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserSignEqualTo(Integer value) {
+            addCriterion("t_user_sign =", value, "tUserSign");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserSignNotEqualTo(Integer value) {
+            addCriterion("t_user_sign <>", value, "tUserSign");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserSignGreaterThan(Integer value) {
+            addCriterion("t_user_sign >", value, "tUserSign");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserSignGreaterThanOrEqualTo(Integer value) {
+            addCriterion("t_user_sign >=", value, "tUserSign");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserSignLessThan(Integer value) {
+            addCriterion("t_user_sign <", value, "tUserSign");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserSignLessThanOrEqualTo(Integer value) {
+            addCriterion("t_user_sign <=", value, "tUserSign");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserSignIn(List<Integer> values) {
+            addCriterion("t_user_sign in", values, "tUserSign");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserSignNotIn(List<Integer> values) {
+            addCriterion("t_user_sign not in", values, "tUserSign");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserSignBetween(Integer value1, Integer value2) {
+            addCriterion("t_user_sign between", value1, value2, "tUserSign");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserSignNotBetween(Integer value1, Integer value2) {
+            addCriterion("t_user_sign not between", value1, value2, "tUserSign");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserLevelIsNull() {
+            addCriterion("t_user_level is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserLevelIsNotNull() {
+            addCriterion("t_user_level is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserLevelEqualTo(String value) {
+            addCriterion("t_user_level =", value, "tUserLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserLevelNotEqualTo(String value) {
+            addCriterion("t_user_level <>", value, "tUserLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserLevelGreaterThan(String value) {
+            addCriterion("t_user_level >", value, "tUserLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserLevelGreaterThanOrEqualTo(String value) {
+            addCriterion("t_user_level >=", value, "tUserLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserLevelLessThan(String value) {
+            addCriterion("t_user_level <", value, "tUserLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserLevelLessThanOrEqualTo(String value) {
+            addCriterion("t_user_level <=", value, "tUserLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserLevelLike(String value) {
+            addCriterion("t_user_level like", value, "tUserLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserLevelNotLike(String value) {
+            addCriterion("t_user_level not like", value, "tUserLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserLevelIn(List<String> values) {
+            addCriterion("t_user_level in", values, "tUserLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserLevelNotIn(List<String> values) {
+            addCriterion("t_user_level not in", values, "tUserLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserLevelBetween(String value1, String value2) {
+            addCriterion("t_user_level between", value1, value2, "tUserLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andTUserLevelNotBetween(String value1, String value2) {
+            addCriterion("t_user_level not between", value1, value2, "tUserLevel");
             return (Criteria) this;
         }
 

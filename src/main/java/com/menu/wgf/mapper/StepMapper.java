@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
@@ -30,18 +31,18 @@ public interface StepMapper {
     int deleteByPrimaryKey(Integer tStepPkid);
 
     @Insert({
-        "insert into t_step (t_step_pkid, t_step_menu_pkid, ",
-        "t_step_pic_address, t_step_description, ",
-        "t_step_udt, t_step_cdt, ",
-        "t_step_delete)",
-        "values (#{tStepPkid,jdbcType=INTEGER}, #{tStepMenuPkid,jdbcType=INTEGER}, ",
-        "#{tStepPicAddress,jdbcType=VARCHAR}, #{tStepDescription,jdbcType=VARCHAR}, ",
-        "#{tStepUdt,jdbcType=TIMESTAMP}, #{tStepCdt,jdbcType=TIMESTAMP}, ",
-        "#{tStepDelete,jdbcType=INTEGER})"
+        "insert into t_step (t_step_menu_pkid, t_step_pic_address, ",
+        "t_step_description, t_step_udt, ",
+        "t_step_cdt, t_step_delete)",
+        "values (#{tStepMenuPkid,jdbcType=INTEGER}, #{tStepPicAddress,jdbcType=VARCHAR}, ",
+        "#{tStepDescription,jdbcType=VARCHAR}, #{tStepUdt,jdbcType=TIMESTAMP}, ",
+        "#{tStepCdt,jdbcType=TIMESTAMP}, #{tStepDelete,jdbcType=INTEGER})"
     })
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="tStepPkid", before=false, resultType=Integer.class)
     int insert(Step record);
 
     @InsertProvider(type=StepSqlProvider.class, method="insertSelective")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="tStepPkid", before=false, resultType=Integer.class)
     int insertSelective(Step record);
 
     @SelectProvider(type=StepSqlProvider.class, method="selectByExample")

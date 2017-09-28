@@ -9,6 +9,8 @@ public class Comment {
 
     private Integer tCommentMenuPkid;
 
+    private Integer tCommentShaiPkid;
+
     private String tCommentContent;
 
     private Date tCommentCdt;
@@ -39,6 +41,14 @@ public class Comment {
 
     public void settCommentMenuPkid(Integer tCommentMenuPkid) {
         this.tCommentMenuPkid = tCommentMenuPkid;
+    }
+
+    public Integer gettCommentShaiPkid() {
+        return tCommentShaiPkid;
+    }
+
+    public void settCommentShaiPkid(Integer tCommentShaiPkid) {
+        this.tCommentShaiPkid = tCommentShaiPkid;
     }
 
     public String gettCommentContent() {

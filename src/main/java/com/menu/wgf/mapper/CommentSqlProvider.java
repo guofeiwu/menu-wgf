@@ -28,16 +28,16 @@ public class CommentSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("t_comment");
         
-        if (record.gettCommentPkid() != null) {
-            sql.VALUES("t_comment_pkid", "#{tCommentPkid,jdbcType=INTEGER}");
-        }
-        
         if (record.gettCommentUserPkid() != null) {
             sql.VALUES("t_comment_user_pkid", "#{tCommentUserPkid,jdbcType=INTEGER}");
         }
         
         if (record.gettCommentMenuPkid() != null) {
             sql.VALUES("t_comment_menu_pkid", "#{tCommentMenuPkid,jdbcType=INTEGER}");
+        }
+        
+        if (record.gettCommentShaiPkid() != null) {
+            sql.VALUES("t_comment_shai_pkid", "#{tCommentShaiPkid,jdbcType=INTEGER}");
         }
         
         if (record.gettCommentContent() != null) {
@@ -68,6 +68,7 @@ public class CommentSqlProvider {
         }
         sql.SELECT("t_comment_user_pkid");
         sql.SELECT("t_comment_menu_pkid");
+        sql.SELECT("t_comment_shai_pkid");
         sql.SELECT("t_comment_content");
         sql.SELECT("t_comment_cdt");
         sql.SELECT("t_comment_udt");
@@ -101,6 +102,10 @@ public class CommentSqlProvider {
             sql.SET("t_comment_menu_pkid = #{record.tCommentMenuPkid,jdbcType=INTEGER}");
         }
         
+        if (record.gettCommentShaiPkid() != null) {
+            sql.SET("t_comment_shai_pkid = #{record.tCommentShaiPkid,jdbcType=INTEGER}");
+        }
+        
         if (record.gettCommentContent() != null) {
             sql.SET("t_comment_content = #{record.tCommentContent,jdbcType=VARCHAR}");
         }
@@ -128,6 +133,7 @@ public class CommentSqlProvider {
         sql.SET("t_comment_pkid = #{record.tCommentPkid,jdbcType=INTEGER}");
         sql.SET("t_comment_user_pkid = #{record.tCommentUserPkid,jdbcType=INTEGER}");
         sql.SET("t_comment_menu_pkid = #{record.tCommentMenuPkid,jdbcType=INTEGER}");
+        sql.SET("t_comment_shai_pkid = #{record.tCommentShaiPkid,jdbcType=INTEGER}");
         sql.SET("t_comment_content = #{record.tCommentContent,jdbcType=VARCHAR}");
         sql.SET("t_comment_cdt = #{record.tCommentCdt,jdbcType=TIMESTAMP}");
         sql.SET("t_comment_udt = #{record.tCommentUdt,jdbcType=TIMESTAMP}");
@@ -148,6 +154,10 @@ public class CommentSqlProvider {
         
         if (record.gettCommentMenuPkid() != null) {
             sql.SET("t_comment_menu_pkid = #{tCommentMenuPkid,jdbcType=INTEGER}");
+        }
+        
+        if (record.gettCommentShaiPkid() != null) {
+            sql.SET("t_comment_shai_pkid = #{tCommentShaiPkid,jdbcType=INTEGER}");
         }
         
         if (record.gettCommentContent() != null) {

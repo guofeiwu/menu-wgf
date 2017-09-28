@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
@@ -30,16 +31,18 @@ public interface LikeMapper {
     int deleteByPrimaryKey(Integer tLikePkid);
 
     @Insert({
-        "insert into t_like (t_like_pkid, t_like_user_pkid, ",
-        "t_like_menu_pkid, t_like_cdt, ",
+        "insert into t_like (t_like_user_pkid, t_like_menu_pkid, ",
+        "t_like_shai_pkid, t_like_cdt, ",
         "t_like_udt, t_like_delete)",
-        "values (#{tLikePkid,jdbcType=INTEGER}, #{tLikeUserPkid,jdbcType=INTEGER}, ",
-        "#{tLikeMenuPkid,jdbcType=INTEGER}, #{tLikeCdt,jdbcType=TIMESTAMP}, ",
+        "values (#{tLikeUserPkid,jdbcType=INTEGER}, #{tLikeMenuPkid,jdbcType=INTEGER}, ",
+        "#{tLikeShaiPkid,jdbcType=INTEGER}, #{tLikeCdt,jdbcType=TIMESTAMP}, ",
         "#{tLikeUdt,jdbcType=TIMESTAMP}, #{tLikeDelete,jdbcType=INTEGER})"
     })
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="tLikePkid", before=false, resultType=Integer.class)
     int insert(Like record);
 
     @InsertProvider(type=LikeSqlProvider.class, method="insertSelective")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="tLikePkid", before=false, resultType=Integer.class)
     int insertSelective(Like record);
 
     @SelectProvider(type=LikeSqlProvider.class, method="selectByExample")
@@ -47,6 +50,7 @@ public interface LikeMapper {
         @Result(column="t_like_pkid", property="tLikePkid", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="t_like_user_pkid", property="tLikeUserPkid", jdbcType=JdbcType.INTEGER),
         @Result(column="t_like_menu_pkid", property="tLikeMenuPkid", jdbcType=JdbcType.INTEGER),
+        @Result(column="t_like_shai_pkid", property="tLikeShaiPkid", jdbcType=JdbcType.INTEGER),
         @Result(column="t_like_cdt", property="tLikeCdt", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="t_like_udt", property="tLikeUdt", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="t_like_delete", property="tLikeDelete", jdbcType=JdbcType.INTEGER)
@@ -55,7 +59,8 @@ public interface LikeMapper {
 
     @Select({
         "select",
-        "t_like_pkid, t_like_user_pkid, t_like_menu_pkid, t_like_cdt, t_like_udt, t_like_delete",
+        "t_like_pkid, t_like_user_pkid, t_like_menu_pkid, t_like_shai_pkid, t_like_cdt, ",
+        "t_like_udt, t_like_delete",
         "from t_like",
         "where t_like_pkid = #{tLikePkid,jdbcType=INTEGER}"
     })
@@ -63,6 +68,7 @@ public interface LikeMapper {
         @Result(column="t_like_pkid", property="tLikePkid", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="t_like_user_pkid", property="tLikeUserPkid", jdbcType=JdbcType.INTEGER),
         @Result(column="t_like_menu_pkid", property="tLikeMenuPkid", jdbcType=JdbcType.INTEGER),
+        @Result(column="t_like_shai_pkid", property="tLikeShaiPkid", jdbcType=JdbcType.INTEGER),
         @Result(column="t_like_cdt", property="tLikeCdt", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="t_like_udt", property="tLikeUdt", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="t_like_delete", property="tLikeDelete", jdbcType=JdbcType.INTEGER)
@@ -82,6 +88,7 @@ public interface LikeMapper {
         "update t_like",
         "set t_like_user_pkid = #{tLikeUserPkid,jdbcType=INTEGER},",
           "t_like_menu_pkid = #{tLikeMenuPkid,jdbcType=INTEGER},",
+          "t_like_shai_pkid = #{tLikeShaiPkid,jdbcType=INTEGER},",
           "t_like_cdt = #{tLikeCdt,jdbcType=TIMESTAMP},",
           "t_like_udt = #{tLikeUdt,jdbcType=TIMESTAMP},",
           "t_like_delete = #{tLikeDelete,jdbcType=INTEGER}",

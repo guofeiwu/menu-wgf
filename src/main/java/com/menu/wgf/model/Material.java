@@ -5,7 +5,7 @@ import java.util.Date;
 public class Material {
     private Integer tMaterialPkid;
 
-    private Integer tMaterialName;
+    private String tMaterialName;
 
     private Integer tMaterialMenuPkid;
 
@@ -23,12 +23,12 @@ public class Material {
         this.tMaterialPkid = tMaterialPkid;
     }
 
-    public Integer gettMaterialName() {
+    public String gettMaterialName() {
         return tMaterialName;
     }
 
-    public void settMaterialName(Integer tMaterialName) {
-        this.tMaterialName = tMaterialName;
+    public void settMaterialName(String tMaterialName) {
+        this.tMaterialName = tMaterialName == null ? null : tMaterialName.trim();
     }
 
     public Integer gettMaterialMenuPkid() {

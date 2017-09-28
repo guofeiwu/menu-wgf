@@ -47,15 +47,41 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="t_user" domainObjectName="User"></table>
-        <table tableName="t_menu" domainObjectName="Menu"></table>
-        <table tableName="t_material" domainObjectName="Material"></table>
-        <table tableName="t_step" domainObjectName="Step"></table>
-        <table tableName="t_collect" domainObjectName="Collect"></table>
-        <table tableName="t_feedback" domainObjectName="Feedback"></table>
-        <table tableName="t_comment" domainObjectName="Comment"></table>
-        <table tableName="t_like" domainObjectName="Like"></table>
-        <table tableName="t_record" domainObjectName="Record"></table>
+        <table tableName="t_user" domainObjectName="User">
+            <generatedKey column="t_user_pkid" sqlStatement="MySql" identity="true" />
+        </table>
+        <table tableName="t_menu" domainObjectName="Menu">
+            <generatedKey column="t_menu_pkid" sqlStatement="MySql" identity="true" />
+        </table>
+
+        <table tableName="t_material" domainObjectName="Material">
+            <generatedKey column="t_material_pkid" sqlStatement="MySql" identity="true" />
+        </table>
+        <table tableName="t_step" domainObjectName="Step">
+            <generatedKey column="t_step_pkid" sqlStatement="MySql" identity="true" />
+        </table>
+        <table tableName="t_collect" domainObjectName="Collect">
+            <generatedKey column="t_collect_pkid" sqlStatement="MySql" identity="true" />
+        </table>
+        <table tableName="t_feedback" domainObjectName="Feedback">
+            <generatedKey column="t_feedback_pkid" sqlStatement="MySql" identity="true" />
+        </table>
+        <table tableName="t_comment" domainObjectName="Comment">
+            <generatedKey column="t_comment_pkid" sqlStatement="MySql" identity="true" />
+        </table>
+        <table tableName="t_like" domainObjectName="Like">
+            <generatedKey column="t_like_pkid" sqlStatement="MySql" identity="true" />
+        </table>
+        <table tableName="t_record" domainObjectName="Record">
+            <generatedKey column="t_record_pkid" sqlStatement="MySql" identity="true" />
+        </table>
+
+        <table tableName="t_share" domainObjectName="Share">
+            <generatedKey column="t_share_pkid" sqlStatement="MySql" identity="true" />
+        </table>
+        <table tableName="t_shai" domainObjectName="Shai">
+            <generatedKey column="t_shai_pkid" sqlStatement="MySql" identity="true" />
+        </table>
 
         <!-- enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"-->

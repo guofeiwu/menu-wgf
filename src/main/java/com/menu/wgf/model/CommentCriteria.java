@@ -285,6 +285,66 @@ public class CommentCriteria {
             return (Criteria) this;
         }
 
+        public Criteria andTCommentShaiPkidIsNull() {
+            addCriterion("t_comment_shai_pkid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentShaiPkidIsNotNull() {
+            addCriterion("t_comment_shai_pkid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentShaiPkidEqualTo(Integer value) {
+            addCriterion("t_comment_shai_pkid =", value, "tCommentShaiPkid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentShaiPkidNotEqualTo(Integer value) {
+            addCriterion("t_comment_shai_pkid <>", value, "tCommentShaiPkid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentShaiPkidGreaterThan(Integer value) {
+            addCriterion("t_comment_shai_pkid >", value, "tCommentShaiPkid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentShaiPkidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("t_comment_shai_pkid >=", value, "tCommentShaiPkid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentShaiPkidLessThan(Integer value) {
+            addCriterion("t_comment_shai_pkid <", value, "tCommentShaiPkid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentShaiPkidLessThanOrEqualTo(Integer value) {
+            addCriterion("t_comment_shai_pkid <=", value, "tCommentShaiPkid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentShaiPkidIn(List<Integer> values) {
+            addCriterion("t_comment_shai_pkid in", values, "tCommentShaiPkid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentShaiPkidNotIn(List<Integer> values) {
+            addCriterion("t_comment_shai_pkid not in", values, "tCommentShaiPkid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentShaiPkidBetween(Integer value1, Integer value2) {
+            addCriterion("t_comment_shai_pkid between", value1, value2, "tCommentShaiPkid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentShaiPkidNotBetween(Integer value1, Integer value2) {
+            addCriterion("t_comment_shai_pkid not between", value1, value2, "tCommentShaiPkid");
+            return (Criteria) this;
+        }
+
         public Criteria andTCommentContentIsNull() {
             addCriterion("t_comment_content is null");
             return (Criteria) this;

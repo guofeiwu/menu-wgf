@@ -285,6 +285,66 @@ public class LikeCriteria {
             return (Criteria) this;
         }
 
+        public Criteria andTLikeShaiPkidIsNull() {
+            addCriterion("t_like_shai_pkid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTLikeShaiPkidIsNotNull() {
+            addCriterion("t_like_shai_pkid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTLikeShaiPkidEqualTo(Integer value) {
+            addCriterion("t_like_shai_pkid =", value, "tLikeShaiPkid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTLikeShaiPkidNotEqualTo(Integer value) {
+            addCriterion("t_like_shai_pkid <>", value, "tLikeShaiPkid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTLikeShaiPkidGreaterThan(Integer value) {
+            addCriterion("t_like_shai_pkid >", value, "tLikeShaiPkid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTLikeShaiPkidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("t_like_shai_pkid >=", value, "tLikeShaiPkid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTLikeShaiPkidLessThan(Integer value) {
+            addCriterion("t_like_shai_pkid <", value, "tLikeShaiPkid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTLikeShaiPkidLessThanOrEqualTo(Integer value) {
+            addCriterion("t_like_shai_pkid <=", value, "tLikeShaiPkid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTLikeShaiPkidIn(List<Integer> values) {
+            addCriterion("t_like_shai_pkid in", values, "tLikeShaiPkid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTLikeShaiPkidNotIn(List<Integer> values) {
+            addCriterion("t_like_shai_pkid not in", values, "tLikeShaiPkid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTLikeShaiPkidBetween(Integer value1, Integer value2) {
+            addCriterion("t_like_shai_pkid between", value1, value2, "tLikeShaiPkid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTLikeShaiPkidNotBetween(Integer value1, Integer value2) {
+            addCriterion("t_like_shai_pkid not between", value1, value2, "tLikeShaiPkid");
+            return (Criteria) this;
+        }
+
         public Criteria andTLikeCdtIsNull() {
             addCriterion("t_like_cdt is null");
             return (Criteria) this;

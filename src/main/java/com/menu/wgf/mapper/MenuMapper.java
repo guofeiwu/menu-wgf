@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
@@ -30,22 +31,28 @@ public interface MenuMapper {
     int deleteByPrimaryKey(Integer tMenuPkid);
 
     @Insert({
-        "insert into t_menu (t_menu_pkid, t_menu_name, ",
-        "t_menu_type, t_menu_delete, ",
-        "t_menu_udt, t_menu_cdt)",
-        "values (#{tMenuPkid,jdbcType=INTEGER}, #{tMenuName,jdbcType=VARCHAR}, ",
-        "#{tMenuType,jdbcType=INTEGER}, #{tMenuDelete,jdbcType=INTEGER}, ",
-        "#{tMenuUdt,jdbcType=TIMESTAMP}, #{tMenuCdt,jdbcType=TIMESTAMP})"
+        "insert into t_menu (t_menu_name, t_menu_description, ",
+        "t_menu_user_pkid, t_menu_type, ",
+        "t_menu_delete, t_menu_udt, ",
+        "t_menu_cdt)",
+        "values (#{tMenuName,jdbcType=VARCHAR}, #{tMenuDescription,jdbcType=VARCHAR}, ",
+        "#{tMenuUserPkid,jdbcType=INTEGER}, #{tMenuType,jdbcType=INTEGER}, ",
+        "#{tMenuDelete,jdbcType=INTEGER}, #{tMenuUdt,jdbcType=TIMESTAMP}, ",
+        "#{tMenuCdt,jdbcType=TIMESTAMP})"
     })
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="tMenuPkid", before=false, resultType=Integer.class)
     int insert(Menu record);
 
     @InsertProvider(type=MenuSqlProvider.class, method="insertSelective")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="tMenuPkid", before=false, resultType=Integer.class)
     int insertSelective(Menu record);
 
     @SelectProvider(type=MenuSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="t_menu_pkid", property="tMenuPkid", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="t_menu_name", property="tMenuName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="t_menu_description", property="tMenuDescription", jdbcType=JdbcType.VARCHAR),
+        @Result(column="t_menu_user_pkid", property="tMenuUserPkid", jdbcType=JdbcType.INTEGER),
         @Result(column="t_menu_type", property="tMenuType", jdbcType=JdbcType.INTEGER),
         @Result(column="t_menu_delete", property="tMenuDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="t_menu_udt", property="tMenuUdt", jdbcType=JdbcType.TIMESTAMP),
@@ -55,13 +62,16 @@ public interface MenuMapper {
 
     @Select({
         "select",
-        "t_menu_pkid, t_menu_name, t_menu_type, t_menu_delete, t_menu_udt, t_menu_cdt",
+        "t_menu_pkid, t_menu_name, t_menu_description, t_menu_user_pkid, t_menu_type, ",
+        "t_menu_delete, t_menu_udt, t_menu_cdt",
         "from t_menu",
         "where t_menu_pkid = #{tMenuPkid,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="t_menu_pkid", property="tMenuPkid", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="t_menu_name", property="tMenuName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="t_menu_description", property="tMenuDescription", jdbcType=JdbcType.VARCHAR),
+        @Result(column="t_menu_user_pkid", property="tMenuUserPkid", jdbcType=JdbcType.INTEGER),
         @Result(column="t_menu_type", property="tMenuType", jdbcType=JdbcType.INTEGER),
         @Result(column="t_menu_delete", property="tMenuDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="t_menu_udt", property="tMenuUdt", jdbcType=JdbcType.TIMESTAMP),
@@ -81,6 +91,8 @@ public interface MenuMapper {
     @Update({
         "update t_menu",
         "set t_menu_name = #{tMenuName,jdbcType=VARCHAR},",
+          "t_menu_description = #{tMenuDescription,jdbcType=VARCHAR},",
+          "t_menu_user_pkid = #{tMenuUserPkid,jdbcType=INTEGER},",
           "t_menu_type = #{tMenuType,jdbcType=INTEGER},",
           "t_menu_delete = #{tMenuDelete,jdbcType=INTEGER},",
           "t_menu_udt = #{tMenuUdt,jdbcType=TIMESTAMP},",

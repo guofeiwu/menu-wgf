@@ -175,52 +175,62 @@ public class MaterialCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andTMaterialNameEqualTo(Integer value) {
+        public Criteria andTMaterialNameEqualTo(String value) {
             addCriterion("t_material_name =", value, "tMaterialName");
             return (Criteria) this;
         }
 
-        public Criteria andTMaterialNameNotEqualTo(Integer value) {
+        public Criteria andTMaterialNameNotEqualTo(String value) {
             addCriterion("t_material_name <>", value, "tMaterialName");
             return (Criteria) this;
         }
 
-        public Criteria andTMaterialNameGreaterThan(Integer value) {
+        public Criteria andTMaterialNameGreaterThan(String value) {
             addCriterion("t_material_name >", value, "tMaterialName");
             return (Criteria) this;
         }
 
-        public Criteria andTMaterialNameGreaterThanOrEqualTo(Integer value) {
+        public Criteria andTMaterialNameGreaterThanOrEqualTo(String value) {
             addCriterion("t_material_name >=", value, "tMaterialName");
             return (Criteria) this;
         }
 
-        public Criteria andTMaterialNameLessThan(Integer value) {
+        public Criteria andTMaterialNameLessThan(String value) {
             addCriterion("t_material_name <", value, "tMaterialName");
             return (Criteria) this;
         }
 
-        public Criteria andTMaterialNameLessThanOrEqualTo(Integer value) {
+        public Criteria andTMaterialNameLessThanOrEqualTo(String value) {
             addCriterion("t_material_name <=", value, "tMaterialName");
             return (Criteria) this;
         }
 
-        public Criteria andTMaterialNameIn(List<Integer> values) {
+        public Criteria andTMaterialNameLike(String value) {
+            addCriterion("t_material_name like", value, "tMaterialName");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMaterialNameNotLike(String value) {
+            addCriterion("t_material_name not like", value, "tMaterialName");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMaterialNameIn(List<String> values) {
             addCriterion("t_material_name in", values, "tMaterialName");
             return (Criteria) this;
         }
 
-        public Criteria andTMaterialNameNotIn(List<Integer> values) {
+        public Criteria andTMaterialNameNotIn(List<String> values) {
             addCriterion("t_material_name not in", values, "tMaterialName");
             return (Criteria) this;
         }
 
-        public Criteria andTMaterialNameBetween(Integer value1, Integer value2) {
+        public Criteria andTMaterialNameBetween(String value1, String value2) {
             addCriterion("t_material_name between", value1, value2, "tMaterialName");
             return (Criteria) this;
         }
 
-        public Criteria andTMaterialNameNotBetween(Integer value1, Integer value2) {
+        public Criteria andTMaterialNameNotBetween(String value1, String value2) {
             addCriterion("t_material_name not between", value1, value2, "tMaterialName");
             return (Criteria) this;
         }

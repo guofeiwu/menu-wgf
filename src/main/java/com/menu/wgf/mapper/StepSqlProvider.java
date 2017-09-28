@@ -28,10 +28,6 @@ public class StepSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("t_step");
         
-        if (record.gettStepPkid() != null) {
-            sql.VALUES("t_step_pkid", "#{tStepPkid,jdbcType=INTEGER}");
-        }
-        
         if (record.gettStepMenuPkid() != null) {
             sql.VALUES("t_step_menu_pkid", "#{tStepMenuPkid,jdbcType=INTEGER}");
         }

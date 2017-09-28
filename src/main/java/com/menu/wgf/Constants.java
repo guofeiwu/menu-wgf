@@ -8,7 +8,9 @@ public class Constants {
     public static final int FILE_TYPE_SHAI = 0;
     public static final int FILE_TYPE_ICON = 1;
     public static final int FILE_TYPE_MENU = 2;
-
+    public static final String LOGIN_PKID_KEY = "loginPkid";
+    public static final String LOGIN_LOGIN_KEY = "login";
+    public static final String REGISTER_SUCCESS="注册成功";
 
     /**
      * 上传的文件类型
@@ -16,4 +18,13 @@ public class Constants {
     public enum FILE_TYPE{
         FILE_TYPE_SHAI,FILE_TYPE_ICON,FILE_TYPE_MENU;
     }
+
+
+
+
+
+
+
+
+
 }
