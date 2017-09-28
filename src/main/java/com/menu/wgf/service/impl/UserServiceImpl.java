@@ -38,9 +38,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserDetailsService userDetailsService;
 
-    @Autowired
-    AuthenticationManager authenticationManager;
-
     @Override
     public ResultMsg login(String phone, String password) {
         UserCriteria example = new UserCriteria();
@@ -52,7 +49,7 @@ public class UserServiceImpl implements UserService {
         if(users.size()>0) {
             user = users.get(0);
         }else{
-            return ResultMsg.failed().addContent("failed", ErrorMessageUtils.errorMessage(ErrorCode.USER_LOGIN_FAILED));
+            return ResultMsg.failed().addContent("content", ErrorMessageUtils.errorMessage(ErrorCode.USER_LOGIN_FAILED));
         }
         int loginKey = user.gettUserPkid();
 
@@ -62,6 +59,29 @@ public class UserServiceImpl implements UserService {
         Map.Entry<String, String> jwtHeader = jwtUtil.createJWTHeader(map);//创建token
 
         return ResultMsg.success().addContent(jwtHeader.getKey(),jwtHeader.getValue());
+    }
+
+    @Override
+    public ResultMsg smsLogin(String phone) {
+        User user = null;
+        UserCriteria example = new UserCriteria();
+        example.createCriteria()
+                .andTUserPhoneIsNotNull()
+                .andTUserPhoneEqualTo(phone);
+        List<User> users = userMapper.selectByExample(example);
+        if(users.size()>0){//用户存在
+            user = users.get(0);
+        }else{
+            return ResultMsg.failed().addContent("content", ErrorMessageUtils.errorMessage(ErrorCode.USER_NOT_EXIST));
+        }
+        int loginKey = user.gettUserPkid();
+
+        Map map = new HashMap();
+        map.put(Constants.LOGIN_LOGIN_KEY,phone);
+        map.put(Constants.LOGIN_PKID_KEY,loginKey);
+        Map.Entry<String, String> jwtHeader = jwtUtil.createJWTHeader(map);//创建token
+
+        return ResultMsg.success().addContent("content",jwtHeader);
     }
 
 
