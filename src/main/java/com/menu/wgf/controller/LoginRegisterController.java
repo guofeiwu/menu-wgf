@@ -5,10 +5,7 @@ import com.menu.wgf.model.ResultMsg;
 import com.menu.wgf.service.UserService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -45,9 +42,8 @@ public class LoginRegisterController {
     @PostMapping(value = "")
     @ApiResponses(@ApiResponse(code = 500,message = "用户登录失败",response = Integer.class))
     public ResultMsg loginApp(@RequestBody Map param){
-        String phone = (String) param.get("phone");
-        String password = (String) param.get("password");
-        return userService.login(phone,password);
+
+        return userService.login(param);
     }
 
 
@@ -58,10 +54,20 @@ public class LoginRegisterController {
     @PostMapping(value = "/register")
     @ApiResponses(@ApiResponse(code = 500,message = "用户注册失败",response = Integer.class))
     public ResultMsg register(@RequestBody Map param){
-        String phone = (String) param.get("phone");
-        String password = (String) param.get("password");
-        return userService.register(phone,password);
+        return userService.register(param);
     }
+
+    @ApiOperation(value = "短信快捷登录", httpMethod = "POST",response = JSONObject.class, notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "phone", value = "登录的手机号码", dataType = "string", paramType = "path", required = true)
+    })
+    @PostMapping(value = "/{phone}")
+    @ApiResponses(@ApiResponse(code = 500,message = "用户登录失败",response = Integer.class))
+    public ResultMsg smsLoginApp(@PathVariable(value = "phone") String phone){
+        return userService.smsLogin(phone);
+    }
+
+
 
     @ApiOperation(value = "用户修改（忘记）密码", httpMethod = "POST",response = JSONObject.class, notes = "")
     @ApiImplicitParams({
@@ -70,6 +76,6 @@ public class LoginRegisterController {
     @PostMapping(value = "/modifyPassword")
     @ApiResponses(@ApiResponse(code = 500,message = "修改密码失败",response = Integer.class))
     public ResultMsg modifyPassword(@RequestBody Map param){
-        return ResultMsg.success();
+        return userService.modifyPassword(param);
     }
 }

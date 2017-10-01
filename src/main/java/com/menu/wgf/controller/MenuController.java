@@ -3,9 +3,7 @@ package com.menu.wgf.controller;
 import com.menu.wgf.dto.MenuConditionDataObject;
 import com.menu.wgf.model.ResultMsg;
 import com.menu.wgf.util.IOUtils;
-import com.sun.deploy.ref.CodeRef;
 import io.swagger.annotations.*;
-import org.apache.ibatis.executor.ReuseExecutor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,9 +33,9 @@ public class MenuController {
     @PostMapping(value = "/comment")
     @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userPkId",value = "用户主键",paramType = "query",dataType = "int",required = true),
-            @ApiImplicitParam(name = "menuPkId",value = "菜谱主键",paramType = "query",dataType = "int",required = true),
-            @ApiImplicitParam(name = "commentContent",value = "评论的内容",paramType = "query",dataType = "string",required = true)
+            @ApiImplicitParam(name = "userPkId",value = "用户主键",paramType = "com/menu/wgf/query",dataType = "int",required = true),
+            @ApiImplicitParam(name = "menuPkId",value = "菜谱主键",paramType = "com/menu/wgf/query",dataType = "int",required = true),
+            @ApiImplicitParam(name = "commentContent",value = "评论的内容",paramType = "com/menu/wgf/query",dataType = "string",required = true)
     })
     public ResultMsg addCommentMenu(@RequestParam("userPkId") int userPkId,@RequestParam("menuPkId") int menuPkId,@RequestParam("commentContent") String commentContent){
         System.out.println("userId:"+userPkId+",menuPkId:"+menuPkId+",commentContent:"+commentContent);
@@ -74,8 +72,8 @@ public class MenuController {
     @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userPkId",value = "用户的主键",paramType = "path",dataType = "int",required = true),
-            @ApiImplicitParam(name = "pageSize",value = "每页返回的大小",paramType = "query",dataType = "int",required = true),
-            @ApiImplicitParam(name = "pageNo",value = "第几页",paramType = "query",dataType = "int",required = true)
+            @ApiImplicitParam(name = "pageSize",value = "每页返回的大小",paramType = "com/menu/wgf/query",dataType = "int",required = true),
+            @ApiImplicitParam(name = "pageNo",value = "第几页",paramType = "com/menu/wgf/query",dataType = "int",required = true)
     })
     public ResultMsg getUserCommentMenuList(@PathVariable Integer userPkId,@RequestParam("pageSize") Integer pageSize,
                                             @RequestParam("pageNo") Integer pageNo){
@@ -88,8 +86,8 @@ public class MenuController {
     @GetMapping(value = "/collect")
     @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userPkId",value = "用户主键",paramType = "query",dataType = "int",required = true),
-            @ApiImplicitParam(name = "menuPkId",value = "菜谱主键",paramType = "query",dataType = "int",required = true),
+            @ApiImplicitParam(name = "userPkId",value = "用户主键",paramType = "com/menu/wgf/query",dataType = "int",required = true),
+            @ApiImplicitParam(name = "menuPkId",value = "菜谱主键",paramType = "com/menu/wgf/query",dataType = "int",required = true),
     })
     public ResultMsg collectMenu(@RequestParam("userPkId") int userPkId,@RequestParam("menuPkId") int menuPkId){
         System.out.println("userId:"+userPkId+",menuPkId:"+menuPkId);
@@ -115,8 +113,8 @@ public class MenuController {
     @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userPkId",value = "用户的主键",paramType = "path",dataType = "int",required = true),
-            @ApiImplicitParam(name = "pageSize",value = "每页返回的大小",paramType = "query",dataType = "int",required = true),
-            @ApiImplicitParam(name = "pageNo",value = "第几页",paramType = "query",dataType = "int",required = true)
+            @ApiImplicitParam(name = "pageSize",value = "每页返回的大小",paramType = "com/menu/wgf/query",dataType = "int",required = true),
+            @ApiImplicitParam(name = "pageNo",value = "第几页",paramType = "com/menu/wgf/query",dataType = "int",required = true)
     })
     public ResultMsg getUserCollectMenuList(@PathVariable Integer userPkId,@RequestParam("pageSize") Integer pageSize,
                                             @RequestParam("pageNo") Integer pageNo){
@@ -135,7 +133,8 @@ public class MenuController {
     @ApiResponse(code = 500,message = "服务器相应出错",response = Integer.class)
     public ResultMsg uploadMenu(@PathVariable(value = "userPkId") Integer userPkId,@PathVariable("type") Integer type,
                                     @ApiParam(value = "菜谱", name = "menu") @RequestParam("menu") MultipartFile menu) {
-        return IOUtils.uploadFile(userPkId,type,menu);
+        //return IOUtils.uploadFile(userPkId,type,menu);
+        return null;
     }
 
 

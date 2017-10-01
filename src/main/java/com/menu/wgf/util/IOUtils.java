@@ -7,19 +7,22 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author guofei_wu
  */
 public class IOUtils {
+
+
     /**
      * 关闭流
      * @param bos
      * @param bis
      */
     public static void colse(BufferedOutputStream bos, BufferedInputStream bis){
-
     }
 
 
@@ -30,11 +33,15 @@ public class IOUtils {
      * @param multipartFile 文件
      * @return ResultMsg
      */
-    public static ResultMsg uploadFile(Integer userPkId,Integer type,
+    public static Map uploadFile(Integer userPkId,Integer type,Integer currentIndex,
                                    MultipartFile multipartFile){
-        // TODO: 2017/9/20 根据用户主键获取用户名
+
+        Map<String,Object> map = new HashMap();
+
         String userName = "user"+userPkId;
         String fileName = multipartFile.getOriginalFilename();
+        String suffix = fileName.substring(fileName.lastIndexOf("."));
+        fileName = "user"+(++currentIndex);
         BufferedInputStream bis =null;
         BufferedOutputStream bos = null;
         try {
@@ -44,22 +51,21 @@ public class IOUtils {
             String setFilePath = null;
              switch (type){
                  case Constants.FILE_TYPE_SHAI://晒一晒
-                     setFilePath = "G://uploadFiles//menu-wgf//shaiyishai//" + userName;//用户的头像的文件夹
+                     // TODO: 2017/10/1 需要更换地址
+                     setFilePath = Constants.BASE_URL_FILE_ICON+ userName;//用户的晒一晒的文件夹
                      break;
                  case Constants.FILE_TYPE_ICON://头像
-                     setFilePath = "G://uploadFiles//menu-wgf//icon//" + userName;//用户的头像的文件夹
+                     setFilePath = Constants.BASE_URL_FILE_ICON;//用户的头像的文件夹
                      break;
                  case Constants.FILE_TYPE_MENU://菜谱
-                     setFilePath = "G://uploadFiles//menu-wgf//menu//" + userName;//用户的头像的文件夹
+                     setFilePath = Constants.BASE_URL_FILE_MENUS + userName;//用户的头像的文件夹
                      break;
              }
             File userFile = new File(setFilePath);
             if (!userFile.exists()){
                 userFile.mkdirs();
             }
-
-            //TODO 之后可以将这个路径写入数据库
-            String filePath = setFilePath+File.separator+fileName;//文件的路径
+            String filePath = setFilePath+userName+File.separator+fileName+suffix;//文件的路径
             File file = new File(filePath);
             FileOutputStream fos = new FileOutputStream(file);
             bos = new BufferedOutputStream(fos);
@@ -72,7 +78,7 @@ public class IOUtils {
             bos.flush();
         } catch (IOException e) {
             e.printStackTrace();
-            return ResultMsg.failed();
+            map.put("currentIndex",0);
         } finally {
             try {
                 if (bis != null){
@@ -86,9 +92,11 @@ public class IOUtils {
                 e.printStackTrace();
             }
         }
-        return ResultMsg.success();
-    }
+        map.put("currentIndex",currentIndex);
+        map.put("suffix",suffix);
 
+        return map;
+    }
 
     /**
      * 多文件上传
@@ -146,6 +154,14 @@ public class IOUtils {
             }
         }
         return ResultMsg.success();
+
+    }
+
+
+
+
+
+    public static void downloadIcon(){
 
     }
 }

@@ -485,66 +485,6 @@ public class MenuCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andTMenuUdtIsNull() {
-            addCriterion("t_menu_udt is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTMenuUdtIsNotNull() {
-            addCriterion("t_menu_udt is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTMenuUdtEqualTo(Date value) {
-            addCriterion("t_menu_udt =", value, "tMenuUdt");
-            return (Criteria) this;
-        }
-
-        public Criteria andTMenuUdtNotEqualTo(Date value) {
-            addCriterion("t_menu_udt <>", value, "tMenuUdt");
-            return (Criteria) this;
-        }
-
-        public Criteria andTMenuUdtGreaterThan(Date value) {
-            addCriterion("t_menu_udt >", value, "tMenuUdt");
-            return (Criteria) this;
-        }
-
-        public Criteria andTMenuUdtGreaterThanOrEqualTo(Date value) {
-            addCriterion("t_menu_udt >=", value, "tMenuUdt");
-            return (Criteria) this;
-        }
-
-        public Criteria andTMenuUdtLessThan(Date value) {
-            addCriterion("t_menu_udt <", value, "tMenuUdt");
-            return (Criteria) this;
-        }
-
-        public Criteria andTMenuUdtLessThanOrEqualTo(Date value) {
-            addCriterion("t_menu_udt <=", value, "tMenuUdt");
-            return (Criteria) this;
-        }
-
-        public Criteria andTMenuUdtIn(List<Date> values) {
-            addCriterion("t_menu_udt in", values, "tMenuUdt");
-            return (Criteria) this;
-        }
-
-        public Criteria andTMenuUdtNotIn(List<Date> values) {
-            addCriterion("t_menu_udt not in", values, "tMenuUdt");
-            return (Criteria) this;
-        }
-
-        public Criteria andTMenuUdtBetween(Date value1, Date value2) {
-            addCriterion("t_menu_udt between", value1, value2, "tMenuUdt");
-            return (Criteria) this;
-        }
-
-        public Criteria andTMenuUdtNotBetween(Date value1, Date value2) {
-            addCriterion("t_menu_udt not between", value1, value2, "tMenuUdt");
-            return (Criteria) this;
-        }
-
         public Criteria andTMenuCdtIsNull() {
             addCriterion("t_menu_cdt is null");
             return (Criteria) this;
@@ -602,6 +542,66 @@ public class MenuCriteria {
 
         public Criteria andTMenuCdtNotBetween(Date value1, Date value2) {
             addCriterion("t_menu_cdt not between", value1, value2, "tMenuCdt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuUdtIsNull() {
+            addCriterion("t_menu_udt is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuUdtIsNotNull() {
+            addCriterion("t_menu_udt is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuUdtEqualTo(Date value) {
+            addCriterion("t_menu_udt =", value, "tMenuUdt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuUdtNotEqualTo(Date value) {
+            addCriterion("t_menu_udt <>", value, "tMenuUdt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuUdtGreaterThan(Date value) {
+            addCriterion("t_menu_udt >", value, "tMenuUdt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuUdtGreaterThanOrEqualTo(Date value) {
+            addCriterion("t_menu_udt >=", value, "tMenuUdt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuUdtLessThan(Date value) {
+            addCriterion("t_menu_udt <", value, "tMenuUdt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuUdtLessThanOrEqualTo(Date value) {
+            addCriterion("t_menu_udt <=", value, "tMenuUdt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuUdtIn(List<Date> values) {
+            addCriterion("t_menu_udt in", values, "tMenuUdt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuUdtNotIn(List<Date> values) {
+            addCriterion("t_menu_udt not in", values, "tMenuUdt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuUdtBetween(Date value1, Date value2) {
+            addCriterion("t_menu_udt between", value1, value2, "tMenuUdt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuUdtNotBetween(Date value1, Date value2) {
+            addCriterion("t_menu_udt not between", value1, value2, "tMenuUdt");
             return (Criteria) this;
         }
     }

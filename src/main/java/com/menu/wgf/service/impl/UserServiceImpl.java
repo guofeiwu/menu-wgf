@@ -10,6 +10,10 @@ import com.menu.wgf.model.UserCriteria;
 import com.menu.wgf.service.UserService;
 import com.menu.wgf.ErrorCode;
 import com.menu.wgf.util.ErrorMessageUtils;
+import com.menu.wgf.util.IOUtils;
+import com.mysql.jdbc.StringUtils;
+import com.sun.corba.se.impl.protocol.InfoOnlyServantCacheLocalCRDImpl;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -39,7 +43,9 @@ public class UserServiceImpl implements UserService {
     UserDetailsService userDetailsService;
 
     @Override
-    public ResultMsg login(String phone, String password) {
+    public ResultMsg login(Map param) {
+        String phone = (String) param.get("phone");
+        String password = (String) param.get("password");
         UserCriteria example = new UserCriteria();
         example.createCriteria()
                 .andTUserPhoneEqualTo(phone)
@@ -92,7 +98,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultMsg register(String phone, String password) {
+    public ResultMsg register(Map param) {
+        String phone = (String) param.get("phone");
+        String password = (String) param.get("password");
         UserCriteria example = new UserCriteria();
         example.createCriteria()
                 .andTUserPhoneEqualTo(phone);
@@ -120,13 +128,50 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultMsg modifyPassword(String phone, String password) {
-        return null;
+    public ResultMsg modifyPassword(Map param) {
+        String phone = (String) param.get("phone");
+        String password = (String) param.get("password");
+
+        UserCriteria criteria = new UserCriteria();
+        criteria.createCriteria()
+                .andTUserPhoneIsNotNull()
+                .andTUserPhoneEqualTo(phone);
+
+        List<User> users = userMapper.selectByExample(criteria);
+        User user = null;
+        if(users.size()>0){
+            user = users.get(0);
+        }else {
+            return ResultMsg.failed().addContent("content",ErrorMessageUtils.errorMessage(ErrorCode.USER_NOT_EXIST));
+        }
+        user.settUserPassword(password);
+        Date date = new Date();
+        user.settUserUdt(date);
+        int update = userMapper.updateByExampleSelective(user,criteria);
+        if(update == 1){
+            return ResultMsg.success().addContent("content","修改密码成功");
+        }
+        return ResultMsg.failed().addContent("content","密码修改失败");
     }
 
     @Override
-    public ResultMsg modifyUserInfo(UserInfoDataObject userInfoDataObject) {
-        return null;
+    public ResultMsg modifyUserInfo(Integer userPkId,UserInfoDataObject userInfoDataObject) {
+        User user = new User();
+        user.settUserPkid(userPkId);
+        if(userInfoDataObject.name!=null){
+            user.settUserName(userInfoDataObject.name);
+        }
+        if(userInfoDataObject.sex!=null){
+            user.settUserSex(userInfoDataObject.sex);
+        }
+        if(userInfoDataObject.birthday!=null){
+            user.settUserBirthday(userInfoDataObject.birthday);
+        }
+        int result = userMapper.updateByPrimaryKeySelective(user);
+        if(result == 1){
+            return ResultMsg.success().addContent("content","修改成功");
+        }
+        return ResultMsg.failed().addContent("content","修改失败");
     }
 
     @Override
@@ -135,8 +180,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultMsg uploadUserIcon(Integer userPkId, MultipartFile icon) {
-        return null;
+    public ResultMsg uploadUserIcon(Integer userPkId, Integer type,MultipartFile icon) {
+        User user = userMapper.selectByPrimaryKey(userPkId);
+        String iconPath = user.gettUserIcon();
+        int indexP = iconPath.lastIndexOf(".");
+        int indexR = iconPath.lastIndexOf("r");
+        int currentIndex =Integer.parseInt(iconPath.substring(indexR+1,indexP));//用户当前头像的下标
+
+        Map map = IOUtils.uploadFile(userPkId,type,currentIndex,icon);
+        int modifyIndex = (int) map.get("currentIndex");
+        if(modifyIndex == 0){
+            return ResultMsg.failed().addContent("content","修改失败");
+        }
+        String suffix = (String) map.get("suffix");
+        if(modifyIndex != 0){
+            String newIconPath = iconPath.substring(0,indexR+1)+modifyIndex+suffix;
+            user.settUserIcon(newIconPath);
+            int result = userMapper.updateByPrimaryKeySelective(user);
+            if(result == 1){
+                return ResultMsg.success().addContent("content","修改成功");
+            }
+        }
+        return ResultMsg.failed().addContent("content","修改失败");
     }
 
     @Override
@@ -147,6 +212,7 @@ public class UserServiceImpl implements UserService {
             userInfoDataObject.userPkId = user.gettUserPkid();
             userInfoDataObject.name = user.gettUserName();
             userInfoDataObject.icon = user.gettUserIcon();
+            userInfoDataObject.point = user.gettUserPoint();
             userInfoDataObject.level = user.gettUserLevel();
             userInfoDataObject.birthday = user.gettUserBirthday();
             userInfoDataObject.phone = user.gettUserPhone();
@@ -158,7 +224,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultMsg modifyPhone(String phone, String newPhone) {
+    public ResultMsg modifyPhone(Map param) {
         return null;
+    }
+
+    @Override
+    public ResultMsg userSign(Integer userPkId) {
+        User user = userMapper.selectByPrimaryKey(userPkId);
+        user.settUserPoint(user.gettUserPoint()+1);
+        user.settUserPkid(userPkId);
+        user.settUserSign(1);//签到
+        user.settUserUdt(new Date());
+        int result = userMapper.updateByPrimaryKeySelective(user);
+        if(result == 1){
+            return ResultMsg.success().addContent("content","签到成功");
+        }
+        return ResultMsg.failed().addContent("content","签到失败");
     }
 }

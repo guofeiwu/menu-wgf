@@ -32,11 +32,11 @@ public interface StepMapper {
 
     @Insert({
         "insert into t_step (t_step_menu_pkid, t_step_pic_address, ",
-        "t_step_description, t_step_udt, ",
-        "t_step_cdt, t_step_delete)",
+        "t_step_description, t_step_cdt, ",
+        "t_step_udt, t_step_delete)",
         "values (#{tStepMenuPkid,jdbcType=INTEGER}, #{tStepPicAddress,jdbcType=VARCHAR}, ",
-        "#{tStepDescription,jdbcType=VARCHAR}, #{tStepUdt,jdbcType=TIMESTAMP}, ",
-        "#{tStepCdt,jdbcType=TIMESTAMP}, #{tStepDelete,jdbcType=INTEGER})"
+        "#{tStepDescription,jdbcType=VARCHAR}, #{tStepCdt,jdbcType=TIMESTAMP}, ",
+        "#{tStepUdt,jdbcType=TIMESTAMP}, #{tStepDelete,jdbcType=INTEGER})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="tStepPkid", before=false, resultType=Integer.class)
     int insert(Step record);
@@ -51,16 +51,16 @@ public interface StepMapper {
         @Result(column="t_step_menu_pkid", property="tStepMenuPkid", jdbcType=JdbcType.INTEGER),
         @Result(column="t_step_pic_address", property="tStepPicAddress", jdbcType=JdbcType.VARCHAR),
         @Result(column="t_step_description", property="tStepDescription", jdbcType=JdbcType.VARCHAR),
-        @Result(column="t_step_udt", property="tStepUdt", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="t_step_cdt", property="tStepCdt", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="t_step_udt", property="tStepUdt", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="t_step_delete", property="tStepDelete", jdbcType=JdbcType.INTEGER)
     })
     List<Step> selectByExample(StepCriteria example);
 
     @Select({
         "select",
-        "t_step_pkid, t_step_menu_pkid, t_step_pic_address, t_step_description, t_step_udt, ",
-        "t_step_cdt, t_step_delete",
+        "t_step_pkid, t_step_menu_pkid, t_step_pic_address, t_step_description, t_step_cdt, ",
+        "t_step_udt, t_step_delete",
         "from t_step",
         "where t_step_pkid = #{tStepPkid,jdbcType=INTEGER}"
     })
@@ -69,8 +69,8 @@ public interface StepMapper {
         @Result(column="t_step_menu_pkid", property="tStepMenuPkid", jdbcType=JdbcType.INTEGER),
         @Result(column="t_step_pic_address", property="tStepPicAddress", jdbcType=JdbcType.VARCHAR),
         @Result(column="t_step_description", property="tStepDescription", jdbcType=JdbcType.VARCHAR),
-        @Result(column="t_step_udt", property="tStepUdt", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="t_step_cdt", property="tStepCdt", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="t_step_udt", property="tStepUdt", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="t_step_delete", property="tStepDelete", jdbcType=JdbcType.INTEGER)
     })
     Step selectByPrimaryKey(Integer tStepPkid);
@@ -89,8 +89,8 @@ public interface StepMapper {
         "set t_step_menu_pkid = #{tStepMenuPkid,jdbcType=INTEGER},",
           "t_step_pic_address = #{tStepPicAddress,jdbcType=VARCHAR},",
           "t_step_description = #{tStepDescription,jdbcType=VARCHAR},",
-          "t_step_udt = #{tStepUdt,jdbcType=TIMESTAMP},",
           "t_step_cdt = #{tStepCdt,jdbcType=TIMESTAMP},",
+          "t_step_udt = #{tStepUdt,jdbcType=TIMESTAMP},",
           "t_step_delete = #{tStepDelete,jdbcType=INTEGER}",
         "where t_step_pkid = #{tStepPkid,jdbcType=INTEGER}"
     })

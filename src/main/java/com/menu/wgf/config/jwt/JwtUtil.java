@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -85,6 +88,98 @@ public class JwtUtil {
 
     @Value("${jwt.expiresMinute.App}")
     private Long expirationApp;
+
+
+    @Autowired
+    private HttpServletRequest request;
+    @Autowired
+    private HttpServletResponse response;
+
+
+    /**
+     * 获取token中用户的主键
+     * @return
+     */
+    public Integer getLoginPkid() {
+        preHandle();
+
+        Integer intPkid = null;
+
+        Object objPkid = request.getAttribute(Constants.LOGIN_PKID_KEY);
+
+        if (objPkid != null) {
+            intPkid = (Integer) objPkid;
+        }
+
+        return intPkid;
+    }
+
+
+
+    public boolean preHandle() {
+
+        final String headerKey = jwtConfig.getHeaderKey();//Authorization
+        final String tokenType = jwtConfig.getTokenType();//Bearer
+
+        String auth = request.getHeader(headerKey);//获取token
+
+//        //token字符串未设置或者长度不符合要求(Bearer X.X.X)
+//        if ((auth == null) || (auth.length() < tokenType.length() + 6)) {
+//            logger.debug("token字符串未设置或者长度不符合要求(Bearer X.X.X)");
+//            return false;
+//        }
+//
+//        String headStr = auth.substring(0, tokenType.length());
+//        //token类型不符合要求(Bearer)
+//        if (headStr.compareTo(tokenType) != 0) {
+//            logger.debug("token类型不符合要求(Bearer)");
+//            return false;
+//        }
+
+        String token = auth.substring(tokenType.length() + 1, auth.length());
+        Jws<Claims> jws = parseJWT(token);
+        Header header = null;
+        Claims claims = null;
+
+        if (jws != null) {
+            header = jws.getHeader();
+            claims = jws.getBody();
+        }
+
+        //token解析不正确
+        if (claims == null) {
+            //logger.debug("token解析不正确或者已经过期");
+            return false;
+        }
+
+        request.setAttribute(Constants.LOGIN_PKID_KEY, header.get(Constants.LOGIN_PKID_KEY));
+
+        //logger.debug(claims.toString());
+        Map.Entry<String, String> headerEntry = createJWTHeader(header);
+        response.setHeader(headerEntry.getKey(), headerEntry.getValue());
+
+        return true;
+    }
+
+    public Jws<Claims> parseJWT(String token) {
+        try {
+            Jws<Claims> jws = Jwts.parser().setSigningKey(signKeyApp)
+                    .parseClaimsJws(token);
+            return jws;
+        } catch (SignatureException e) {
+            //logger.debug("签名不正确");
+            return null;
+        } catch (ExpiredJwtException e) {
+            //logger.debug("token过期");
+            return null;
+        } catch (Exception e) {
+            //logger.debug(e.toString());
+            return null;
+        }
+    }
+
+
+
     /**
      * 生成token,指定有效期
      *

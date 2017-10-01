@@ -40,12 +40,12 @@ public class StepSqlProvider {
             sql.VALUES("t_step_description", "#{tStepDescription,jdbcType=VARCHAR}");
         }
         
-        if (record.gettStepUdt() != null) {
-            sql.VALUES("t_step_udt", "#{tStepUdt,jdbcType=TIMESTAMP}");
-        }
-        
         if (record.gettStepCdt() != null) {
             sql.VALUES("t_step_cdt", "#{tStepCdt,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.gettStepUdt() != null) {
+            sql.VALUES("t_step_udt", "#{tStepUdt,jdbcType=TIMESTAMP}");
         }
         
         if (record.gettStepDelete() != null) {
@@ -65,8 +65,8 @@ public class StepSqlProvider {
         sql.SELECT("t_step_menu_pkid");
         sql.SELECT("t_step_pic_address");
         sql.SELECT("t_step_description");
-        sql.SELECT("t_step_udt");
         sql.SELECT("t_step_cdt");
+        sql.SELECT("t_step_udt");
         sql.SELECT("t_step_delete");
         sql.FROM("t_step");
         applyWhere(sql, example, false);
@@ -101,12 +101,12 @@ public class StepSqlProvider {
             sql.SET("t_step_description = #{record.tStepDescription,jdbcType=VARCHAR}");
         }
         
-        if (record.gettStepUdt() != null) {
-            sql.SET("t_step_udt = #{record.tStepUdt,jdbcType=TIMESTAMP}");
-        }
-        
         if (record.gettStepCdt() != null) {
             sql.SET("t_step_cdt = #{record.tStepCdt,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.gettStepUdt() != null) {
+            sql.SET("t_step_udt = #{record.tStepUdt,jdbcType=TIMESTAMP}");
         }
         
         if (record.gettStepDelete() != null) {
@@ -125,8 +125,8 @@ public class StepSqlProvider {
         sql.SET("t_step_menu_pkid = #{record.tStepMenuPkid,jdbcType=INTEGER}");
         sql.SET("t_step_pic_address = #{record.tStepPicAddress,jdbcType=VARCHAR}");
         sql.SET("t_step_description = #{record.tStepDescription,jdbcType=VARCHAR}");
-        sql.SET("t_step_udt = #{record.tStepUdt,jdbcType=TIMESTAMP}");
         sql.SET("t_step_cdt = #{record.tStepCdt,jdbcType=TIMESTAMP}");
+        sql.SET("t_step_udt = #{record.tStepUdt,jdbcType=TIMESTAMP}");
         sql.SET("t_step_delete = #{record.tStepDelete,jdbcType=INTEGER}");
         
         StepCriteria example = (StepCriteria) parameter.get("example");
@@ -150,12 +150,12 @@ public class StepSqlProvider {
             sql.SET("t_step_description = #{tStepDescription,jdbcType=VARCHAR}");
         }
         
-        if (record.gettStepUdt() != null) {
-            sql.SET("t_step_udt = #{tStepUdt,jdbcType=TIMESTAMP}");
-        }
-        
         if (record.gettStepCdt() != null) {
             sql.SET("t_step_cdt = #{tStepCdt,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.gettStepUdt() != null) {
+            sql.SET("t_step_udt = #{tStepUdt,jdbcType=TIMESTAMP}");
         }
         
         if (record.gettStepDelete() != null) {

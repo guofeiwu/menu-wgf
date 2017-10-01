@@ -56,7 +56,8 @@ public class ShaiController {
     @ApiResponse(code = 500,message = "服务器相应出错",response = Integer.class)
     public ResultMsg uploadShaiIcon(@PathVariable(value = "userPkId") Integer userPkId,@PathVariable("type") Integer type,
                                 @ApiParam(value = "晒一晒", name = "shaiPicture") @RequestParam("shaiPicture") MultipartFile shaiPicture) {
-        return IOUtils.uploadFile(userPkId,type,shaiPicture);
+        //return IOUtils.uploadFile(userPkId,type,shaiPicture);
+        return null;
     }
 
     @ApiOperation(value ="删除晒一晒",httpMethod = "DELETE")

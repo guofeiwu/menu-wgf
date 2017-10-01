@@ -11,9 +11,9 @@ public class Step {
 
     private String tStepDescription;
 
-    private Date tStepUdt;
-
     private Date tStepCdt;
+
+    private Date tStepUdt;
 
     private Integer tStepDelete;
 
@@ -49,20 +49,20 @@ public class Step {
         this.tStepDescription = tStepDescription == null ? null : tStepDescription.trim();
     }
 
-    public Date gettStepUdt() {
-        return tStepUdt;
-    }
-
-    public void settStepUdt(Date tStepUdt) {
-        this.tStepUdt = tStepUdt;
-    }
-
     public Date gettStepCdt() {
         return tStepCdt;
     }
 
     public void settStepCdt(Date tStepCdt) {
         this.tStepCdt = tStepCdt;
+    }
+
+    public Date gettStepUdt() {
+        return tStepUdt;
+    }
+
+    public void settStepUdt(Date tStepUdt) {
+        this.tStepUdt = tStepUdt;
     }
 
     public Integer gettStepDelete() {

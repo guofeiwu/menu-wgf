@@ -8,7 +8,8 @@ package com.menu.wgf;
 public enum  ErrorCode {
     USER_LOGIN_FAILED(1001, "用户名或密码错误"),
     USER_REGISTER_FAILED(1002,"用户注册失败"),
-    USER_ALREADY_EXIST(1003,"用户已经存在")
+    USER_ALREADY_EXIST(1003,"用户已经存在"),
+    USER_NOT_EXIST(1004,"用户不存在"),
     ;
 
     private final int code;

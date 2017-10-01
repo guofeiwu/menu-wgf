@@ -15,9 +15,9 @@ public class Menu {
 
     private Integer tMenuDelete;
 
-    private Date tMenuUdt;
-
     private Date tMenuCdt;
+
+    private Date tMenuUdt;
 
     public Integer gettMenuPkid() {
         return tMenuPkid;
@@ -67,19 +67,19 @@ public class Menu {
         this.tMenuDelete = tMenuDelete;
     }
 
-    public Date gettMenuUdt() {
-        return tMenuUdt;
-    }
-
-    public void settMenuUdt(Date tMenuUdt) {
-        this.tMenuUdt = tMenuUdt;
-    }
-
     public Date gettMenuCdt() {
         return tMenuCdt;
     }
 
     public void settMenuCdt(Date tMenuCdt) {
         this.tMenuCdt = tMenuCdt;
+    }
+
+    public Date gettMenuUdt() {
+        return tMenuUdt;
+    }
+
+    public void settMenuUdt(Date tMenuUdt) {
+        this.tMenuUdt = tMenuUdt;
     }
 }

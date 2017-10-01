@@ -5,6 +5,17 @@ package com.menu.wgf;
  * @Date 2017/9/25 10:34
  */
 public class Constants {
+
+    /**住宿的**/
+    public static final String BASE_URL = "http://192.168.11.103:8081";
+    public static final String BASE_URL_FILE_MENUS = "http://192.168.11.103:8080/menuFiles/menus";//Tomcat服务器菜单文件地址
+    public static final String BASE_URL_FILE_ICON = "D:/Work/tomcat/apache-tomcat-8.5.5-windows-x64/apache-tomcat-8.5.5/webapps/menuFiles/icon/";//Tomcat服务器用户头像地址
+    /**公司的**/
+//    public static final String BASE_URL = "http://192.168.1.155:8081";
+//    public static final String BASE_URL_FILE_ICON = "http://192.168.1.155:8080/menuFiles/icon/";//Tomcat服务器用户头像地址
+//    public static final String BASE_URL_FILE_MENUS = "http://192.168.1.155:8080/menuFiles/menus";//Tomcat服务器菜单地址
+
+
     public static final int FILE_TYPE_SHAI = 0;
     public static final int FILE_TYPE_ICON = 1;
     public static final int FILE_TYPE_MENU = 2;

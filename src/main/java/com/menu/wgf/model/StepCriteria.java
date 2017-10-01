@@ -365,66 +365,6 @@ public class StepCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andTStepUdtIsNull() {
-            addCriterion("t_step_udt is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTStepUdtIsNotNull() {
-            addCriterion("t_step_udt is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTStepUdtEqualTo(Date value) {
-            addCriterion("t_step_udt =", value, "tStepUdt");
-            return (Criteria) this;
-        }
-
-        public Criteria andTStepUdtNotEqualTo(Date value) {
-            addCriterion("t_step_udt <>", value, "tStepUdt");
-            return (Criteria) this;
-        }
-
-        public Criteria andTStepUdtGreaterThan(Date value) {
-            addCriterion("t_step_udt >", value, "tStepUdt");
-            return (Criteria) this;
-        }
-
-        public Criteria andTStepUdtGreaterThanOrEqualTo(Date value) {
-            addCriterion("t_step_udt >=", value, "tStepUdt");
-            return (Criteria) this;
-        }
-
-        public Criteria andTStepUdtLessThan(Date value) {
-            addCriterion("t_step_udt <", value, "tStepUdt");
-            return (Criteria) this;
-        }
-
-        public Criteria andTStepUdtLessThanOrEqualTo(Date value) {
-            addCriterion("t_step_udt <=", value, "tStepUdt");
-            return (Criteria) this;
-        }
-
-        public Criteria andTStepUdtIn(List<Date> values) {
-            addCriterion("t_step_udt in", values, "tStepUdt");
-            return (Criteria) this;
-        }
-
-        public Criteria andTStepUdtNotIn(List<Date> values) {
-            addCriterion("t_step_udt not in", values, "tStepUdt");
-            return (Criteria) this;
-        }
-
-        public Criteria andTStepUdtBetween(Date value1, Date value2) {
-            addCriterion("t_step_udt between", value1, value2, "tStepUdt");
-            return (Criteria) this;
-        }
-
-        public Criteria andTStepUdtNotBetween(Date value1, Date value2) {
-            addCriterion("t_step_udt not between", value1, value2, "tStepUdt");
-            return (Criteria) this;
-        }
-
         public Criteria andTStepCdtIsNull() {
             addCriterion("t_step_cdt is null");
             return (Criteria) this;
@@ -482,6 +422,66 @@ public class StepCriteria {
 
         public Criteria andTStepCdtNotBetween(Date value1, Date value2) {
             addCriterion("t_step_cdt not between", value1, value2, "tStepCdt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTStepUdtIsNull() {
+            addCriterion("t_step_udt is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTStepUdtIsNotNull() {
+            addCriterion("t_step_udt is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTStepUdtEqualTo(Date value) {
+            addCriterion("t_step_udt =", value, "tStepUdt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTStepUdtNotEqualTo(Date value) {
+            addCriterion("t_step_udt <>", value, "tStepUdt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTStepUdtGreaterThan(Date value) {
+            addCriterion("t_step_udt >", value, "tStepUdt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTStepUdtGreaterThanOrEqualTo(Date value) {
+            addCriterion("t_step_udt >=", value, "tStepUdt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTStepUdtLessThan(Date value) {
+            addCriterion("t_step_udt <", value, "tStepUdt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTStepUdtLessThanOrEqualTo(Date value) {
+            addCriterion("t_step_udt <=", value, "tStepUdt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTStepUdtIn(List<Date> values) {
+            addCriterion("t_step_udt in", values, "tStepUdt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTStepUdtNotIn(List<Date> values) {
+            addCriterion("t_step_udt not in", values, "tStepUdt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTStepUdtBetween(Date value1, Date value2) {
+            addCriterion("t_step_udt between", value1, value2, "tStepUdt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTStepUdtNotBetween(Date value1, Date value2) {
+            addCriterion("t_step_udt not between", value1, value2, "tStepUdt");
             return (Criteria) this;
         }
 

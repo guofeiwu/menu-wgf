@@ -48,12 +48,12 @@ public class MenuSqlProvider {
             sql.VALUES("t_menu_delete", "#{tMenuDelete,jdbcType=INTEGER}");
         }
         
-        if (record.gettMenuUdt() != null) {
-            sql.VALUES("t_menu_udt", "#{tMenuUdt,jdbcType=TIMESTAMP}");
-        }
-        
         if (record.gettMenuCdt() != null) {
             sql.VALUES("t_menu_cdt", "#{tMenuCdt,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.gettMenuUdt() != null) {
+            sql.VALUES("t_menu_udt", "#{tMenuUdt,jdbcType=TIMESTAMP}");
         }
         
         return sql.toString();
@@ -71,8 +71,8 @@ public class MenuSqlProvider {
         sql.SELECT("t_menu_user_pkid");
         sql.SELECT("t_menu_type");
         sql.SELECT("t_menu_delete");
-        sql.SELECT("t_menu_udt");
         sql.SELECT("t_menu_cdt");
+        sql.SELECT("t_menu_udt");
         sql.FROM("t_menu");
         applyWhere(sql, example, false);
         
@@ -114,12 +114,12 @@ public class MenuSqlProvider {
             sql.SET("t_menu_delete = #{record.tMenuDelete,jdbcType=INTEGER}");
         }
         
-        if (record.gettMenuUdt() != null) {
-            sql.SET("t_menu_udt = #{record.tMenuUdt,jdbcType=TIMESTAMP}");
-        }
-        
         if (record.gettMenuCdt() != null) {
             sql.SET("t_menu_cdt = #{record.tMenuCdt,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.gettMenuUdt() != null) {
+            sql.SET("t_menu_udt = #{record.tMenuUdt,jdbcType=TIMESTAMP}");
         }
         
         applyWhere(sql, example, true);
@@ -136,8 +136,8 @@ public class MenuSqlProvider {
         sql.SET("t_menu_user_pkid = #{record.tMenuUserPkid,jdbcType=INTEGER}");
         sql.SET("t_menu_type = #{record.tMenuType,jdbcType=INTEGER}");
         sql.SET("t_menu_delete = #{record.tMenuDelete,jdbcType=INTEGER}");
-        sql.SET("t_menu_udt = #{record.tMenuUdt,jdbcType=TIMESTAMP}");
         sql.SET("t_menu_cdt = #{record.tMenuCdt,jdbcType=TIMESTAMP}");
+        sql.SET("t_menu_udt = #{record.tMenuUdt,jdbcType=TIMESTAMP}");
         
         MenuCriteria example = (MenuCriteria) parameter.get("example");
         applyWhere(sql, example, true);
@@ -168,12 +168,12 @@ public class MenuSqlProvider {
             sql.SET("t_menu_delete = #{tMenuDelete,jdbcType=INTEGER}");
         }
         
-        if (record.gettMenuUdt() != null) {
-            sql.SET("t_menu_udt = #{tMenuUdt,jdbcType=TIMESTAMP}");
-        }
-        
         if (record.gettMenuCdt() != null) {
             sql.SET("t_menu_cdt = #{tMenuCdt,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.gettMenuUdt() != null) {
+            sql.SET("t_menu_udt = #{tMenuUdt,jdbcType=TIMESTAMP}");
         }
         
         sql.WHERE("t_menu_pkid = #{tMenuPkid,jdbcType=INTEGER}");

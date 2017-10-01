@@ -2,10 +2,10 @@ package com.menu.wgf.service;
 
 import com.menu.wgf.dto.UserInfoDataObject;
 import com.menu.wgf.model.ResultMsg;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  * @Author guofei_wu
@@ -16,11 +16,18 @@ public interface UserService {
 
     /**
      * 用户登录
-     * @param phone 手机号
-     * @param password 密码
+     * @param param
      * @return
      */
-    ResultMsg login(String phone,String password);
+    ResultMsg login(Map param);
+
+
+    /**
+     * 短信快捷登录
+     * @param phone
+     * @return
+     */
+    ResultMsg smsLogin(String phone);
 
     /**
      * 退出登录
@@ -31,29 +38,27 @@ public interface UserService {
 
     /**
      * 用户注册
-     * @param phone 手机号
-     * @param password 密码
+     * @param param
      * @return
      */
-    ResultMsg register(String phone,String password);
+    ResultMsg register(Map param);
 
 
     /**
      * 修改(忘记)密码
-     * @param phone
-     * @param password
+     * @param param
      * @return
      */
-    ResultMsg modifyPassword(String phone,String password);
-
+    ResultMsg modifyPassword(Map param);
 
 
     /**
      * 修改用户信息
+     * @param userPkId
      * @param userInfoDataObject
      * @return
      */
-    ResultMsg modifyUserInfo(UserInfoDataObject userInfoDataObject);
+    ResultMsg modifyUserInfo(Integer userPkId ,UserInfoDataObject userInfoDataObject);
 
     /**
      * 下载用户头像
@@ -62,7 +67,7 @@ public interface UserService {
      * @param pictureName
      * @return
      */
-    ResultMsg downloadUserIcon(HttpServletResponse response,int userPkId,String pictureName);
+    ResultMsg downloadUserIcon(HttpServletResponse response, int userPkId, String pictureName);
 
 
     /**
@@ -71,7 +76,7 @@ public interface UserService {
      * @param icon
      * @return
      */
-    ResultMsg uploadUserIcon(Integer userPkId,MultipartFile icon);
+    ResultMsg uploadUserIcon(Integer userPkId, Integer type,MultipartFile icon);
 
     /**
      * 获取用户信息
@@ -83,10 +88,17 @@ public interface UserService {
 
     /**
      * 修改手机号码
-     * @param phone
-     * @param newPhone
+     * @param param
      * @return
      */
-    ResultMsg modifyPhone(String phone,String newPhone);
+    ResultMsg modifyPhone(Map param);
+
+
+    /**
+     * 用户签到
+     * @param userPkId
+     * @return
+     */
+    ResultMsg userSign(Integer userPkId);
 
 }
