@@ -295,6 +295,76 @@ public class ShaiCriteria {
             return (Criteria) this;
         }
 
+        public Criteria andTShaiDescIsNull() {
+            addCriterion("t_shai_desc is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiDescIsNotNull() {
+            addCriterion("t_shai_desc is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiDescEqualTo(String value) {
+            addCriterion("t_shai_desc =", value, "tShaiDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiDescNotEqualTo(String value) {
+            addCriterion("t_shai_desc <>", value, "tShaiDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiDescGreaterThan(String value) {
+            addCriterion("t_shai_desc >", value, "tShaiDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiDescGreaterThanOrEqualTo(String value) {
+            addCriterion("t_shai_desc >=", value, "tShaiDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiDescLessThan(String value) {
+            addCriterion("t_shai_desc <", value, "tShaiDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiDescLessThanOrEqualTo(String value) {
+            addCriterion("t_shai_desc <=", value, "tShaiDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiDescLike(String value) {
+            addCriterion("t_shai_desc like", value, "tShaiDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiDescNotLike(String value) {
+            addCriterion("t_shai_desc not like", value, "tShaiDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiDescIn(List<String> values) {
+            addCriterion("t_shai_desc in", values, "tShaiDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiDescNotIn(List<String> values) {
+            addCriterion("t_shai_desc not in", values, "tShaiDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiDescBetween(String value1, String value2) {
+            addCriterion("t_shai_desc between", value1, value2, "tShaiDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiDescNotBetween(String value1, String value2) {
+            addCriterion("t_shai_desc not between", value1, value2, "tShaiDesc");
+            return (Criteria) this;
+        }
+
         public Criteria andTShaiCdtIsNull() {
             addCriterion("t_shai_cdt is null");
             return (Criteria) this;

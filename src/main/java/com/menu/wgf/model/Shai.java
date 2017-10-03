@@ -9,6 +9,8 @@ public class Shai {
 
     private String tShaiPictureAddress;
 
+    private String tShaiDesc;
+
     private Date tShaiCdt;
 
     private Date tShaiUdt;
@@ -37,6 +39,14 @@ public class Shai {
 
     public void settShaiPictureAddress(String tShaiPictureAddress) {
         this.tShaiPictureAddress = tShaiPictureAddress == null ? null : tShaiPictureAddress.trim();
+    }
+
+    public String gettShaiDesc() {
+        return tShaiDesc;
+    }
+
+    public void settShaiDesc(String tShaiDesc) {
+        this.tShaiDesc = tShaiDesc == null ? null : tShaiDesc.trim();
     }
 
     public Date gettShaiCdt() {

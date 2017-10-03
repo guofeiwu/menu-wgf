@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.menu.wgf.query.ShaiQuery">
+    <select id="getAllShaiList" resultType="java.util.LinkedHashMap">
+     SELECT s.t_shai_picture_address address ,s.t_shai_cdt cTime, u.t_user_icon icon,u.t_user_name userName,s.t_shai_desc descr
+     FROM t_shai s  LEFT JOIN t_user u
+     ON s.t_shai_user_pkid = u.t_user_pkid
+  </select>
+</mapper>

@@ -7,7 +7,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-@MapperScan(basePackages = {"com.menu.wgf.mapper"})
+@MapperScan(basePackages = {"com.menu.wgf.mapper","com.menu.wgf.query"})
 public class MenuApplication extends SpringBootServletInitializer {
 
 	@Override

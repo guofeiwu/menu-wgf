@@ -32,11 +32,11 @@ public interface ShaiMapper {
 
     @Insert({
         "insert into t_shai (t_shai_user_pkid, t_shai_picture_address, ",
-        "t_shai_cdt, t_shai_udt, ",
-        "t_shai_delete)",
+        "t_shai_desc, t_shai_cdt, ",
+        "t_shai_udt, t_shai_delete)",
         "values (#{tShaiUserPkid,jdbcType=INTEGER}, #{tShaiPictureAddress,jdbcType=VARCHAR}, ",
-        "#{tShaiCdt,jdbcType=TIMESTAMP}, #{tShaiUdt,jdbcType=TIMESTAMP}, ",
-        "#{tShaiDelete,jdbcType=INTEGER})"
+        "#{tShaiDesc,jdbcType=VARCHAR}, #{tShaiCdt,jdbcType=TIMESTAMP}, ",
+        "#{tShaiUdt,jdbcType=TIMESTAMP}, #{tShaiDelete,jdbcType=INTEGER})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="tShaiPkid", before=false, resultType=Integer.class)
     int insert(Shai record);
@@ -50,6 +50,7 @@ public interface ShaiMapper {
         @Result(column="t_shai_Pkid", property="tShaiPkid", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="t_shai_user_pkid", property="tShaiUserPkid", jdbcType=JdbcType.INTEGER),
         @Result(column="t_shai_picture_address", property="tShaiPictureAddress", jdbcType=JdbcType.VARCHAR),
+        @Result(column="t_shai_desc", property="tShaiDesc", jdbcType=JdbcType.VARCHAR),
         @Result(column="t_shai_cdt", property="tShaiCdt", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="t_shai_udt", property="tShaiUdt", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="t_shai_delete", property="tShaiDelete", jdbcType=JdbcType.INTEGER)
@@ -58,8 +59,8 @@ public interface ShaiMapper {
 
     @Select({
         "select",
-        "t_shai_Pkid, t_shai_user_pkid, t_shai_picture_address, t_shai_cdt, t_shai_udt, ",
-        "t_shai_delete",
+        "t_shai_Pkid, t_shai_user_pkid, t_shai_picture_address, t_shai_desc, t_shai_cdt, ",
+        "t_shai_udt, t_shai_delete",
         "from t_shai",
         "where t_shai_Pkid = #{tShaiPkid,jdbcType=INTEGER}"
     })
@@ -67,6 +68,7 @@ public interface ShaiMapper {
         @Result(column="t_shai_Pkid", property="tShaiPkid", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="t_shai_user_pkid", property="tShaiUserPkid", jdbcType=JdbcType.INTEGER),
         @Result(column="t_shai_picture_address", property="tShaiPictureAddress", jdbcType=JdbcType.VARCHAR),
+        @Result(column="t_shai_desc", property="tShaiDesc", jdbcType=JdbcType.VARCHAR),
         @Result(column="t_shai_cdt", property="tShaiCdt", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="t_shai_udt", property="tShaiUdt", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="t_shai_delete", property="tShaiDelete", jdbcType=JdbcType.INTEGER)
@@ -86,6 +88,7 @@ public interface ShaiMapper {
         "update t_shai",
         "set t_shai_user_pkid = #{tShaiUserPkid,jdbcType=INTEGER},",
           "t_shai_picture_address = #{tShaiPictureAddress,jdbcType=VARCHAR},",
+          "t_shai_desc = #{tShaiDesc,jdbcType=VARCHAR},",
           "t_shai_cdt = #{tShaiCdt,jdbcType=TIMESTAMP},",
           "t_shai_udt = #{tShaiUdt,jdbcType=TIMESTAMP},",
           "t_shai_delete = #{tShaiDelete,jdbcType=INTEGER}",

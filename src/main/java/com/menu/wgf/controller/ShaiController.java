@@ -2,8 +2,10 @@ package com.menu.wgf.controller;
 
 import com.menu.wgf.dto.CommentDataObject;
 import com.menu.wgf.model.ResultMsg;
+import com.menu.wgf.service.ShaiService;
 import com.menu.wgf.util.IOUtils;
 import io.swagger.annotations.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,6 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/app/shai")
 public class ShaiController {
+
+
+    @Autowired
+    private ShaiService shaiService;
 
     @ApiOperation(value ="评论晒一晒",httpMethod = "POST")
     @PostMapping(value = "/comment")
@@ -83,16 +89,15 @@ public class ShaiController {
     }
 
 
-    @ApiOperation(value ="获取所有的晒一晒",httpMethod = "GET")
-    @GetMapping(value = "")
+    @ApiOperation(value ="获取所有的晒一晒",httpMethod = "GET",notes = "分页显示数据")
+    @GetMapping(value = "/all/{pageNO}")
     @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "userPkId",value = "用户主键",paramType = "path",dataType = "int",required = true),
-//    })
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNO",value = "第几页",paramType = "path",dataType = "int",required = true),
+    })
     // TODO: 2017/9/25 使用pageHelper
-    public ResultMsg getShaiList() {
-
-        return ResultMsg.success();
+    public ResultMsg getShaiList(@PathVariable int pageNO) {
+        return shaiService.getShaiList(pageNO);
     }
 
 

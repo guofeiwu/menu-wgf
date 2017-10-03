@@ -59,7 +59,8 @@ public interface ShaiService {
 
     /**
      * 获取所有的晒一晒，分页
+     * @param pageNo 第几页
      * @return
      */
-    ResultMsg getShaiList();
+    ResultMsg getShaiList(int pageNo);
 }
