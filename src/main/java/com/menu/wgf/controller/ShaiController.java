@@ -44,14 +44,14 @@ public class ShaiController {
     }
 
     @ApiOperation(value ="获取晒一晒对应的评论",httpMethod = "GET")
-    @GetMapping(value = "/comment/{shaiPkId}")
+    @GetMapping(value = "/comment/{shaiPkId}/{pageNo}")
     @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
     @ApiImplicitParams({
             @ApiImplicitParam(name = "shaiPkId",value = "晒晒主键",paramType = "path",dataType = "int",required = true),
+            @ApiImplicitParam(name = "pageNo",value = "获取第几页",paramType = "path",dataType = "int",required = true)
     })
-    public ResultMsg getCommentsShai(@PathVariable("shaiPkId")int shaiPkId) {
-        System.out.println("shaiPkId:" + shaiPkId);
-        return ResultMsg.success();
+    public ResultMsg getCommentsShai(@PathVariable("shaiPkId")int shaiPkId,@PathVariable("pageNo")int pageNo) {
+        return shaiService.getCommentShaiList(shaiPkId,pageNo);
     }
 
 

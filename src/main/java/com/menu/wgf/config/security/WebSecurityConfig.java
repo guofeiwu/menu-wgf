@@ -62,7 +62,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger*/**",
                         "/webjars/**",
                         "/v2/api-docs",
-                        "/app/shai/all/*"
+                        "/app/shai/all/*",
+                        "/app/shai/comment/*/*"
                 ).permitAll()
                 .antMatchers(
                         HttpMethod.POST,

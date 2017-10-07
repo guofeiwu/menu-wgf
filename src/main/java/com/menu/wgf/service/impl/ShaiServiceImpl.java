@@ -8,6 +8,7 @@ import com.menu.wgf.dto.ShaiDataObject;
 import com.menu.wgf.mapper.CommentMapper;
 import com.menu.wgf.mapper.LikeMapper;
 import com.menu.wgf.mapper.ShaiMapper;
+import com.menu.wgf.mapper.UserMapper;
 import com.menu.wgf.model.*;
 import com.menu.wgf.query.ShaiQuery;
 import com.menu.wgf.service.ShaiService;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -37,6 +39,9 @@ public class ShaiServiceImpl implements ShaiService {
 
     @Autowired
     private CommentMapper commentMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public ResultMsg likeShai(int userPkId, int shaiPkId) {
@@ -97,8 +102,37 @@ public class ShaiServiceImpl implements ShaiService {
     }
 
     @Override
-    public ResultMsg getCommentShaiList(int shaiPkId) {
-        return null;
+    public ResultMsg getCommentShaiList(int shaiPkId,int pageNo) {
+        CommentCriteria commentCriteria = new CommentCriteria();
+        commentCriteria.createCriteria()
+                .andTCommentDeleteEqualTo(0)
+                .andTCommentShaiPkidEqualTo(shaiPkId);
+
+        PageHelper.startPage(pageNo,6);
+        List<Comment> comments = commentMapper.selectByExample(commentCriteria);
+        List<CommentDataObject> commentDataObjects;
+        if(comments.size()>0){
+            commentDataObjects = new ArrayList<>();
+            for (Comment comment:comments){
+                int userPkId = comment.gettCommentUserPkid();
+                User user = userMapper.selectByPrimaryKey(userPkId);
+                String userIconUrl =user.gettUserIcon();
+                String username = user.gettUserName();
+                CommentDataObject commentDataObject = new CommentDataObject();
+
+                commentDataObject.userIconUrl = userIconUrl;
+                commentDataObject.username = username;
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                commentDataObject.commentTime = sdf.format(comment.gettCommentCdt());
+                commentDataObject.content = comment.gettCommentContent();
+                commentDataObjects.add(commentDataObject);
+            }
+            return ResultMsg.success().addContent("content",commentDataObjects);
+        }else if(comments.size() == 0){
+            return ResultMsg.failed().addContent("content","此晒一晒暂无评论");
+        }
+        return ResultMsg.failed().addContent("content","获取评论失败");
     }
 
     @Override
