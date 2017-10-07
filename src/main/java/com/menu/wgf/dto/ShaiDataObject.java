@@ -18,6 +18,8 @@ public class ShaiDataObject {
     public String cTime;
     @ApiModelProperty(value = "用户头像地址",position = 2,required = true)
     public String icon;
+    @ApiModelProperty(value = "用户名",position = 2,required = true)
+    public String userName;
     @ApiModelProperty(value = "晒晒描述",position = 2,required = true)
     public String descr;
     @ApiModelProperty(value = "晒晒被点赞次数",position = 2,required = false)

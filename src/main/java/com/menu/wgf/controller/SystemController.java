@@ -1,6 +1,6 @@
 package com.menu.wgf.controller;
 
-import com.menu.wgf.dto.FeedbackDateObject;
+import com.menu.wgf.dto.FeedbackDataObject;
 import com.menu.wgf.model.ResultMsg;
 import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ public class SystemController {
     @ApiOperation(value ="意见反馈",httpMethod = "POST")
     @PostMapping(value = "/feedback")
     @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
-    public ResultMsg saveFeedback(@ApiParam(value = "意见反馈对象", name = "feedbackDateObject") @RequestBody FeedbackDateObject feedbackDateObject){
+    public ResultMsg saveFeedback(@ApiParam(value = "意见反馈对象", name = "feedbackDateObject") @RequestBody FeedbackDataObject feedbackDateObject){
         return ResultMsg.success();
     }
 

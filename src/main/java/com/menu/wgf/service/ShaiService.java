@@ -1,5 +1,6 @@
 package com.menu.wgf.service;
 
+import com.menu.wgf.dto.CommentDataObject;
 import com.menu.wgf.model.ResultMsg;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,14 +10,39 @@ import org.springframework.web.multipart.MultipartFile;
  * @Date 2017/9/25 12:07
  */
 public interface ShaiService {
+
+    /**
+     * 获取用户的点赞的晒一晒
+     * @param userPkId
+     * @return
+     */
+    ResultMsg getLikeShai(int userPkId);
+
+    /**
+     * 用户点赞晒一晒
+     * @param userPkId
+     * @param shaiPkId
+     * @return
+     */
+    ResultMsg likeShai(int userPkId,int shaiPkId);
+
+
+    /**
+     * 用户取消赞 晒晒
+     * @param likePkId
+     * @return
+     */
+    ResultMsg disLikeShai(int likePkId);
+
+
+
     /**
      * 评论晒一晒
      * @param userPkId
-     * @param shaiPkId
-     * @param commentContent
+     * @param commentDataObject
      * @return
      */
-    ResultMsg commentShai(int userPkId,int shaiPkId,String commentContent);
+    ResultMsg commentShai(int userPkId,CommentDataObject commentDataObject);
 
     /**
      * 删除晒一晒评论
