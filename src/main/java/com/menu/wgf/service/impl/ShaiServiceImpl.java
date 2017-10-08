@@ -100,7 +100,15 @@ public class ShaiServiceImpl implements ShaiService {
 
     @Override
     public ResultMsg deleteCommentShai(int commentPkId) {
-        return null;
+        Comment comment = new Comment();
+        comment.settCommentPkid(commentPkId);
+        comment.settCommentDelete(-1);
+        comment.settCommentUdt(new Date());
+        int result = commentMapper.updateByPrimaryKeySelective(comment);
+        if(result == 1){
+            return ResultMsg.success().addContent("content","删除成功");
+        }
+        return ResultMsg.failed().addContent("content","删除失败");
     }
 
     @Override
@@ -130,7 +138,7 @@ public class ShaiServiceImpl implements ShaiService {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 commentDataObject.commentTime = sdf.format(comment.gettCommentCdt());
                 commentDataObject.content = comment.gettCommentContent();
-
+                commentDataObject.commentPkId = comment.gettCommentPkid();
                 Integer currentUserPkId = null;
                 try{
                     currentUserPkId = jwtUtil.getLoginPkid();

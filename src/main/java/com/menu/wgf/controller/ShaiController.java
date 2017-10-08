@@ -39,8 +39,7 @@ public class ShaiController {
             @ApiImplicitParam(name = "commentPkId",value = "评论主键",paramType = "path",dataType = "int",required = true),
     })
     public ResultMsg deleteCommentShai(@PathVariable("commentPkId") int commentPkId){
-        System.out.println("commentPkId:"+commentPkId);
-        return ResultMsg.success();
+        return shaiService.deleteCommentShai(commentPkId);
     }
 
     @ApiOperation(value ="获取晒一晒对应的评论",httpMethod = "GET")

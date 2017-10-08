@@ -20,5 +20,7 @@ public class CommentDataObject {
     public String username;
     @ApiModelProperty(value = "是否是当前用户",position = 2,required = false,notes = "0表示是当前用户，-1表示不是当前用户")
     public int currentUser;
+    @ApiModelProperty(value = "评论主键",position = 2,required = false)
+    public int commentPkId;
 
 }
