@@ -13,4 +13,5 @@ import java.util.Map;
 @Component
 public interface ShaiQuery {
     List<Map> getAllShaiList();
+    Map getShaiDetail(int shaiPkId);
 }

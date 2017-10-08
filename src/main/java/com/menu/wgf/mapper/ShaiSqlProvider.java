@@ -40,6 +40,10 @@ public class ShaiSqlProvider {
             sql.VALUES("t_shai_desc", "#{tShaiDesc,jdbcType=VARCHAR}");
         }
         
+        if (record.gettShaiLook() != null) {
+            sql.VALUES("t_shai_look", "#{tShaiLook,jdbcType=INTEGER}");
+        }
+        
         if (record.gettShaiCdt() != null) {
             sql.VALUES("t_shai_cdt", "#{tShaiCdt,jdbcType=TIMESTAMP}");
         }
@@ -65,6 +69,7 @@ public class ShaiSqlProvider {
         sql.SELECT("t_shai_user_pkid");
         sql.SELECT("t_shai_picture_address");
         sql.SELECT("t_shai_desc");
+        sql.SELECT("t_shai_look");
         sql.SELECT("t_shai_cdt");
         sql.SELECT("t_shai_udt");
         sql.SELECT("t_shai_delete");
@@ -101,6 +106,10 @@ public class ShaiSqlProvider {
             sql.SET("t_shai_desc = #{record.tShaiDesc,jdbcType=VARCHAR}");
         }
         
+        if (record.gettShaiLook() != null) {
+            sql.SET("t_shai_look = #{record.tShaiLook,jdbcType=INTEGER}");
+        }
+        
         if (record.gettShaiCdt() != null) {
             sql.SET("t_shai_cdt = #{record.tShaiCdt,jdbcType=TIMESTAMP}");
         }
@@ -125,6 +134,7 @@ public class ShaiSqlProvider {
         sql.SET("t_shai_user_pkid = #{record.tShaiUserPkid,jdbcType=INTEGER}");
         sql.SET("t_shai_picture_address = #{record.tShaiPictureAddress,jdbcType=VARCHAR}");
         sql.SET("t_shai_desc = #{record.tShaiDesc,jdbcType=VARCHAR}");
+        sql.SET("t_shai_look = #{record.tShaiLook,jdbcType=INTEGER}");
         sql.SET("t_shai_cdt = #{record.tShaiCdt,jdbcType=TIMESTAMP}");
         sql.SET("t_shai_udt = #{record.tShaiUdt,jdbcType=TIMESTAMP}");
         sql.SET("t_shai_delete = #{record.tShaiDelete,jdbcType=INTEGER}");
@@ -148,6 +158,10 @@ public class ShaiSqlProvider {
         
         if (record.gettShaiDesc() != null) {
             sql.SET("t_shai_desc = #{tShaiDesc,jdbcType=VARCHAR}");
+        }
+        
+        if (record.gettShaiLook() != null) {
+            sql.SET("t_shai_look = #{tShaiLook,jdbcType=INTEGER}");
         }
         
         if (record.gettShaiCdt() != null) {

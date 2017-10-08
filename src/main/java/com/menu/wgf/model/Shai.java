@@ -11,6 +11,8 @@ public class Shai {
 
     private String tShaiDesc;
 
+    private Integer tShaiLook;
+
     private Date tShaiCdt;
 
     private Date tShaiUdt;
@@ -47,6 +49,14 @@ public class Shai {
 
     public void settShaiDesc(String tShaiDesc) {
         this.tShaiDesc = tShaiDesc == null ? null : tShaiDesc.trim();
+    }
+
+    public Integer gettShaiLook() {
+        return tShaiLook;
+    }
+
+    public void settShaiLook(Integer tShaiLook) {
+        this.tShaiLook = tShaiLook;
     }
 
     public Date gettShaiCdt() {

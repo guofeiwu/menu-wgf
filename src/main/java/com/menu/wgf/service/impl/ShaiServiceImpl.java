@@ -1,8 +1,10 @@
 package com.menu.wgf.service.impl;
 
 import ch.qos.logback.core.pattern.util.RegularEscapeUtil;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.menu.wgf.config.jwt.JwtUtil;
 import com.menu.wgf.dto.CommentDataObject;
 import com.menu.wgf.dto.ShaiDataObject;
 import com.menu.wgf.mapper.CommentMapper;
@@ -108,7 +110,9 @@ public class ShaiServiceImpl implements ShaiService {
                 .andTCommentDeleteEqualTo(0)
                 .andTCommentShaiPkidEqualTo(shaiPkId);
 
+
         PageHelper.startPage(pageNo,6);
+        PageHelper.orderBy("t_comment_cdt desc");
         List<Comment> comments = commentMapper.selectByExample(commentCriteria);
         List<CommentDataObject> commentDataObjects;
         if(comments.size()>0){
@@ -128,6 +132,9 @@ public class ShaiServiceImpl implements ShaiService {
                 commentDataObject.content = comment.gettCommentContent();
                 commentDataObjects.add(commentDataObject);
             }
+
+
+
             return ResultMsg.success().addContent("content",commentDataObjects);
         }else if(comments.size() == 0){
             return ResultMsg.failed().addContent("content","此晒一晒暂无评论");
@@ -167,6 +174,8 @@ public class ShaiServiceImpl implements ShaiService {
         return ResultMsg.failed().addContent("content","用户暂无点赞");
     }
 
+
+
     @Override
     public ResultMsg getShaiList(int pageNo) {
 
@@ -175,6 +184,7 @@ public class ShaiServiceImpl implements ShaiService {
         List<Map> maps = shaiQuery.getAllShaiList();
         List<ShaiDataObject> shais = new ArrayList<>();
         //PageInfo<Shai> pageInfo = new PageInfo<>(shais);
+
         if(maps.size()>0){
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             for(Map map:maps){
@@ -187,7 +197,10 @@ public class ShaiServiceImpl implements ShaiService {
                 shaiDataObject.descr = (String) map.get("descr");
                 String date = sdf.format(map.get("cTime"));
                 shaiDataObject.cTime = date;
+                shaiDataObject.lookTotal = (int) map.get("look");
 
+
+                //点赞总数
                 LikeCriteria criteria = new LikeCriteria();
                 criteria.createCriteria()
                         .andTLikeDeleteEqualTo(0)
@@ -195,10 +208,93 @@ public class ShaiServiceImpl implements ShaiService {
                 int count = (int) likeMapper.countByExample(criteria);
 
                 shaiDataObject.shaiLike = count;
+
+                //评论总数
+                CommentCriteria commentCriteria = new CommentCriteria();
+                commentCriteria.createCriteria()
+                        .andTCommentDeleteEqualTo(0)
+                        .andTCommentShaiPkidEqualTo(pkid);
+                int commentTotal = (int) commentMapper.countByExample(commentCriteria);
+                shaiDataObject.commentTotal = commentTotal;
+
                 shais.add(shaiDataObject);
             }
             return ResultMsg.success().addContent("content",shais);
         }
         return ResultMsg.failed().addContent("content","获取失败");
+    }
+
+    @Override
+    public ResultMsg getShaiDetail(JwtUtil jwtUtil, int shaiPkId) {
+        Map map = shaiQuery.getShaiDetail(shaiPkId);
+        if(map == null){
+            return ResultMsg.failed().addContent("content","获取详情失败");
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        ShaiDataObject shaiDataObject = new ShaiDataObject();
+        int pkid = (int) map.get("pkid");
+        shaiDataObject.pkid = pkid;
+        shaiDataObject.address = (String) map.get("address");
+        shaiDataObject.userName = (String) map.get("userName");
+        shaiDataObject.icon = (String) map.get("icon");
+        shaiDataObject.descr = (String) map.get("descr");
+        String date = sdf.format(map.get("cTime"));
+        shaiDataObject.cTime = date;
+        shaiDataObject.lookTotal = (int) map.get("look");
+
+        //点赞总数
+        LikeCriteria criteria = new LikeCriteria();
+        criteria.createCriteria()
+                .andTLikeDeleteEqualTo(0)
+                .andTLikeShaiPkidEqualTo(pkid);
+        int count = (int) likeMapper.countByExample(criteria);
+
+        shaiDataObject.shaiLike = count;
+
+        //评论总数
+        CommentCriteria commentCriteria = new CommentCriteria();
+        commentCriteria.createCriteria()
+                .andTCommentDeleteEqualTo(0)
+                .andTCommentShaiPkidEqualTo(pkid);
+        int commentTotal = (int) commentMapper.countByExample(commentCriteria);
+        shaiDataObject.commentTotal = commentTotal;
+        Integer userPkId = null;
+        try{
+            userPkId = jwtUtil.getLoginPkid();
+        }catch (Exception e){
+            //e.printStackTrace();
+            userPkId = null;
+        }
+
+
+        if(userPkId!=null){
+            ShaiCriteria criteria1 = new ShaiCriteria();
+            criteria1.createCriteria()
+                    .andTShaiPkidEqualTo(shaiPkId)
+                    .andTShaiUserPkidEqualTo(userPkId);
+            List<Shai> shais = shaiMapper.selectByExample(criteria1);
+            if(shais.size()>0){
+                shaiDataObject.currentUser = 0;
+            }
+        }else{
+            shaiDataObject.currentUser = -1;
+        }
+        return ResultMsg.success().addContent("content",shaiDataObject);
+    }
+
+
+    @Override
+    public ResultMsg updateShaiLook(int lookTotal,int shaiPkId) {
+        Shai shai = new Shai();
+        Date date = new Date();
+        shai.settShaiUdt(date);
+        shai.settShaiPkid(shaiPkId);
+        shai.settShaiLook(lookTotal);
+        int reslut = shaiMapper.updateByPrimaryKeySelective(shai);
+        if(reslut == 1){
+            return ResultMsg.success().addContent("content","更新成功");
+        }
+        return ResultMsg.failed().addContent("content","更新失败");
     }
 }

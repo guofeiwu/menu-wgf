@@ -365,6 +365,66 @@ public class ShaiCriteria {
             return (Criteria) this;
         }
 
+        public Criteria andTShaiLookIsNull() {
+            addCriterion("t_shai_look is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiLookIsNotNull() {
+            addCriterion("t_shai_look is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiLookEqualTo(Integer value) {
+            addCriterion("t_shai_look =", value, "tShaiLook");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiLookNotEqualTo(Integer value) {
+            addCriterion("t_shai_look <>", value, "tShaiLook");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiLookGreaterThan(Integer value) {
+            addCriterion("t_shai_look >", value, "tShaiLook");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiLookGreaterThanOrEqualTo(Integer value) {
+            addCriterion("t_shai_look >=", value, "tShaiLook");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiLookLessThan(Integer value) {
+            addCriterion("t_shai_look <", value, "tShaiLook");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiLookLessThanOrEqualTo(Integer value) {
+            addCriterion("t_shai_look <=", value, "tShaiLook");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiLookIn(List<Integer> values) {
+            addCriterion("t_shai_look in", values, "tShaiLook");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiLookNotIn(List<Integer> values) {
+            addCriterion("t_shai_look not in", values, "tShaiLook");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiLookBetween(Integer value1, Integer value2) {
+            addCriterion("t_shai_look between", value1, value2, "tShaiLook");
+            return (Criteria) this;
+        }
+
+        public Criteria andTShaiLookNotBetween(Integer value1, Integer value2) {
+            addCriterion("t_shai_look not between", value1, value2, "tShaiLook");
+            return (Criteria) this;
+        }
+
         public Criteria andTShaiCdtIsNull() {
             addCriterion("t_shai_cdt is null");
             return (Criteria) this;

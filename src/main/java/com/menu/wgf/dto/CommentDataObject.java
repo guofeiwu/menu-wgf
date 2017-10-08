@@ -19,4 +19,5 @@ public class CommentDataObject {
     @ApiModelProperty(value = "用户名",position = 2,required = false)
     public String username;
 
+
 }

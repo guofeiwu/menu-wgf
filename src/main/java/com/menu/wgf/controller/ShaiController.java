@@ -130,4 +130,27 @@ public class ShaiController {
     public ResultMsg dislikeShai(@PathVariable int likePkId) {
         return shaiService.disLikeShai(likePkId);
     }
+
+    @ApiOperation(value ="获取单个晒一晒详情",httpMethod = "GET",notes = "")
+    @GetMapping(value = "/detail/{shaiPkId}")
+    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "shaiPkId",value = "晒一晒主键",paramType = "path",dataType = "int",required = true),
+    })
+    public ResultMsg getShaiDetail(@PathVariable("shaiPkId") int shaiPkId){
+        return shaiService.getShaiDetail(jwtUtil,shaiPkId);
+    }
+
+
+    @ApiOperation(value ="更新晒一晒浏览次数",httpMethod = "GET",notes = "")
+    @GetMapping(value = "/look/{lookTotal}/shai/{shaiPkId}")
+    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "lookTotal",value = "浏览的次数",paramType = "path",dataType = "int",required = true),
+            @ApiImplicitParam(name = "shaiPkId",value = "晒一晒主键",paramType = "path",dataType = "int",required = true)
+    })
+    public ResultMsg updateShaiLook(@PathVariable("lookTotal") int lookTotal,@PathVariable("shaiPkId") int shaiPkId){
+        return shaiService.updateShaiLook(lookTotal,shaiPkId);
+    }
+
 }

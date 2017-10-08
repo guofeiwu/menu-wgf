@@ -1,5 +1,6 @@
 package com.menu.wgf.service;
 
+import com.menu.wgf.config.jwt.JwtUtil;
 import com.menu.wgf.dto.CommentDataObject;
 import com.menu.wgf.model.ResultMsg;
 import org.springframework.web.multipart.MultipartFile;
@@ -89,4 +90,19 @@ public interface ShaiService {
      * @return
      */
     ResultMsg getShaiList(int pageNo);
+
+    /**
+     * 获取单个晒晒的详情
+     * @param shaiPkId
+     * @return
+     */
+    ResultMsg getShaiDetail(JwtUtil jwtUtil, int shaiPkId);
+
+
+    /**
+     * 更新晒一晒浏览次数
+     * @param shaiPkId
+     * @return
+     */
+    ResultMsg updateShaiLook(int lookTotal,int shaiPkId);
 }

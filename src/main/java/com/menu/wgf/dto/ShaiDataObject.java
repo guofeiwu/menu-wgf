@@ -24,4 +24,11 @@ public class ShaiDataObject {
     public String descr;
     @ApiModelProperty(value = "晒晒被点赞次数",position = 2,required = false)
     public int shaiLike;
+    @ApiModelProperty(value = "评论总数",position = 2,required = false)
+    public int commentTotal;
+    @ApiModelProperty(value = "浏览总数",position = 2,required = false)
+    public int lookTotal;
+    @ApiModelProperty(value = "是否是当前用户发布的",position = 2,required = false,notes = "0表示是，-1表示不是")
+    public int currentUser;
+
 }
