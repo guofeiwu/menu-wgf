@@ -51,7 +51,7 @@ public class ShaiController {
             @ApiImplicitParam(name = "pageNo",value = "获取第几页",paramType = "path",dataType = "int",required = true)
     })
     public ResultMsg getCommentsShai(@PathVariable("shaiPkId")int shaiPkId,@PathVariable("pageNo")int pageNo) {
-        return shaiService.getCommentShaiList(shaiPkId,pageNo);
+        return shaiService.getCommentShaiList(jwtUtil,shaiPkId,pageNo);
     }
 
 
@@ -74,8 +74,7 @@ public class ShaiController {
             @ApiImplicitParam(name = "shaiPkId",value = "晒晒主键",paramType = "path",dataType = "int",required = true),
     })
     public ResultMsg deleteShai(@PathVariable("shaiPkId") int shaiPkId) {
-
-        return ResultMsg.success();
+        return shaiService.deleteShai(shaiPkId);
     }
 
     @ApiOperation(value ="获取某个用户的晒一晒",httpMethod = "GET")

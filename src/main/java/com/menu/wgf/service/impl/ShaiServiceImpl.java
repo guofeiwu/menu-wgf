@@ -104,7 +104,7 @@ public class ShaiServiceImpl implements ShaiService {
     }
 
     @Override
-    public ResultMsg getCommentShaiList(int shaiPkId,int pageNo) {
+    public ResultMsg getCommentShaiList(JwtUtil jwtUtil,int shaiPkId,int pageNo) {
         CommentCriteria commentCriteria = new CommentCriteria();
         commentCriteria.createCriteria()
                 .andTCommentDeleteEqualTo(0)
@@ -130,16 +130,34 @@ public class ShaiServiceImpl implements ShaiService {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 commentDataObject.commentTime = sdf.format(comment.gettCommentCdt());
                 commentDataObject.content = comment.gettCommentContent();
+
+                Integer currentUserPkId = null;
+                try{
+                    currentUserPkId = jwtUtil.getLoginPkid();
+                }catch (Exception e){
+                    //e.printStackTrace();
+                    currentUserPkId = null;
+                }
+                if(currentUserPkId!=null){
+                    if(currentUserPkId == userPkId){
+                        commentDataObject.currentUser = 0;//是当前用户
+                    }else{
+                        commentDataObject.currentUser = -1;
+                    }
+                }else{
+                    commentDataObject.currentUser = -1;
+                }
                 commentDataObjects.add(commentDataObject);
             }
-
-
-
             return ResultMsg.success().addContent("content",commentDataObjects);
         }else if(comments.size() == 0){
-            return ResultMsg.failed().addContent("content","此晒一晒暂无评论");
+            Map map = new HashMap();
+            map.put("comment",0);
+            return ResultMsg.failed().addContent("content",map);
         }
-        return ResultMsg.failed().addContent("content","获取评论失败");
+        Map map = new HashMap();
+        map.put("comment",-1);
+        return ResultMsg.failed().addContent("content",map);
     }
 
     @Override
@@ -149,7 +167,15 @@ public class ShaiServiceImpl implements ShaiService {
 
     @Override
     public ResultMsg deleteShai(int shaiPkId) {
-        return null;
+        Shai shai= new Shai();
+        shai.settShaiPkid(shaiPkId);
+        shai.settShaiDelete(-1);
+        shai.settShaiUdt(new Date());
+        int result = shaiMapper.updateByPrimaryKeySelective(shai);
+        if(result == 1){
+            return ResultMsg.success().addContent("content","删除成功");
+        }
+        return ResultMsg.failed().addContent("content","删除失败");
     }
 
     @Override
@@ -266,23 +292,23 @@ public class ShaiServiceImpl implements ShaiService {
             //e.printStackTrace();
             userPkId = null;
         }
-
-
         if(userPkId!=null){
             ShaiCriteria criteria1 = new ShaiCriteria();
             criteria1.createCriteria()
                     .andTShaiPkidEqualTo(shaiPkId)
-                    .andTShaiUserPkidEqualTo(userPkId);
+                    .andTShaiUserPkidEqualTo(userPkId)
+                    .andTShaiDeleteEqualTo(0);
             List<Shai> shais = shaiMapper.selectByExample(criteria1);
             if(shais.size()>0){
                 shaiDataObject.currentUser = 0;
+            }else {
+                shaiDataObject.currentUser = -1;
             }
         }else{
             shaiDataObject.currentUser = -1;
         }
         return ResultMsg.success().addContent("content",shaiDataObject);
     }
-
 
     @Override
     public ResultMsg updateShaiLook(int lookTotal,int shaiPkId) {

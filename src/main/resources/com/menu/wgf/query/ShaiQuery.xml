@@ -5,6 +5,7 @@
      SELECT s.t_shai_pkid pkid ,s.t_shai_picture_address address ,s.t_shai_cdt cTime, u.t_user_icon icon,u.t_user_name userName,s.t_shai_desc descr,s.t_shai_look look
      FROM t_shai s  LEFT JOIN t_user u
      ON s.t_shai_user_pkid = u.t_user_pkid
+     WHERE s.t_shai_delete = 0
      ORDER BY s.t_shai_cdt DESC
   </select>
     <select id="getShaiDetail" resultType="java.util.LinkedHashMap">

@@ -57,7 +57,7 @@ public interface ShaiService {
      * @param shaiPkId
      * @return
      */
-    ResultMsg getCommentShaiList(int shaiPkId,int pageNo);
+    ResultMsg getCommentShaiList(JwtUtil jwtUtil,int shaiPkId,int pageNo);
 
     /**
      * 上传晒一晒
