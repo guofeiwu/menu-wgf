@@ -23,6 +23,17 @@ public class IOUtils {
      * @param bis
      */
     public static void colse(BufferedOutputStream bos, BufferedInputStream bis){
+        try {
+            if (bis != null){
+                bis.close();
+            }
+            if(bos != null)
+            {
+                bos.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -80,23 +91,56 @@ public class IOUtils {
             e.printStackTrace();
             map.put("currentIndex",0);
         } finally {
-            try {
-                if (bis != null){
-                    bis.close();
-                }
-                if(bos != null)
-                {
-                    bos.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            colse(bos,bis);
         }
         map.put("currentIndex",currentIndex);
         map.put("suffix",suffix);
 
         return map;
     }
+
+
+    /**
+     * 用户上传晒一晒
+     * @param index 图片名字下标
+     * @param multipartFile 文件
+     * @return 图片地址
+     */
+    public static String uploadShai(int index,
+                                       MultipartFile multipartFile){
+        String fileName = multipartFile.getOriginalFilename();
+        String suffix = fileName.substring(fileName.lastIndexOf("."));//后缀
+        BufferedInputStream bis =null;
+        BufferedOutputStream bos = null;
+        String setFilePath;
+        InputStream is = null;
+        try {
+            is = multipartFile.getInputStream();
+            bis = new BufferedInputStream(is);
+            setFilePath = Constants.BASE_URL_FILE_SHAI+ "food"+index+suffix;//用户的晒一晒的文件夹
+
+            File file = new File(setFilePath);
+            FileOutputStream fos = new FileOutputStream(file);
+            bos = new BufferedOutputStream(fos);
+
+            byte buff[] = new byte[1024];
+            int len;
+            while ((len = bis.read(buff))!=-1){
+                bos.write(buff,0,len);
+            }
+            bos.flush();
+            return "food"+index+suffix;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }finally {
+            colse(bos,bis);
+        }
+    }
+
+
+
+
 
     /**
      * 多文件上传
@@ -157,11 +201,4 @@ public class IOUtils {
 
     }
 
-
-
-
-
-    public static void downloadIcon(){
-
-    }
 }

@@ -55,15 +55,15 @@ public class ShaiController {
 
 
     @ApiOperation(value = "上传晒一晒", httpMethod = "POST")
-    @PostMapping(value = "/{userPkId}/{type}")
+    @PostMapping(value = "/upload")
     @ApiImplicitParams({
-            @ApiImplicitParam(value = "用户主键", name = "userPkId", required = true, dataType = "int", paramType = "path"),
+            @ApiImplicitParam(value = "晒晒描述", name = "desc", required = true, dataType = "string", paramType = "query"),
     })
     @ApiResponse(code = 500,message = "服务器相应出错",response = Integer.class)
-    public ResultMsg uploadShaiIcon(@PathVariable(value = "userPkId") Integer userPkId,@PathVariable("type") Integer type,
+    public ResultMsg uploadShaiIcon(@RequestParam("desc") String desc,
                                 @ApiParam(value = "晒一晒", name = "shaiPicture") @RequestParam("shaiPicture") MultipartFile shaiPicture) {
         //return IOUtils.uploadFile(userPkId,type,shaiPicture);
-        return null;
+        return shaiService.uploadShai(jwtUtil.getLoginPkid(),desc,shaiPicture);
     }
 
     @ApiOperation(value ="删除晒一晒",httpMethod = "DELETE")

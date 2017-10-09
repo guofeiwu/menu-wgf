@@ -14,20 +14,25 @@ import com.menu.wgf.mapper.UserMapper;
 import com.menu.wgf.model.*;
 import com.menu.wgf.query.ShaiQuery;
 import com.menu.wgf.service.ShaiService;
+import com.menu.wgf.util.IOUtils;
 import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static com.menu.wgf.Constants.FILE_TYPE_SHAI;
+
 /**
  * author guofei_wu
  * email guofei_wu@163.com
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class ShaiServiceImpl implements ShaiService {
 
     @Autowired
@@ -169,8 +174,23 @@ public class ShaiServiceImpl implements ShaiService {
     }
 
     @Override
-    public ResultMsg uploadShaiIcon(Integer userPkId, Integer type, MultipartFile shaiPicture) {
-        return null;
+    public ResultMsg uploadShai(Integer userPkId, String desc, MultipartFile shaiPicture) {
+        int count = (int) shaiMapper.countByExample(null);//返回晒晒数量
+        String urlAddress = IOUtils.uploadShai( (count+1), shaiPicture);
+
+        Shai shai = new Shai();
+        shai.settShaiUserPkid(userPkId);
+        Date date = new Date();
+        shai.settShaiCdt(date);
+        shai.settShaiUdt(date);
+        shai.settShaiPictureAddress(urlAddress);
+        shai.settShaiDesc(desc);
+
+        int result = shaiMapper.insertSelective(shai);
+        if(result == 1){
+            return ResultMsg.success().addContent("content","上传成功");
+        }
+        return ResultMsg.success().addContent("content","上传失败");
     }
 
     @Override

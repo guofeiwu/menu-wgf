@@ -62,11 +62,11 @@ public interface ShaiService {
     /**
      * 上传晒一晒
      * @param userPkId
-     * @param type
+     * @param desc 描述
      * @param shaiPicture
      * @return
      */
-    ResultMsg uploadShaiIcon(Integer userPkId,Integer type,
+    ResultMsg uploadShai(Integer userPkId,String desc,
                              MultipartFile shaiPicture);
 
     /**
