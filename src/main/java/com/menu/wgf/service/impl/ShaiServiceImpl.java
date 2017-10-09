@@ -185,12 +185,14 @@ public class ShaiServiceImpl implements ShaiService {
         shai.settShaiUdt(date);
         shai.settShaiPictureAddress(urlAddress);
         shai.settShaiDesc(desc);
+        shai.settShaiLook(0);
+        shai.settShaiDelete(0);
 
         int result = shaiMapper.insertSelective(shai);
         if(result == 1){
             return ResultMsg.success().addContent("content","上传成功");
         }
-        return ResultMsg.success().addContent("content","上传失败");
+        return ResultMsg.failed().addContent("content","上传失败");
     }
 
     @Override
