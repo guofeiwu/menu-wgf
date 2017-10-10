@@ -1,11 +1,15 @@
 package com.menu.wgf.dto;
 
+import com.menu.wgf.model.Step;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * author guofei_wu
  * email guofei_wu@163.com
- * 菜单dto
+ * 菜谱dto
  */
 public class MenuDataObject {
     @ApiModelProperty(value = "菜单主键",position = 1,required = true)
@@ -22,4 +26,10 @@ public class MenuDataObject {
     public String userIconUrl;
     @ApiModelProperty(value = "是否是当前用户",position =  2,required = true)
     public int currentUser;
+    @ApiModelProperty(value = "菜谱对应的步骤",position =  2,required = false)
+    public List<StepDataObject> steps;
+    @ApiModelProperty(value = "菜谱对应的材料",position =  2,required = false)
+    public List<Map<String,Object>> materials ;
+
+
 }

@@ -109,5 +109,13 @@ public interface MenuService {
      */
     ResultMsg getMenuRank(int type);
 
+    /**
+     * 获取菜谱详情
+     * @param menuPkId 菜谱主键
+     * @return
+     */
+    ResultMsg getMenuDetail(int menuPkId);
+
+
 
 }

@@ -33,6 +33,20 @@ public class MenuController {
     }
 
 
+
+    @ApiOperation(value ="获取菜谱详情",httpMethod = "GET")
+    @GetMapping(value = "/detail/{menuPkId}")
+    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "menuPkId",value = "菜谱主键",paramType = "path",dataType = "int",required = true),
+    })
+    public ResultMsg getMenuDetail(@PathVariable(value = "menuPkId") int menuPkId){
+        return menuService.getMenuDetail(menuPkId);
+    }
+
+
+
+
     @ApiOperation(value ="评论菜谱",httpMethod = "POST")
     @PostMapping(value = "/comment")
     @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
