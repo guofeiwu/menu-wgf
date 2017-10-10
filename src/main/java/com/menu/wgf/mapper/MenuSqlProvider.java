@@ -32,6 +32,10 @@ public class MenuSqlProvider {
             sql.VALUES("t_menu_name", "#{tMenuName,jdbcType=VARCHAR}");
         }
         
+        if (record.gettMenuMainIcon() != null) {
+            sql.VALUES("t_menu_main_icon", "#{tMenuMainIcon,jdbcType=VARCHAR}");
+        }
+        
         if (record.gettMenuDescription() != null) {
             sql.VALUES("t_menu_description", "#{tMenuDescription,jdbcType=VARCHAR}");
         }
@@ -42,6 +46,10 @@ public class MenuSqlProvider {
         
         if (record.gettMenuType() != null) {
             sql.VALUES("t_menu_type", "#{tMenuType,jdbcType=INTEGER}");
+        }
+        
+        if (record.gettMenuTypeSun() != null) {
+            sql.VALUES("t_menu_type_sun", "#{tMenuTypeSun,jdbcType=INTEGER}");
         }
         
         if (record.gettMenuDelete() != null) {
@@ -67,9 +75,11 @@ public class MenuSqlProvider {
             sql.SELECT("t_menu_pkid");
         }
         sql.SELECT("t_menu_name");
+        sql.SELECT("t_menu_main_icon");
         sql.SELECT("t_menu_description");
         sql.SELECT("t_menu_user_pkid");
         sql.SELECT("t_menu_type");
+        sql.SELECT("t_menu_type_sun");
         sql.SELECT("t_menu_delete");
         sql.SELECT("t_menu_cdt");
         sql.SELECT("t_menu_udt");
@@ -98,6 +108,10 @@ public class MenuSqlProvider {
             sql.SET("t_menu_name = #{record.tMenuName,jdbcType=VARCHAR}");
         }
         
+        if (record.gettMenuMainIcon() != null) {
+            sql.SET("t_menu_main_icon = #{record.tMenuMainIcon,jdbcType=VARCHAR}");
+        }
+        
         if (record.gettMenuDescription() != null) {
             sql.SET("t_menu_description = #{record.tMenuDescription,jdbcType=VARCHAR}");
         }
@@ -108,6 +122,10 @@ public class MenuSqlProvider {
         
         if (record.gettMenuType() != null) {
             sql.SET("t_menu_type = #{record.tMenuType,jdbcType=INTEGER}");
+        }
+        
+        if (record.gettMenuTypeSun() != null) {
+            sql.SET("t_menu_type_sun = #{record.tMenuTypeSun,jdbcType=INTEGER}");
         }
         
         if (record.gettMenuDelete() != null) {
@@ -132,9 +150,11 @@ public class MenuSqlProvider {
         
         sql.SET("t_menu_pkid = #{record.tMenuPkid,jdbcType=INTEGER}");
         sql.SET("t_menu_name = #{record.tMenuName,jdbcType=VARCHAR}");
+        sql.SET("t_menu_main_icon = #{record.tMenuMainIcon,jdbcType=VARCHAR}");
         sql.SET("t_menu_description = #{record.tMenuDescription,jdbcType=VARCHAR}");
         sql.SET("t_menu_user_pkid = #{record.tMenuUserPkid,jdbcType=INTEGER}");
         sql.SET("t_menu_type = #{record.tMenuType,jdbcType=INTEGER}");
+        sql.SET("t_menu_type_sun = #{record.tMenuTypeSun,jdbcType=INTEGER}");
         sql.SET("t_menu_delete = #{record.tMenuDelete,jdbcType=INTEGER}");
         sql.SET("t_menu_cdt = #{record.tMenuCdt,jdbcType=TIMESTAMP}");
         sql.SET("t_menu_udt = #{record.tMenuUdt,jdbcType=TIMESTAMP}");
@@ -152,6 +172,10 @@ public class MenuSqlProvider {
             sql.SET("t_menu_name = #{tMenuName,jdbcType=VARCHAR}");
         }
         
+        if (record.gettMenuMainIcon() != null) {
+            sql.SET("t_menu_main_icon = #{tMenuMainIcon,jdbcType=VARCHAR}");
+        }
+        
         if (record.gettMenuDescription() != null) {
             sql.SET("t_menu_description = #{tMenuDescription,jdbcType=VARCHAR}");
         }
@@ -162,6 +186,10 @@ public class MenuSqlProvider {
         
         if (record.gettMenuType() != null) {
             sql.SET("t_menu_type = #{tMenuType,jdbcType=INTEGER}");
+        }
+        
+        if (record.gettMenuTypeSun() != null) {
+            sql.SET("t_menu_type_sun = #{tMenuTypeSun,jdbcType=INTEGER}");
         }
         
         if (record.gettMenuDelete() != null) {

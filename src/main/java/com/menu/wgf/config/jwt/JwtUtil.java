@@ -123,11 +123,11 @@ public class JwtUtil {
 
         String auth = request.getHeader(headerKey);//获取token
 
-//        //token字符串未设置或者长度不符合要求(Bearer X.X.X)
-//        if ((auth == null) || (auth.length() < tokenType.length() + 6)) {
-//            logger.debug("token字符串未设置或者长度不符合要求(Bearer X.X.X)");
-//            return false;
-//        }
+        //token字符串未设置或者长度不符合要求(Bearer X.X.X)
+        if ((auth == null) || (auth.length() < tokenType.length() + 6)) {
+            //logger.debug("token字符串未设置或者长度不符合要求(Bearer X.X.X)");
+            return false;
+        }
 //
 //        String headStr = auth.substring(0, tokenType.length());
 //        //token类型不符合要求(Bearer)

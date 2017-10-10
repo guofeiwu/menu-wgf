@@ -7,11 +7,15 @@ public class Menu {
 
     private String tMenuName;
 
+    private String tMenuMainIcon;
+
     private String tMenuDescription;
 
     private Integer tMenuUserPkid;
 
     private Integer tMenuType;
+
+    private Integer tMenuTypeSun;
 
     private Integer tMenuDelete;
 
@@ -33,6 +37,14 @@ public class Menu {
 
     public void settMenuName(String tMenuName) {
         this.tMenuName = tMenuName == null ? null : tMenuName.trim();
+    }
+
+    public String gettMenuMainIcon() {
+        return tMenuMainIcon;
+    }
+
+    public void settMenuMainIcon(String tMenuMainIcon) {
+        this.tMenuMainIcon = tMenuMainIcon == null ? null : tMenuMainIcon.trim();
     }
 
     public String gettMenuDescription() {
@@ -57,6 +69,14 @@ public class Menu {
 
     public void settMenuType(Integer tMenuType) {
         this.tMenuType = tMenuType;
+    }
+
+    public Integer gettMenuTypeSun() {
+        return tMenuTypeSun;
+    }
+
+    public void settMenuTypeSun(Integer tMenuTypeSun) {
+        this.tMenuTypeSun = tMenuTypeSun;
     }
 
     public Integer gettMenuDelete() {

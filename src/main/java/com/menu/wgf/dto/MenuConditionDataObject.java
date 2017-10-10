@@ -9,12 +9,12 @@ import io.swagger.annotations.ApiModelProperty;
  */
 
 public class MenuConditionDataObject {
+    @ApiModelProperty(value = "第几页",position = 1,required = true)
+    public int pageNo;
     @ApiModelProperty(value = "关键字",position = 2,required = false)
     public String keyword;
-    @ApiModelProperty(value = "每页大小",position = 2,required = true)
-    public int pageSize;
-    @ApiModelProperty(value = "第几页",position = 2,required = true)
-    public int pageNo;
     @ApiModelProperty(value = "菜谱类型",position = 2,required = false)
     public int type;
+    @ApiModelProperty(value = "菜谱类型子类型",position = 2,required = false)
+    public int sunType;
 }

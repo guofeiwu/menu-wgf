@@ -1,9 +1,12 @@
 package com.menu.wgf.controller;
 
+
 import com.menu.wgf.dto.MenuConditionDataObject;
 import com.menu.wgf.model.ResultMsg;
+import com.menu.wgf.service.MenuService;
 import com.menu.wgf.util.IOUtils;
 import io.swagger.annotations.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,15 +20,16 @@ import javax.servlet.http.HttpServletRequest;
 @Api(value = "MenuController",description = "菜谱管理")
 public class MenuController {
 
-    @ApiOperation(value ="获取菜谱列表",httpMethod = "GET")
-    @GetMapping(value = "")
-    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "menuConditionDataObject",value = "获取菜谱的条件",paramType = "body",required = true)
-    })
-    public ResultMsg getMenuList(@RequestBody MenuConditionDataObject menuConditionDataObject){
+    @Autowired
+    private MenuService menuService;
 
-        return ResultMsg.success().addContent("menuList",null);
+
+    @ApiOperation(value ="获取菜谱列表",httpMethod = "POST")
+    @PostMapping(value = "/all")
+    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
+    public ResultMsg getMenuList(@ApiParam(value = "获取菜谱条件dto",name = "menuConditionDataObject",required = true)
+                                     @RequestBody MenuConditionDataObject menuConditionDataObject){
+        return menuService.getMenuList(menuConditionDataObject);
     }
 
 

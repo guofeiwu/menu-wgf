@@ -235,6 +235,76 @@ public class MenuCriteria {
             return (Criteria) this;
         }
 
+        public Criteria andTMenuMainIconIsNull() {
+            addCriterion("t_menu_main_icon is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuMainIconIsNotNull() {
+            addCriterion("t_menu_main_icon is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuMainIconEqualTo(String value) {
+            addCriterion("t_menu_main_icon =", value, "tMenuMainIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuMainIconNotEqualTo(String value) {
+            addCriterion("t_menu_main_icon <>", value, "tMenuMainIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuMainIconGreaterThan(String value) {
+            addCriterion("t_menu_main_icon >", value, "tMenuMainIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuMainIconGreaterThanOrEqualTo(String value) {
+            addCriterion("t_menu_main_icon >=", value, "tMenuMainIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuMainIconLessThan(String value) {
+            addCriterion("t_menu_main_icon <", value, "tMenuMainIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuMainIconLessThanOrEqualTo(String value) {
+            addCriterion("t_menu_main_icon <=", value, "tMenuMainIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuMainIconLike(String value) {
+            addCriterion("t_menu_main_icon like", value, "tMenuMainIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuMainIconNotLike(String value) {
+            addCriterion("t_menu_main_icon not like", value, "tMenuMainIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuMainIconIn(List<String> values) {
+            addCriterion("t_menu_main_icon in", values, "tMenuMainIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuMainIconNotIn(List<String> values) {
+            addCriterion("t_menu_main_icon not in", values, "tMenuMainIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuMainIconBetween(String value1, String value2) {
+            addCriterion("t_menu_main_icon between", value1, value2, "tMenuMainIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuMainIconNotBetween(String value1, String value2) {
+            addCriterion("t_menu_main_icon not between", value1, value2, "tMenuMainIcon");
+            return (Criteria) this;
+        }
+
         public Criteria andTMenuDescriptionIsNull() {
             addCriterion("t_menu_description is null");
             return (Criteria) this;
@@ -422,6 +492,66 @@ public class MenuCriteria {
 
         public Criteria andTMenuTypeNotBetween(Integer value1, Integer value2) {
             addCriterion("t_menu_type not between", value1, value2, "tMenuType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuTypeSunIsNull() {
+            addCriterion("t_menu_type_sun is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuTypeSunIsNotNull() {
+            addCriterion("t_menu_type_sun is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuTypeSunEqualTo(Integer value) {
+            addCriterion("t_menu_type_sun =", value, "tMenuTypeSun");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuTypeSunNotEqualTo(Integer value) {
+            addCriterion("t_menu_type_sun <>", value, "tMenuTypeSun");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuTypeSunGreaterThan(Integer value) {
+            addCriterion("t_menu_type_sun >", value, "tMenuTypeSun");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuTypeSunGreaterThanOrEqualTo(Integer value) {
+            addCriterion("t_menu_type_sun >=", value, "tMenuTypeSun");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuTypeSunLessThan(Integer value) {
+            addCriterion("t_menu_type_sun <", value, "tMenuTypeSun");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuTypeSunLessThanOrEqualTo(Integer value) {
+            addCriterion("t_menu_type_sun <=", value, "tMenuTypeSun");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuTypeSunIn(List<Integer> values) {
+            addCriterion("t_menu_type_sun in", values, "tMenuTypeSun");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuTypeSunNotIn(List<Integer> values) {
+            addCriterion("t_menu_type_sun not in", values, "tMenuTypeSun");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuTypeSunBetween(Integer value1, Integer value2) {
+            addCriterion("t_menu_type_sun between", value1, value2, "tMenuTypeSun");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuTypeSunNotBetween(Integer value1, Integer value2) {
+            addCriterion("t_menu_type_sun not between", value1, value2, "tMenuTypeSun");
             return (Criteria) this;
         }
 

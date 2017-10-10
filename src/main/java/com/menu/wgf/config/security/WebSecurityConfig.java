@@ -69,7 +69,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 ).permitAll()
                 .antMatchers(
                         HttpMethod.POST,
-                        "/login/**"
+                        "/login/**",
+                        "/app/menu/all"
                 ).permitAll()
                 .anyRequest().authenticated()
                // .anyRequest().fullyAuthenticated()
