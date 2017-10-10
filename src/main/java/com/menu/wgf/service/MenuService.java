@@ -36,9 +36,10 @@ public interface MenuService {
     /**
      * 获取菜谱评论
      * @param menuPkId
+     * @param pageNo
      * @return
      */
-    ResultMsg getCommentMenuList(int menuPkId);
+    ResultMsg getMenuCommentList(int menuPkId,int pageNo);
 
 
     /**

@@ -66,7 +66,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/app/shai/comment/*/*",
                         "/app/shai/detail/*",
                         "/app/shai/look/*/shai/*",
-                        "/app/menu/detail/*"
+                        "/app/menu/detail/*",
+                        "/app/menu/comment/*/page/*"
                 ).permitAll()
                 .antMatchers(
                         HttpMethod.POST,

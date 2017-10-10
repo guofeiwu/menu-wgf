@@ -2,13 +2,11 @@ package com.menu.wgf.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.menu.wgf.config.jwt.JwtUtil;
+import com.menu.wgf.dto.CommentDataObject;
 import com.menu.wgf.dto.MenuConditionDataObject;
 import com.menu.wgf.dto.MenuDataObject;
 import com.menu.wgf.dto.StepDataObject;
-import com.menu.wgf.mapper.MaterialMapper;
-import com.menu.wgf.mapper.MenuMapper;
-import com.menu.wgf.mapper.StepMapper;
-import com.menu.wgf.mapper.UserMapper;
+import com.menu.wgf.mapper.*;
 import com.menu.wgf.model.*;
 import com.menu.wgf.query.MenuQuery;
 import com.menu.wgf.service.MenuService;
@@ -16,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +44,9 @@ public class MenuServiceImpl implements MenuService {
 
     @Autowired
     private MaterialMapper materialMapper;
+
+    @Autowired
+    private CommentMapper commentMapper;
 
 
 
@@ -87,62 +89,6 @@ public class MenuServiceImpl implements MenuService {
         }
         return ResultMsg.success().addContent("content",menuDataObjects);
     }
-
-    @Override
-    public ResultMsg commentMenu(int userPkId, int menuPkId, String commentContent) {
-        return null;
-    }
-
-    @Override
-    public ResultMsg deleteCommentMenu(int commentPkId) {
-        return null;
-    }
-
-    @Override
-    public ResultMsg getCommentMenuList(int menuPkId) {
-        return null;
-    }
-
-    @Override
-    public ResultMsg getUserCommentMenuList(int userPkId, int pageSize, int pageNo) {
-        return null;
-    }
-
-    @Override
-    public ResultMsg collectMenu(int userPkId, int menuPkId) {
-        return null;
-    }
-
-    @Override
-    public ResultMsg deleteCollectMenu(int collectPkId) {
-        return null;
-    }
-
-    @Override
-    public ResultMsg getUserCollectMenuList(int userPkId, int pageSize, int pageNo) {
-        return null;
-    }
-
-    @Override
-    public ResultMsg searchMenu(String keyword) {
-        return null;
-    }
-
-    @Override
-    public ResultMsg shareMenu(int userPkId, int menuPkId) {
-        return null;
-    }
-
-    @Override
-    public ResultMsg recordMenu(int userPkId, int menuPkId) {
-        return null;
-    }
-
-    @Override
-    public ResultMsg getMenuRank(int type) {
-        return null;
-    }
-
     @Override
     public ResultMsg getMenuDetail(int menuPkId) {
 
@@ -203,4 +149,100 @@ public class MenuServiceImpl implements MenuService {
             return ResultMsg.failed().addContent("content","出现异常！！！");
         }
     }
+    @Override
+    public ResultMsg getMenuCommentList(int menuPkId,int pageNO) {
+        CommentCriteria commentCriteria = new CommentCriteria();
+        commentCriteria.createCriteria()
+                .andTCommentDeleteEqualTo(0)
+                .andTCommentMenuPkidEqualTo(menuPkId);
+        PageHelper.startPage(pageNO,6);
+        PageHelper.orderBy("t_comment_cdt desc");
+        List<Comment> comments = commentMapper.selectByExample(commentCriteria);
+        List<CommentDataObject> commentDataObjects;
+        if(comments.size()>0){
+            commentDataObjects = new ArrayList<>();
+            for (Comment comment:comments){
+                int userPkId = comment.gettCommentUserPkid();
+                User user = userMapper.selectByPrimaryKey(userPkId);
+                String userIconUrl =user.gettUserIcon();
+                String username = user.gettUserName();
+                CommentDataObject commentDataObject = new CommentDataObject();
+
+                commentDataObject.userIconUrl = userIconUrl;
+                commentDataObject.username = username;
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                commentDataObject.commentTime = sdf.format(comment.gettCommentCdt());
+                commentDataObject.content = comment.gettCommentContent();
+                commentDataObject.commentPkId = comment.gettCommentPkid();
+                Integer currentUserPkId = jwtUtil.getLoginPkid();
+                if(currentUserPkId!=null && currentUserPkId == userPkId){
+                    commentDataObject.currentUser = 0;//是当前用户
+                }else{
+                    commentDataObject.currentUser = -1;
+                }
+                commentDataObjects.add(commentDataObject);
+            }
+            return ResultMsg.success().addContent("content",commentDataObjects);
+        }else if(comments.size() == 0){
+            Map map = new HashMap();
+            map.put("comment",0);
+            return ResultMsg.failed().addContent("content",map);
+        }
+        Map map = new HashMap();
+        map.put("comment",-1);
+        return ResultMsg.failed().addContent("content",map);
+    }
+    @Override
+    public ResultMsg commentMenu(int userPkId, int menuPkId, String commentContent) {
+        return null;
+    }
+
+    @Override
+    public ResultMsg deleteCommentMenu(int commentPkId) {
+        return null;
+    }
+
+
+
+    @Override
+    public ResultMsg getUserCommentMenuList(int userPkId, int pageSize, int pageNo) {
+        return null;
+    }
+
+    @Override
+    public ResultMsg collectMenu(int userPkId, int menuPkId) {
+        return null;
+    }
+
+    @Override
+    public ResultMsg deleteCollectMenu(int collectPkId) {
+        return null;
+    }
+
+    @Override
+    public ResultMsg getUserCollectMenuList(int userPkId, int pageSize, int pageNo) {
+        return null;
+    }
+
+    @Override
+    public ResultMsg searchMenu(String keyword) {
+        return null;
+    }
+
+    @Override
+    public ResultMsg shareMenu(int userPkId, int menuPkId) {
+        return null;
+    }
+
+    @Override
+    public ResultMsg recordMenu(int userPkId, int menuPkId) {
+        return null;
+    }
+
+    @Override
+    public ResultMsg getMenuRank(int type) {
+        return null;
+    }
+
 }

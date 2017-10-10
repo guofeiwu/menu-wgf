@@ -46,6 +46,18 @@ public class MenuController {
 
 
 
+    @ApiOperation(value ="获取菜谱对应的评论",httpMethod = "GET")
+    @GetMapping(value = "/comment/{menuPkId}/page/{pageNo}")
+    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "menuPkId",value = "菜谱主键",paramType = "path",dataType = "int",required = true),
+            @ApiImplicitParam(name = "pageNo",value ="第几页",paramType = "path",dataType = "int",required = true)
+    })
+    public ResultMsg getCommentsMenu(@PathVariable int menuPkId,@PathVariable(value = "pageNo") int pageNo){
+        return menuService.getMenuCommentList(menuPkId,pageNo);
+    }
+
+
 
     @ApiOperation(value ="评论菜谱",httpMethod = "POST")
     @PostMapping(value = "/comment")
@@ -72,17 +84,6 @@ public class MenuController {
         return ResultMsg.success();
     }
 
-
-    @ApiOperation(value ="获取菜谱对应的评论",httpMethod = "GET")
-    @GetMapping(value = "/comment/{menuPkId}")
-    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "menuPkId",value = "菜谱主键",paramType = "path",dataType = "int",required = true),
-    })
-    public ResultMsg getCommentsMenu(@PathVariable int menuPkId){
-        System.out.println("menuPkId:"+menuPkId);
-        return ResultMsg.success();
-    }
 
 
     @ApiOperation(value ="获取用户评论的菜谱列表",httpMethod = "GET")
