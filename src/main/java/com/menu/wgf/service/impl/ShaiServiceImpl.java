@@ -98,7 +98,23 @@ public class ShaiServiceImpl implements ShaiService {
 
         int result = commentMapper.insertSelective(comment);
         if(result == 1){
-            return ResultMsg.success().addContent("content","评论成功");
+            //返回一个评论对象
+            //int userPkId = comment.gettCommentUserPkid();
+            User user = userMapper.selectByPrimaryKey(userPkId);
+            String userIconUrl =user.gettUserIcon();
+            String username = user.gettUserName();
+            CommentDataObject commentDataObject1 = new CommentDataObject();
+
+            commentDataObject1.userIconUrl = userIconUrl;
+            commentDataObject1.username = username;
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            commentDataObject1.commentTime = sdf.format(comment.gettCommentCdt());
+            commentDataObject1.content = comment.gettCommentContent();
+            commentDataObject1.commentPkId = comment.gettCommentPkid();
+            commentDataObject1.currentUser = 0;//是当前用户
+
+            return ResultMsg.success().addContent("content",commentDataObject1);
         }
         return ResultMsg.failed().addContent("content","评论失败");
     }

@@ -154,7 +154,7 @@ public class MenuServiceImpl implements MenuService {
             if (likeTotal > 0) {
                 for (Like like : likes) {
                     Integer uPkId = like.gettLikeUserPkid();
-                    if (uPkId == currentUserPkId && currentUserPkId != null) {
+                    if (currentUserPkId != null && uPkId == currentUserPkId) {
                         menuDataObject.currentLike = 0;
                         menuDataObject.likePkId = like.gettLikePkid();
                         break;
@@ -186,7 +186,7 @@ public class MenuServiceImpl implements MenuService {
             if (collectTotal > 0) {
                 for (Collect collect : collects) {
                     int collectUserPkId = collect.gettCollectUserPkid();
-                    if (currentUserPkId == collectUserPkId && currentUserPkId != null) {
+                    if (currentUserPkId != null && currentUserPkId == collectUserPkId) {
                         menuDataObject.currentCollect = 0;
                         menuDataObject.collectPkId = collect.gettCollectPkid();
                         break;
@@ -344,8 +344,34 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public ResultMsg commentMenu(int userPkId, int menuPkId, String commentContent) {
-        return null;
+    public ResultMsg commentMenu(CommentDataObject commentDataObject) {
+        int userPkId = jwtUtil.getLoginPkid();
+        int menuPkId = commentDataObject.menuPkId;
+        String content = commentDataObject.content;
+        Comment comment = new Comment();
+        comment.settCommentUserPkid(userPkId);
+        comment.settCommentMenuPkid(menuPkId);
+        comment.settCommentContent(content);
+        Date date = new Date();
+        comment.settCommentCdt(date);
+        comment.settCommentUdt(date);
+        int result = commentMapper.insertSelective(comment);
+        if(result == 1){
+            //返回一个评论对象
+            User user = userMapper.selectByPrimaryKey(userPkId);
+            String userIconUrl =user.gettUserIcon();
+            String username = user.gettUserName();
+            CommentDataObject commentDataObject1 = new CommentDataObject();
+            commentDataObject1.userIconUrl = userIconUrl;
+            commentDataObject1.username = username;
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            commentDataObject1.commentTime = sdf.format(comment.gettCommentCdt());
+            commentDataObject1.content = comment.gettCommentContent();
+            commentDataObject1.commentPkId = comment.gettCommentPkid();
+            commentDataObject1.currentUser = 0;//是当前用户
+            return ResultMsg.success().addContent("content",commentDataObject1);
+        }
+        return ResultMsg.failed().addContent("content","评论失败");
     }
 
 

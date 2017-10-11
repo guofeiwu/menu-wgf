@@ -1,5 +1,6 @@
 package com.menu.wgf.service;
 
+import com.menu.wgf.dto.CommentDataObject;
 import com.menu.wgf.dto.MenuConditionDataObject;
 import com.menu.wgf.model.ResultMsg;
 
@@ -17,12 +18,10 @@ public interface MenuService {
 
     /**
      * 评论菜谱
-     * @param userPkId
-     * @param menuPkId
-     * @param commentContent
+     * @param commentDataObject
      * @return
      */
-    ResultMsg commentMenu(int userPkId,int menuPkId ,String commentContent);
+    ResultMsg commentMenu(CommentDataObject commentDataObject);
 
 
     /**
