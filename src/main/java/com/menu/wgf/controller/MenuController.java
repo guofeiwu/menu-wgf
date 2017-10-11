@@ -57,6 +57,68 @@ public class MenuController {
         return menuService.getMenuCommentList(menuPkId,pageNo);
     }
 
+    @ApiOperation(value ="点赞菜谱",httpMethod = "GET")
+    @GetMapping(value = "/like/{menuPkId}")
+    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "menuPkId",value = "菜谱主键",paramType = "path",dataType = "int",required = true),
+    })
+    public ResultMsg likeMenu(@PathVariable("menuPkId") int menuPkId){
+        return menuService.likeMenu(menuPkId);
+    }
+
+
+    @ApiOperation(value ="取消点赞菜谱",httpMethod = "GET")
+    @GetMapping(value = "/dislike/{likePkId}")
+    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "likePkId",value = "点赞主键",paramType = "path",dataType = "int",required = true),
+    })
+    public ResultMsg dislikeMenu(@PathVariable("likePkId") int menuPkId){
+        return menuService.dislikeMenu(menuPkId);
+    }
+
+
+    @ApiOperation(value ="收藏菜谱",httpMethod = "GET")
+    @GetMapping(value = "/collect/{menuPkId}")
+    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "menuPkId",value = "菜谱主键",paramType = "path",dataType = "int",required = true),
+    })
+    public ResultMsg collectMenu(@PathVariable("menuPkId") int menuPkId){
+        return menuService.collectMenu(menuPkId);
+    }
+
+
+    @ApiOperation(value ="取消收藏菜谱",httpMethod = "GET")
+    @GetMapping(value = "/notCollect/{collectPkId}")
+    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "collectPkId",value = "收藏主键",paramType = "path",dataType = "int",required = true),
+    })
+    public ResultMsg notCollectMenu(@PathVariable int collectPkId){
+        return menuService.notCollectMenu(collectPkId);
+    }
+
+
+
+
+
+
+
+
+
+    @ApiOperation(value ="删除菜谱评论",httpMethod = "DELETE")
+    @DeleteMapping(value = "/comment/{commentPkId}")
+    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "commentPkId",value = "评论主键",paramType = "path",dataType = "int",required = true),
+    })
+    public ResultMsg deleteCommentMenu(@PathVariable("commentPkId") int commentPkId){
+        return menuService.deleteCommentMenu(commentPkId);
+    }
+
+
 
 
     @ApiOperation(value ="评论菜谱",httpMethod = "POST")
@@ -73,16 +135,6 @@ public class MenuController {
     }
 
 
-    @ApiOperation(value ="删除菜谱评论",httpMethod = "DELETE")
-    @DeleteMapping(value = "/comment/{commentPkId}")
-    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "commentPkId",value = "评论主键",paramType = "path",dataType = "int",required = true),
-    })
-    public ResultMsg deleteCommentMenu(@PathVariable("commentPkId") int commentPkId){
-        System.out.println("commentPkId:"+commentPkId);
-        return ResultMsg.success();
-    }
 
 
 
@@ -101,34 +153,8 @@ public class MenuController {
 
 
 
-    @ApiOperation(value ="收藏菜谱",httpMethod = "GET")
-    @GetMapping(value = "/collect")
-    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userPkId",value = "用户主键",paramType = "com/menu/wgf/query",dataType = "int",required = true),
-            @ApiImplicitParam(name = "menuPkId",value = "菜谱主键",paramType = "com/menu/wgf/query",dataType = "int",required = true),
-    })
-    public ResultMsg collectMenu(@RequestParam("userPkId") int userPkId,@RequestParam("menuPkId") int menuPkId){
-        System.out.println("userId:"+userPkId+",menuPkId:"+menuPkId);
-        return ResultMsg.success();
-    }
-
-
-    @ApiOperation(value ="取消收藏菜谱",httpMethod = "DELETE")
-    @DeleteMapping(value = "/collect/{collectPkId}")
-    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "collectPkId",value = "收藏主键",paramType = "path",dataType = "int",required = true),
-    })
-    public ResultMsg collectMenu(@PathVariable int collectPkId){
-        System.out.println("collectPkId:"+collectPkId);
-        return ResultMsg.success();
-    }
-
-
-
     @ApiOperation(value ="获取用户收藏的菜谱列表",httpMethod = "GET")
-    @GetMapping(value = "/collect/{userPkId}")
+    @GetMapping(value = "/collect/user/{userPkId}")
     @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userPkId",value = "用户的主键",paramType = "path",dataType = "int",required = true),

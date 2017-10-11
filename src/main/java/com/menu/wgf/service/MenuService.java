@@ -53,11 +53,10 @@ public interface MenuService {
 
     /**
      * 收藏菜谱
-     * @param userPkId
      * @param menuPkId
      * @return
      */
-    ResultMsg collectMenu(int userPkId,int menuPkId);
+    ResultMsg collectMenu(int menuPkId);
 
     /**
      * 取消收藏菜谱
@@ -118,5 +117,24 @@ public interface MenuService {
     ResultMsg getMenuDetail(int menuPkId);
 
 
+    /**
+     * 点赞菜谱
+     * @param menuPkId
+     * @return
+     */
+    ResultMsg likeMenu(int menuPkId);
 
+    /**
+     * 取消点赞菜谱
+     * @param menuPkId
+     * @return
+     */
+    ResultMsg dislikeMenu(int menuPkId);
+
+    /**
+     * 取消收藏
+     * @param collectPkId
+     * @return
+     */
+    ResultMsg notCollectMenu(int collectPkId);
 }

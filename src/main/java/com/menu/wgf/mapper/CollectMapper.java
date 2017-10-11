@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
@@ -25,48 +26,50 @@ public interface CollectMapper {
 
     @Delete({
         "delete from t_collect",
-        "where \"t_collect _pkid\" = #{tCollectPkid,jdbcType=INTEGER}"
+        "where t_collect_pkid = #{tCollectPkid,jdbcType=INTEGER}"
     })
     int deleteByPrimaryKey(Integer tCollectPkid);
 
     @Insert({
-        "insert into t_collect (\"t_collect _pkid\", \"t_collect_user _pkid\", ",
-        "\"t_ collect _menu_pkid\", \"t_collect _cdt\", ",
-        "\"t_collect _udt\", \"t_collect _cancel\")",
-        "values (#{tCollectPkid,jdbcType=INTEGER}, #{tCollectUserPkid,jdbcType=INTEGER}, ",
-        "#{tCollectMenuPkid,jdbcType=INTEGER}, #{tCollectCdt,jdbcType=TIMESTAMP}, ",
-        "#{tCollectUdt,jdbcType=TIMESTAMP}, #{tCollectCancel,jdbcType=INTEGER})"
+        "insert into t_collect (t_collect_user_pkid, t_collect_menu_pkid, ",
+        "t_collect_cdt, t_collect_udt, ",
+        "t_collect_cancel)",
+        "values (#{tCollectUserPkid,jdbcType=INTEGER}, #{tCollectMenuPkid,jdbcType=INTEGER}, ",
+        "#{tCollectCdt,jdbcType=TIMESTAMP}, #{tCollectUdt,jdbcType=TIMESTAMP}, ",
+        "#{tCollectCancel,jdbcType=INTEGER})"
     })
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="tCollectPkid", before=false, resultType=Integer.class)
     int insert(Collect record);
 
     @InsertProvider(type=CollectSqlProvider.class, method="insertSelective")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="tCollectPkid", before=false, resultType=Integer.class)
     int insertSelective(Collect record);
 
     @SelectProvider(type=CollectSqlProvider.class, method="selectByExample")
     @Results({
-        @Result(column="t_collect _pkid", property="tCollectPkid", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="t_collect_user _pkid", property="tCollectUserPkid", jdbcType=JdbcType.INTEGER),
-        @Result(column="t_ collect _menu_pkid", property="tCollectMenuPkid", jdbcType=JdbcType.INTEGER),
-        @Result(column="t_collect _cdt", property="tCollectCdt", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="t_collect _udt", property="tCollectUdt", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="t_collect _cancel", property="tCollectCancel", jdbcType=JdbcType.INTEGER)
+        @Result(column="t_collect_pkid", property="tCollectPkid", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="t_collect_user_pkid", property="tCollectUserPkid", jdbcType=JdbcType.INTEGER),
+        @Result(column="t_collect_menu_pkid", property="tCollectMenuPkid", jdbcType=JdbcType.INTEGER),
+        @Result(column="t_collect_cdt", property="tCollectCdt", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="t_collect_udt", property="tCollectUdt", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="t_collect_cancel", property="tCollectCancel", jdbcType=JdbcType.INTEGER)
     })
     List<Collect> selectByExample(CollectCriteria example);
 
     @Select({
         "select",
-        "\"t_collect _pkid\", \"t_collect_user _pkid\", \"t_ collect _menu_pkid\", \"t_collect _cdt\", ",
-        "\"t_collect _udt\", \"t_collect _cancel\"",
+        "t_collect_pkid, t_collect_user_pkid, t_collect_menu_pkid, t_collect_cdt, t_collect_udt, ",
+        "t_collect_cancel",
         "from t_collect",
-        "where \"t_collect _pkid\" = #{tCollectPkid,jdbcType=INTEGER}"
+        "where t_collect_pkid = #{tCollectPkid,jdbcType=INTEGER}"
     })
     @Results({
-        @Result(column="t_collect _pkid", property="tCollectPkid", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="t_collect_user _pkid", property="tCollectUserPkid", jdbcType=JdbcType.INTEGER),
-        @Result(column="t_ collect _menu_pkid", property="tCollectMenuPkid", jdbcType=JdbcType.INTEGER),
-        @Result(column="t_collect _cdt", property="tCollectCdt", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="t_collect _udt", property="tCollectUdt", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="t_collect _cancel", property="tCollectCancel", jdbcType=JdbcType.INTEGER)
+        @Result(column="t_collect_pkid", property="tCollectPkid", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="t_collect_user_pkid", property="tCollectUserPkid", jdbcType=JdbcType.INTEGER),
+        @Result(column="t_collect_menu_pkid", property="tCollectMenuPkid", jdbcType=JdbcType.INTEGER),
+        @Result(column="t_collect_cdt", property="tCollectCdt", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="t_collect_udt", property="tCollectUdt", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="t_collect_cancel", property="tCollectCancel", jdbcType=JdbcType.INTEGER)
     })
     Collect selectByPrimaryKey(Integer tCollectPkid);
 
@@ -81,12 +84,12 @@ public interface CollectMapper {
 
     @Update({
         "update t_collect",
-        "set \"t_collect_user _pkid\" = #{tCollectUserPkid,jdbcType=INTEGER},",
-          "\"t_ collect _menu_pkid\" = #{tCollectMenuPkid,jdbcType=INTEGER},",
-          "\"t_collect _cdt\" = #{tCollectCdt,jdbcType=TIMESTAMP},",
-          "\"t_collect _udt\" = #{tCollectUdt,jdbcType=TIMESTAMP},",
-          "\"t_collect _cancel\" = #{tCollectCancel,jdbcType=INTEGER}",
-        "where \"t_collect _pkid\" = #{tCollectPkid,jdbcType=INTEGER}"
+        "set t_collect_user_pkid = #{tCollectUserPkid,jdbcType=INTEGER},",
+          "t_collect_menu_pkid = #{tCollectMenuPkid,jdbcType=INTEGER},",
+          "t_collect_cdt = #{tCollectCdt,jdbcType=TIMESTAMP},",
+          "t_collect_udt = #{tCollectUdt,jdbcType=TIMESTAMP},",
+          "t_collect_cancel = #{tCollectCancel,jdbcType=INTEGER}",
+        "where t_collect_pkid = #{tCollectPkid,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Collect record);
 }

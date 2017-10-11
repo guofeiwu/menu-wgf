@@ -106,362 +106,362 @@ public class CollectCriteria {
         }
 
         public Criteria andTCollectPkidIsNull() {
-            addCriterion("\"t_collect _pkid\" is null");
+            addCriterion("t_collect_pkid is null");
             return (Criteria) this;
         }
 
         public Criteria andTCollectPkidIsNotNull() {
-            addCriterion("\"t_collect _pkid\" is not null");
+            addCriterion("t_collect_pkid is not null");
             return (Criteria) this;
         }
 
         public Criteria andTCollectPkidEqualTo(Integer value) {
-            addCriterion("\"t_collect _pkid\" =", value, "tCollectPkid");
+            addCriterion("t_collect_pkid =", value, "tCollectPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectPkidNotEqualTo(Integer value) {
-            addCriterion("\"t_collect _pkid\" <>", value, "tCollectPkid");
+            addCriterion("t_collect_pkid <>", value, "tCollectPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectPkidGreaterThan(Integer value) {
-            addCriterion("\"t_collect _pkid\" >", value, "tCollectPkid");
+            addCriterion("t_collect_pkid >", value, "tCollectPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectPkidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("\"t_collect _pkid\" >=", value, "tCollectPkid");
+            addCriterion("t_collect_pkid >=", value, "tCollectPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectPkidLessThan(Integer value) {
-            addCriterion("\"t_collect _pkid\" <", value, "tCollectPkid");
+            addCriterion("t_collect_pkid <", value, "tCollectPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectPkidLessThanOrEqualTo(Integer value) {
-            addCriterion("\"t_collect _pkid\" <=", value, "tCollectPkid");
+            addCriterion("t_collect_pkid <=", value, "tCollectPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectPkidIn(List<Integer> values) {
-            addCriterion("\"t_collect _pkid\" in", values, "tCollectPkid");
+            addCriterion("t_collect_pkid in", values, "tCollectPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectPkidNotIn(List<Integer> values) {
-            addCriterion("\"t_collect _pkid\" not in", values, "tCollectPkid");
+            addCriterion("t_collect_pkid not in", values, "tCollectPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectPkidBetween(Integer value1, Integer value2) {
-            addCriterion("\"t_collect _pkid\" between", value1, value2, "tCollectPkid");
+            addCriterion("t_collect_pkid between", value1, value2, "tCollectPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectPkidNotBetween(Integer value1, Integer value2) {
-            addCriterion("\"t_collect _pkid\" not between", value1, value2, "tCollectPkid");
+            addCriterion("t_collect_pkid not between", value1, value2, "tCollectPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUserPkidIsNull() {
-            addCriterion("\"t_collect_user _pkid\" is null");
+            addCriterion("t_collect_user_pkid is null");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUserPkidIsNotNull() {
-            addCriterion("\"t_collect_user _pkid\" is not null");
+            addCriterion("t_collect_user_pkid is not null");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUserPkidEqualTo(Integer value) {
-            addCriterion("\"t_collect_user _pkid\" =", value, "tCollectUserPkid");
+            addCriterion("t_collect_user_pkid =", value, "tCollectUserPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUserPkidNotEqualTo(Integer value) {
-            addCriterion("\"t_collect_user _pkid\" <>", value, "tCollectUserPkid");
+            addCriterion("t_collect_user_pkid <>", value, "tCollectUserPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUserPkidGreaterThan(Integer value) {
-            addCriterion("\"t_collect_user _pkid\" >", value, "tCollectUserPkid");
+            addCriterion("t_collect_user_pkid >", value, "tCollectUserPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUserPkidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("\"t_collect_user _pkid\" >=", value, "tCollectUserPkid");
+            addCriterion("t_collect_user_pkid >=", value, "tCollectUserPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUserPkidLessThan(Integer value) {
-            addCriterion("\"t_collect_user _pkid\" <", value, "tCollectUserPkid");
+            addCriterion("t_collect_user_pkid <", value, "tCollectUserPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUserPkidLessThanOrEqualTo(Integer value) {
-            addCriterion("\"t_collect_user _pkid\" <=", value, "tCollectUserPkid");
+            addCriterion("t_collect_user_pkid <=", value, "tCollectUserPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUserPkidIn(List<Integer> values) {
-            addCriterion("\"t_collect_user _pkid\" in", values, "tCollectUserPkid");
+            addCriterion("t_collect_user_pkid in", values, "tCollectUserPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUserPkidNotIn(List<Integer> values) {
-            addCriterion("\"t_collect_user _pkid\" not in", values, "tCollectUserPkid");
+            addCriterion("t_collect_user_pkid not in", values, "tCollectUserPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUserPkidBetween(Integer value1, Integer value2) {
-            addCriterion("\"t_collect_user _pkid\" between", value1, value2, "tCollectUserPkid");
+            addCriterion("t_collect_user_pkid between", value1, value2, "tCollectUserPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUserPkidNotBetween(Integer value1, Integer value2) {
-            addCriterion("\"t_collect_user _pkid\" not between", value1, value2, "tCollectUserPkid");
+            addCriterion("t_collect_user_pkid not between", value1, value2, "tCollectUserPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectMenuPkidIsNull() {
-            addCriterion("\"t_ collect _menu_pkid\" is null");
+            addCriterion("t_collect_menu_pkid is null");
             return (Criteria) this;
         }
 
         public Criteria andTCollectMenuPkidIsNotNull() {
-            addCriterion("\"t_ collect _menu_pkid\" is not null");
+            addCriterion("t_collect_menu_pkid is not null");
             return (Criteria) this;
         }
 
         public Criteria andTCollectMenuPkidEqualTo(Integer value) {
-            addCriterion("\"t_ collect _menu_pkid\" =", value, "tCollectMenuPkid");
+            addCriterion("t_collect_menu_pkid =", value, "tCollectMenuPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectMenuPkidNotEqualTo(Integer value) {
-            addCriterion("\"t_ collect _menu_pkid\" <>", value, "tCollectMenuPkid");
+            addCriterion("t_collect_menu_pkid <>", value, "tCollectMenuPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectMenuPkidGreaterThan(Integer value) {
-            addCriterion("\"t_ collect _menu_pkid\" >", value, "tCollectMenuPkid");
+            addCriterion("t_collect_menu_pkid >", value, "tCollectMenuPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectMenuPkidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("\"t_ collect _menu_pkid\" >=", value, "tCollectMenuPkid");
+            addCriterion("t_collect_menu_pkid >=", value, "tCollectMenuPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectMenuPkidLessThan(Integer value) {
-            addCriterion("\"t_ collect _menu_pkid\" <", value, "tCollectMenuPkid");
+            addCriterion("t_collect_menu_pkid <", value, "tCollectMenuPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectMenuPkidLessThanOrEqualTo(Integer value) {
-            addCriterion("\"t_ collect _menu_pkid\" <=", value, "tCollectMenuPkid");
+            addCriterion("t_collect_menu_pkid <=", value, "tCollectMenuPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectMenuPkidIn(List<Integer> values) {
-            addCriterion("\"t_ collect _menu_pkid\" in", values, "tCollectMenuPkid");
+            addCriterion("t_collect_menu_pkid in", values, "tCollectMenuPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectMenuPkidNotIn(List<Integer> values) {
-            addCriterion("\"t_ collect _menu_pkid\" not in", values, "tCollectMenuPkid");
+            addCriterion("t_collect_menu_pkid not in", values, "tCollectMenuPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectMenuPkidBetween(Integer value1, Integer value2) {
-            addCriterion("\"t_ collect _menu_pkid\" between", value1, value2, "tCollectMenuPkid");
+            addCriterion("t_collect_menu_pkid between", value1, value2, "tCollectMenuPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectMenuPkidNotBetween(Integer value1, Integer value2) {
-            addCriterion("\"t_ collect _menu_pkid\" not between", value1, value2, "tCollectMenuPkid");
+            addCriterion("t_collect_menu_pkid not between", value1, value2, "tCollectMenuPkid");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCdtIsNull() {
-            addCriterion("\"t_collect _cdt\" is null");
+            addCriterion("t_collect_cdt is null");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCdtIsNotNull() {
-            addCriterion("\"t_collect _cdt\" is not null");
+            addCriterion("t_collect_cdt is not null");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCdtEqualTo(Date value) {
-            addCriterion("\"t_collect _cdt\" =", value, "tCollectCdt");
+            addCriterion("t_collect_cdt =", value, "tCollectCdt");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCdtNotEqualTo(Date value) {
-            addCriterion("\"t_collect _cdt\" <>", value, "tCollectCdt");
+            addCriterion("t_collect_cdt <>", value, "tCollectCdt");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCdtGreaterThan(Date value) {
-            addCriterion("\"t_collect _cdt\" >", value, "tCollectCdt");
+            addCriterion("t_collect_cdt >", value, "tCollectCdt");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCdtGreaterThanOrEqualTo(Date value) {
-            addCriterion("\"t_collect _cdt\" >=", value, "tCollectCdt");
+            addCriterion("t_collect_cdt >=", value, "tCollectCdt");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCdtLessThan(Date value) {
-            addCriterion("\"t_collect _cdt\" <", value, "tCollectCdt");
+            addCriterion("t_collect_cdt <", value, "tCollectCdt");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCdtLessThanOrEqualTo(Date value) {
-            addCriterion("\"t_collect _cdt\" <=", value, "tCollectCdt");
+            addCriterion("t_collect_cdt <=", value, "tCollectCdt");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCdtIn(List<Date> values) {
-            addCriterion("\"t_collect _cdt\" in", values, "tCollectCdt");
+            addCriterion("t_collect_cdt in", values, "tCollectCdt");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCdtNotIn(List<Date> values) {
-            addCriterion("\"t_collect _cdt\" not in", values, "tCollectCdt");
+            addCriterion("t_collect_cdt not in", values, "tCollectCdt");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCdtBetween(Date value1, Date value2) {
-            addCriterion("\"t_collect _cdt\" between", value1, value2, "tCollectCdt");
+            addCriterion("t_collect_cdt between", value1, value2, "tCollectCdt");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCdtNotBetween(Date value1, Date value2) {
-            addCriterion("\"t_collect _cdt\" not between", value1, value2, "tCollectCdt");
+            addCriterion("t_collect_cdt not between", value1, value2, "tCollectCdt");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUdtIsNull() {
-            addCriterion("\"t_collect _udt\" is null");
+            addCriterion("t_collect_udt is null");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUdtIsNotNull() {
-            addCriterion("\"t_collect _udt\" is not null");
+            addCriterion("t_collect_udt is not null");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUdtEqualTo(Date value) {
-            addCriterion("\"t_collect _udt\" =", value, "tCollectUdt");
+            addCriterion("t_collect_udt =", value, "tCollectUdt");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUdtNotEqualTo(Date value) {
-            addCriterion("\"t_collect _udt\" <>", value, "tCollectUdt");
+            addCriterion("t_collect_udt <>", value, "tCollectUdt");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUdtGreaterThan(Date value) {
-            addCriterion("\"t_collect _udt\" >", value, "tCollectUdt");
+            addCriterion("t_collect_udt >", value, "tCollectUdt");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUdtGreaterThanOrEqualTo(Date value) {
-            addCriterion("\"t_collect _udt\" >=", value, "tCollectUdt");
+            addCriterion("t_collect_udt >=", value, "tCollectUdt");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUdtLessThan(Date value) {
-            addCriterion("\"t_collect _udt\" <", value, "tCollectUdt");
+            addCriterion("t_collect_udt <", value, "tCollectUdt");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUdtLessThanOrEqualTo(Date value) {
-            addCriterion("\"t_collect _udt\" <=", value, "tCollectUdt");
+            addCriterion("t_collect_udt <=", value, "tCollectUdt");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUdtIn(List<Date> values) {
-            addCriterion("\"t_collect _udt\" in", values, "tCollectUdt");
+            addCriterion("t_collect_udt in", values, "tCollectUdt");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUdtNotIn(List<Date> values) {
-            addCriterion("\"t_collect _udt\" not in", values, "tCollectUdt");
+            addCriterion("t_collect_udt not in", values, "tCollectUdt");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUdtBetween(Date value1, Date value2) {
-            addCriterion("\"t_collect _udt\" between", value1, value2, "tCollectUdt");
+            addCriterion("t_collect_udt between", value1, value2, "tCollectUdt");
             return (Criteria) this;
         }
 
         public Criteria andTCollectUdtNotBetween(Date value1, Date value2) {
-            addCriterion("\"t_collect _udt\" not between", value1, value2, "tCollectUdt");
+            addCriterion("t_collect_udt not between", value1, value2, "tCollectUdt");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCancelIsNull() {
-            addCriterion("\"t_collect _cancel\" is null");
+            addCriterion("t_collect_cancel is null");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCancelIsNotNull() {
-            addCriterion("\"t_collect _cancel\" is not null");
+            addCriterion("t_collect_cancel is not null");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCancelEqualTo(Integer value) {
-            addCriterion("\"t_collect _cancel\" =", value, "tCollectCancel");
+            addCriterion("t_collect_cancel =", value, "tCollectCancel");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCancelNotEqualTo(Integer value) {
-            addCriterion("\"t_collect _cancel\" <>", value, "tCollectCancel");
+            addCriterion("t_collect_cancel <>", value, "tCollectCancel");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCancelGreaterThan(Integer value) {
-            addCriterion("\"t_collect _cancel\" >", value, "tCollectCancel");
+            addCriterion("t_collect_cancel >", value, "tCollectCancel");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCancelGreaterThanOrEqualTo(Integer value) {
-            addCriterion("\"t_collect _cancel\" >=", value, "tCollectCancel");
+            addCriterion("t_collect_cancel >=", value, "tCollectCancel");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCancelLessThan(Integer value) {
-            addCriterion("\"t_collect _cancel\" <", value, "tCollectCancel");
+            addCriterion("t_collect_cancel <", value, "tCollectCancel");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCancelLessThanOrEqualTo(Integer value) {
-            addCriterion("\"t_collect _cancel\" <=", value, "tCollectCancel");
+            addCriterion("t_collect_cancel <=", value, "tCollectCancel");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCancelIn(List<Integer> values) {
-            addCriterion("\"t_collect _cancel\" in", values, "tCollectCancel");
+            addCriterion("t_collect_cancel in", values, "tCollectCancel");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCancelNotIn(List<Integer> values) {
-            addCriterion("\"t_collect _cancel\" not in", values, "tCollectCancel");
+            addCriterion("t_collect_cancel not in", values, "tCollectCancel");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCancelBetween(Integer value1, Integer value2) {
-            addCriterion("\"t_collect _cancel\" between", value1, value2, "tCollectCancel");
+            addCriterion("t_collect_cancel between", value1, value2, "tCollectCancel");
             return (Criteria) this;
         }
 
         public Criteria andTCollectCancelNotBetween(Integer value1, Integer value2) {
-            addCriterion("\"t_collect _cancel\" not between", value1, value2, "tCollectCancel");
+            addCriterion("t_collect_cancel not between", value1, value2, "tCollectCancel");
             return (Criteria) this;
         }
     }

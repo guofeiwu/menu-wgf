@@ -28,28 +28,24 @@ public class CollectSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("t_collect");
         
-        if (record.gettCollectPkid() != null) {
-            sql.VALUES("\"t_collect _pkid\"", "#{tCollectPkid,jdbcType=INTEGER}");
-        }
-        
         if (record.gettCollectUserPkid() != null) {
-            sql.VALUES("\"t_collect_user _pkid\"", "#{tCollectUserPkid,jdbcType=INTEGER}");
+            sql.VALUES("t_collect_user_pkid", "#{tCollectUserPkid,jdbcType=INTEGER}");
         }
         
         if (record.gettCollectMenuPkid() != null) {
-            sql.VALUES("\"t_ collect _menu_pkid\"", "#{tCollectMenuPkid,jdbcType=INTEGER}");
+            sql.VALUES("t_collect_menu_pkid", "#{tCollectMenuPkid,jdbcType=INTEGER}");
         }
         
         if (record.gettCollectCdt() != null) {
-            sql.VALUES("\"t_collect _cdt\"", "#{tCollectCdt,jdbcType=TIMESTAMP}");
+            sql.VALUES("t_collect_cdt", "#{tCollectCdt,jdbcType=TIMESTAMP}");
         }
         
         if (record.gettCollectUdt() != null) {
-            sql.VALUES("\"t_collect _udt\"", "#{tCollectUdt,jdbcType=TIMESTAMP}");
+            sql.VALUES("t_collect_udt", "#{tCollectUdt,jdbcType=TIMESTAMP}");
         }
         
         if (record.gettCollectCancel() != null) {
-            sql.VALUES("\"t_collect _cancel\"", "#{tCollectCancel,jdbcType=INTEGER}");
+            sql.VALUES("t_collect_cancel", "#{tCollectCancel,jdbcType=INTEGER}");
         }
         
         return sql.toString();
@@ -58,15 +54,15 @@ public class CollectSqlProvider {
     public String selectByExample(CollectCriteria example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
-            sql.SELECT_DISTINCT("\"t_collect _pkid\"");
+            sql.SELECT_DISTINCT("t_collect_pkid");
         } else {
-            sql.SELECT("\"t_collect _pkid\"");
+            sql.SELECT("t_collect_pkid");
         }
-        sql.SELECT("\"t_collect_user _pkid\"");
-        sql.SELECT("\"t_ collect _menu_pkid\"");
-        sql.SELECT("\"t_collect _cdt\"");
-        sql.SELECT("\"t_collect _udt\"");
-        sql.SELECT("\"t_collect _cancel\"");
+        sql.SELECT("t_collect_user_pkid");
+        sql.SELECT("t_collect_menu_pkid");
+        sql.SELECT("t_collect_cdt");
+        sql.SELECT("t_collect_udt");
+        sql.SELECT("t_collect_cancel");
         sql.FROM("t_collect");
         applyWhere(sql, example, false);
         
@@ -85,27 +81,27 @@ public class CollectSqlProvider {
         sql.UPDATE("t_collect");
         
         if (record.gettCollectPkid() != null) {
-            sql.SET("\"t_collect _pkid\" = #{record.tCollectPkid,jdbcType=INTEGER}");
+            sql.SET("t_collect_pkid = #{record.tCollectPkid,jdbcType=INTEGER}");
         }
         
         if (record.gettCollectUserPkid() != null) {
-            sql.SET("\"t_collect_user _pkid\" = #{record.tCollectUserPkid,jdbcType=INTEGER}");
+            sql.SET("t_collect_user_pkid = #{record.tCollectUserPkid,jdbcType=INTEGER}");
         }
         
         if (record.gettCollectMenuPkid() != null) {
-            sql.SET("\"t_ collect _menu_pkid\" = #{record.tCollectMenuPkid,jdbcType=INTEGER}");
+            sql.SET("t_collect_menu_pkid = #{record.tCollectMenuPkid,jdbcType=INTEGER}");
         }
         
         if (record.gettCollectCdt() != null) {
-            sql.SET("\"t_collect _cdt\" = #{record.tCollectCdt,jdbcType=TIMESTAMP}");
+            sql.SET("t_collect_cdt = #{record.tCollectCdt,jdbcType=TIMESTAMP}");
         }
         
         if (record.gettCollectUdt() != null) {
-            sql.SET("\"t_collect _udt\" = #{record.tCollectUdt,jdbcType=TIMESTAMP}");
+            sql.SET("t_collect_udt = #{record.tCollectUdt,jdbcType=TIMESTAMP}");
         }
         
         if (record.gettCollectCancel() != null) {
-            sql.SET("\"t_collect _cancel\" = #{record.tCollectCancel,jdbcType=INTEGER}");
+            sql.SET("t_collect_cancel = #{record.tCollectCancel,jdbcType=INTEGER}");
         }
         
         applyWhere(sql, example, true);
@@ -116,12 +112,12 @@ public class CollectSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("t_collect");
         
-        sql.SET("\"t_collect _pkid\" = #{record.tCollectPkid,jdbcType=INTEGER}");
-        sql.SET("\"t_collect_user _pkid\" = #{record.tCollectUserPkid,jdbcType=INTEGER}");
-        sql.SET("\"t_ collect _menu_pkid\" = #{record.tCollectMenuPkid,jdbcType=INTEGER}");
-        sql.SET("\"t_collect _cdt\" = #{record.tCollectCdt,jdbcType=TIMESTAMP}");
-        sql.SET("\"t_collect _udt\" = #{record.tCollectUdt,jdbcType=TIMESTAMP}");
-        sql.SET("\"t_collect _cancel\" = #{record.tCollectCancel,jdbcType=INTEGER}");
+        sql.SET("t_collect_pkid = #{record.tCollectPkid,jdbcType=INTEGER}");
+        sql.SET("t_collect_user_pkid = #{record.tCollectUserPkid,jdbcType=INTEGER}");
+        sql.SET("t_collect_menu_pkid = #{record.tCollectMenuPkid,jdbcType=INTEGER}");
+        sql.SET("t_collect_cdt = #{record.tCollectCdt,jdbcType=TIMESTAMP}");
+        sql.SET("t_collect_udt = #{record.tCollectUdt,jdbcType=TIMESTAMP}");
+        sql.SET("t_collect_cancel = #{record.tCollectCancel,jdbcType=INTEGER}");
         
         CollectCriteria example = (CollectCriteria) parameter.get("example");
         applyWhere(sql, example, true);
@@ -133,26 +129,26 @@ public class CollectSqlProvider {
         sql.UPDATE("t_collect");
         
         if (record.gettCollectUserPkid() != null) {
-            sql.SET("\"t_collect_user _pkid\" = #{tCollectUserPkid,jdbcType=INTEGER}");
+            sql.SET("t_collect_user_pkid = #{tCollectUserPkid,jdbcType=INTEGER}");
         }
         
         if (record.gettCollectMenuPkid() != null) {
-            sql.SET("\"t_ collect _menu_pkid\" = #{tCollectMenuPkid,jdbcType=INTEGER}");
+            sql.SET("t_collect_menu_pkid = #{tCollectMenuPkid,jdbcType=INTEGER}");
         }
         
         if (record.gettCollectCdt() != null) {
-            sql.SET("\"t_collect _cdt\" = #{tCollectCdt,jdbcType=TIMESTAMP}");
+            sql.SET("t_collect_cdt = #{tCollectCdt,jdbcType=TIMESTAMP}");
         }
         
         if (record.gettCollectUdt() != null) {
-            sql.SET("\"t_collect _udt\" = #{tCollectUdt,jdbcType=TIMESTAMP}");
+            sql.SET("t_collect_udt = #{tCollectUdt,jdbcType=TIMESTAMP}");
         }
         
         if (record.gettCollectCancel() != null) {
-            sql.SET("\"t_collect _cancel\" = #{tCollectCancel,jdbcType=INTEGER}");
+            sql.SET("t_collect_cancel = #{tCollectCancel,jdbcType=INTEGER}");
         }
         
-        sql.WHERE("\"t_collect _pkid\" = #{tCollectPkid,jdbcType=INTEGER}");
+        sql.WHERE("t_collect_pkid = #{tCollectPkid,jdbcType=INTEGER}");
         
         return sql.toString();
     }
