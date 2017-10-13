@@ -14,7 +14,7 @@ public class MenuConditionDataObject {
     @ApiModelProperty(value = "关键字",position = 2,required = false)
     public String keyword;
     @ApiModelProperty(value = "菜谱类型",position = 2,required = false)
-    public int type;
+    public Integer pType;
     @ApiModelProperty(value = "菜谱类型子类型",position = 2,required = false)
-    public int sunType;
+    public Integer sunType;
 }

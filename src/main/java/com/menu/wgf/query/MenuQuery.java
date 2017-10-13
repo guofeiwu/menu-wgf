@@ -13,4 +13,6 @@ import java.util.Map;
 @Component
 public interface MenuQuery {
     List<Map> getMenuList(Map map);
+    //获取滚动的banner数据
+    List<Map> getBanners();
 }

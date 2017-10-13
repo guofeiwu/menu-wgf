@@ -1,6 +1,5 @@
 package com.menu.wgf.dto;
 
-import com.menu.wgf.model.Step;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;

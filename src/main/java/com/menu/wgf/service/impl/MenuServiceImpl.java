@@ -2,14 +2,12 @@ package com.menu.wgf.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.menu.wgf.config.jwt.JwtUtil;
-import com.menu.wgf.dto.CommentDataObject;
-import com.menu.wgf.dto.MenuConditionDataObject;
-import com.menu.wgf.dto.MenuDataObject;
-import com.menu.wgf.dto.StepDataObject;
+import com.menu.wgf.dto.*;
 import com.menu.wgf.mapper.*;
 import com.menu.wgf.model.*;
 import com.menu.wgf.query.MenuQuery;
 import com.menu.wgf.service.MenuService;
+import com.menu.wgf.util.RandonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,16 +54,36 @@ public class MenuServiceImpl implements MenuService {
     public ResultMsg getMenuList(MenuConditionDataObject menuConditionDataObject) {
 
         int pageNo = menuConditionDataObject.pageNo;
-        int type = menuConditionDataObject.type;
-        int sunType = menuConditionDataObject.sunType;
+        Integer type = menuConditionDataObject.pType;
+        Integer sunType = menuConditionDataObject.sunType;
         String keyword = menuConditionDataObject.keyword;
 
 
         Integer userPkId = jwtUtil.getLoginPkid();
 
         Map map = new HashMap();
-        map.put("pType", String.valueOf(type));
-        map.put("sunType", String.valueOf(sunType));
+        if(type!=null){
+            map.put("pType", String.valueOf(type));
+        }else{
+            map.put("sunType", type);
+        }
+
+        if(sunType!=null){
+            map.put("sunType", String.valueOf(sunType));
+        }else{
+            map.put("sunType", sunType);
+        }
+        if(keyword!=null){
+            if(keyword.contains("早")){
+                map.put("sunType", 0);
+            }else if(keyword.contains("中")){
+                map.put("sunType", 1);
+            }else if(keyword.contains("晚")){
+                map.put("sunType", 2);
+            }else if(keyword.contains("夜")){
+                map.put("sunType", 3);
+            }
+        }
         map.put("keyword", keyword);
         PageHelper.startPage(pageNo, 6);
         List<Map> maps = menuQuery.getMenuList(map);
@@ -374,6 +392,22 @@ public class MenuServiceImpl implements MenuService {
         return ResultMsg.failed().addContent("content","评论失败");
     }
 
+    @Override
+    public ResultMsg getBannerMenu() {
+        List<Map> maps = menuQuery.getBanners();
+        if(maps.size()>0){
+            List<BannerDataObject> bannerDataObjects = new ArrayList<>();
+            for (Map map:maps){
+                BannerDataObject bannerDataObject = new BannerDataObject();
+                bannerDataObject.menuPkId = (int) map.get("menuPkId");
+                bannerDataObject.menuDesc = (String) map.get("menuDesc");
+                bannerDataObject.mainIcon = (String) map.get("mainIcon");
+                bannerDataObjects.add(bannerDataObject);
+            }
+            return ResultMsg.success().addContent("content",bannerDataObjects);
+        }
+        return ResultMsg.failed().addContent("content","获取banner失败");
+    }
 
     @Override
     public ResultMsg getUserCommentMenuList(int userPkId, int pageSize, int pageNo) {

@@ -110,17 +110,6 @@ public class MenuController {
         return menuService.commentMenu(commentDataObject);
     }
 
-
-
-
-
-
-
-
-
-
-
-
     @ApiOperation(value ="删除菜谱评论",httpMethod = "DELETE")
     @DeleteMapping(value = "/comment/{commentPkId}")
     @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
@@ -129,6 +118,17 @@ public class MenuController {
     })
     public ResultMsg deleteCommentMenu(@PathVariable("commentPkId") int commentPkId){
         return menuService.deleteCommentMenu(commentPkId);
+    }
+
+
+
+
+
+    @ApiOperation(value ="获取banner菜谱",httpMethod = "GET")
+    @GetMapping(value = "/banner")
+    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
+    public ResultMsg getMenuBanners(){
+        return menuService.getBannerMenu();
     }
 
 

@@ -1,0 +1,13 @@
+2017-10-10 10:44:22.968  INFO 2876 --- [main] com.menu.wgf.MenuApplication             : Starting MenuApplication on DESKTOP-GM3MMR0 with PID 2876 (D:\Work\idea\ideaProject\menu-wgf\target\classes started by guofei_wu in D:\Work\idea\ideaProject\menu-wgf)
+2017-10-10 10:44:22.971  INFO 2876 --- [main] com.menu.wgf.MenuApplication             : No active profile set, falling back to default profiles: default
+2017-10-10 10:44:24.963  INFO 2876 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-10-10 10:44:24.964  INFO 2876 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.20
+2017-10-10 10:44:25.052  INFO 2876 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-10-10 10:44:26.874  INFO 2876 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2017-10-10 10:44:27.951  INFO 2876 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2017-10-10 10:44:27.965  INFO 2876 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2017-10-10 10:44:28.021  INFO 2876 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2017-10-10 10:44:28.312  INFO 2876 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: uploadMenuUsingPOST_1
+2017-10-10 10:44:28.350  INFO 2876 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: getShaiListUsingGET_1
+2017-10-10 10:44:28.456  INFO 2876 --- [main] com.menu.wgf.MenuApplication             : Started MenuApplication in 5.769 seconds (JVM running for 6.182)
+2017-10-10 10:44:51.874  INFO 2876 --- [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'

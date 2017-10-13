@@ -136,4 +136,11 @@ public interface MenuService {
      * @return
      */
     ResultMsg notCollectMenu(int collectPkId);
+
+    /**
+     * 获取首页的banner菜谱
+     * @return
+     */
+    ResultMsg getBannerMenu();
+
 }

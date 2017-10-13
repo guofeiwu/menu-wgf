@@ -2,16 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.menu.wgf.query.MenuQuery">
     <select id="getMenuList" parameterType="map" resultType="java.util.LinkedHashMap">
-     SELECT m.t_menu_pkid menuPkId, m.t_menu_name menuName, m.t_menu_description descr ,m.t_menu_user_pkid userPkId ,m.t_menu_main_icon mainIcon FROM t_menu m WHERE
+        SELECT m.t_menu_pkid menuPkId, m.t_menu_name menuName, m.t_menu_description descr ,m.t_menu_user_pkid userPkId
+        ,m.t_menu_main_icon mainIcon FROM t_menu m WHERE
         m.t_menu_delete = 0
-        <if test="pType != null and pType != ''" >
-            AND m.t_menu_type = #{pType}
+        <if test="pType != null">
+            AND m.t_menu_type = #{pType,jdbcType=INTEGER}
         </if>
-        <if test="sunType != null and sunType != ''" >
-            AND m.t_menu_type_sun = #{sunType}
+        <if test="sunType != null">
+            AND m.t_menu_type_sun = #{sunType,jdbcType=INTEGER}
         </if>
-        <if test="keyword != null and keyword != ''" >
+        <if test="keyword != null and keyword != ''">
             AND (m.t_menu_name LIKE CONCAT('%',#{keyword},'%') OR m.t_menu_description LIKE CONCAT('%',#{keyword},'%'))
         </if>
-  </select>
+
+    </select>
+
+    <select id="getBanners" resultType="java.util.LinkedHashMap">
+        SELECT b.t_banner_menu_pkid menuPkId,b.t_banner_menu_desc menuDesc ,m.t_menu_main_icon mainIcon FROM t_banner b
+        LEFT JOIN t_menu m ON b.t_banner_menu_pkid = m.t_menu_pkid
+        WHERE b.t_banner_delete = 0 AND m.t_menu_delete = 0
+    </select>
 </mapper>
