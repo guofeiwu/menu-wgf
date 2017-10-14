@@ -7,10 +7,12 @@ import com.menu.wgf.mapper.*;
 import com.menu.wgf.model.*;
 import com.menu.wgf.query.MenuQuery;
 import com.menu.wgf.service.MenuService;
+import com.menu.wgf.util.IOUtils;
 import com.menu.wgf.util.RandonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -408,6 +410,56 @@ public class MenuServiceImpl implements MenuService {
         }
         return ResultMsg.failed().addContent("content","获取banner失败");
     }
+
+
+    @Override
+    public ResultMsg uploadMenuCover(String menuName,String menuDesc,Integer menuType, Integer menuTypeSun,MultipartFile cover) {
+        int lastPkId = menuQuery.getMenuLast();
+        int menuPkId = IOUtils.uploadMenuCover(lastPkId,cover);
+        int userPkId =jwtUtil.getLoginPkid();
+        String menuName1 = menuName;
+        String menuDesc1 = menuDesc;
+        String menuIconPath;
+        int menuType1 = menuType;//父类型
+        int menuTypeSun1 = menuTypeSun;//子类型
+        if(menuPkId!=0){
+            menuIconPath= "menu"+menuPkId;
+        }else{
+            return ResultMsg.failed().addContent("content","上传失败");
+        }
+        Menu menu = new Menu();
+        menu.settMenuName(menuName1);
+        menu.settMenuDescription(menuDesc1);
+        menu.settMenuMainIcon(menuIconPath);
+        menu.settMenuUserPkid(userPkId);
+        menu.settMenuDelete(-1);//表示还未全部完成
+        menu.settMenuType(menuType1);
+        menu.settMenuTypeSun(menuTypeSun1);
+        Date date= new Date();
+        menu.settMenuCdt(date);
+        menu.settMenuUdt(date);
+        //int result = menuMapper.insertSelective(menu);
+        int result = 1;
+        if(result == 1){
+            Map<String,Object> map = new HashMap<>();
+            map.put("menuPkId",menuPkId);
+            return ResultMsg.success().addContent("content",map);
+        }
+        return ResultMsg.failed().addContent("content","上传失败");
+    }
+
+
+    @Override
+    public ResultMsg uploadMenuCover(MultipartFile cover){
+        String coverName = IOUtils.uploadMenuCover(cover);
+        if(coverName!=null){
+            Map<String,Object> map = new HashMap<>();
+            map.put("mainIcon",coverName);
+                return ResultMsg.success().addContent("content",map);
+        }
+        return ResultMsg.failed().addContent("content","上传失败");
+    }
+
 
     @Override
     public ResultMsg getUserCommentMenuList(int userPkId, int pageSize, int pageNo) {
