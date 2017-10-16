@@ -2,7 +2,14 @@ package com.menu.wgf.service;
 
 import com.menu.wgf.dto.CommentDataObject;
 import com.menu.wgf.dto.MenuConditionDataObject;
+import com.menu.wgf.dto.MenuContentDataObject;
+import com.menu.wgf.dto.UpMenuDataObject;
 import com.menu.wgf.model.ResultMsg;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @Author guofei_wu
@@ -142,5 +149,38 @@ public interface MenuService {
      * @return
      */
     ResultMsg getBannerMenu();
+
+
+    /**
+     *上传菜谱封面和一些其他的信息
+     * @param menuName
+     * @param menuDesc
+     * @param menuType
+     * @param menuTypeSun
+     * @param cover
+     * @return
+     */
+    ResultMsg uploadMenuCover(String menuName,String menuDesc,Integer menuType, Integer menuTypeSun,MultipartFile cover);
+
+    /**
+     * 上传菜谱封面
+     * @param cover
+     * @return
+     */
+    ResultMsg uploadMenuCover(MultipartFile cover);
+
+    /**
+     * 上传菜谱图片
+     * @param stepPicture
+     * @return
+     */
+    ResultMsg upStepPicture(List<MultipartFile> stepPicture);
+
+    /**
+     * 上传菜谱内容
+     * @param menuContentDataObject
+     * @return
+     */
+    ResultMsg upMenuContent(MenuContentDataObject menuContentDataObject);
 
 }

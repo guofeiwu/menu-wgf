@@ -7,9 +7,12 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.menu.wgf.Constants.BASE_URL_FILE_MENUS;
 
 /**
  * @Author guofei_wu
@@ -67,9 +70,6 @@ public class IOUtils {
                      break;
                  case Constants.FILE_TYPE_ICON://头像
                      setFilePath = Constants.BASE_URL_FILE_ICON;//用户的头像的文件夹
-                     break;
-                 case Constants.FILE_TYPE_MENU://菜谱
-                     setFilePath = Constants.BASE_URL_FILE_MENUS + userName;//用户的头像的文件夹
                      break;
              }
             File userFile = new File(setFilePath);
@@ -137,6 +137,136 @@ public class IOUtils {
             colse(bos,bis);
         }
     }
+
+
+    /**
+     * 上传菜谱封面
+     * @param multipartFile
+     */
+    public static String uploadMenuCover(MultipartFile multipartFile){
+        String fileName = multipartFile.getOriginalFilename();
+        String suffix = fileName.substring(fileName.lastIndexOf("."));//后缀
+        BufferedInputStream bis =null;
+        BufferedOutputStream bos = null;
+        InputStream is = null;
+        String filePath;
+        try {
+
+            is = multipartFile.getInputStream();
+            bis = new BufferedInputStream(is);
+            filePath = BASE_URL_FILE_MENUS;//用户菜谱文件夹
+
+            File file = new File(filePath);
+            if (!file.exists()){
+                file.mkdirs();
+            }
+            long time = System.currentTimeMillis();
+            File outputFile = new File(filePath+File.separator+time+suffix);
+            FileOutputStream fos = new FileOutputStream(outputFile);
+            bos = new BufferedOutputStream(fos);
+
+            byte buff[] = new byte[1024];
+            int len;
+            while ((len = bis.read(buff))!=-1){
+                bos.write(buff,0,len);
+            }
+            bos.flush();
+            return time+suffix;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }finally {
+            colse(bos,bis);
+        }
+    }
+
+
+
+
+    /**
+     * 上传菜谱封面
+     * @param multipartFile
+     */
+    @Deprecated
+    public static int uploadMenuCover(int lastPkId,MultipartFile multipartFile){
+        lastPkId++;
+        String fileName = multipartFile.getOriginalFilename();
+        String suffix = fileName.substring(fileName.lastIndexOf("."));//后缀
+        BufferedInputStream bis =null;
+        BufferedOutputStream bos = null;
+        InputStream is = null;
+        String filePath;
+        try {
+            is = multipartFile.getInputStream();
+            bis = new BufferedInputStream(is);
+            filePath = BASE_URL_FILE_MENUS+ "menu"+lastPkId;//用户菜谱文件夹
+
+            File file = new File(filePath);
+            if (!file.exists()){
+                file.mkdirs();
+            }
+            File outputFile = new File(filePath+File.separator+0+suffix);
+            FileOutputStream fos = new FileOutputStream(outputFile);
+            bos = new BufferedOutputStream(fos);
+
+            byte buff[] = new byte[1024];
+            int len;
+            while ((len = bis.read(buff))!=-1){
+                bos.write(buff,0,len);
+            }
+            bos.flush();
+            return lastPkId;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return 0;
+        }finally {
+            colse(bos,bis);
+        }
+    }
+
+
+    /**
+     * 上传菜谱步骤图片
+     * @param files
+     * @return
+     */
+    public static List<Map<String,Object>> uploadMenuStepPicture(List<MultipartFile> files){
+        //List<MultipartFile> files =((MultipartHttpServletRequest)request).getFiles("stepPicture");
+        MultipartFile file = null;
+        BufferedOutputStream bos = null;
+        List<Map<String,Object>> urls =new ArrayList<>();
+
+        for (int i =0; i< files.size(); ++i) {
+            file = files.get(i);
+            String fileName = file.getOriginalFilename();
+            String suffix = fileName.substring(fileName.lastIndexOf("."));//后缀
+            if (!file.isEmpty()) {
+                try {
+                    byte[] bytes = file.getBytes();
+                    long time = System.currentTimeMillis();
+                    String name = time+suffix;
+                    bos = new BufferedOutputStream(new FileOutputStream(new File(BASE_URL_FILE_MENUS+File.separator+name)));
+                    bos.write(bytes);
+                    bos.close();
+                    Map<String,Object> map = new HashMap<>();
+                    map.put("url",name);
+                    urls.add(map);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }finally {
+                    if(bos!=null){
+                        try {
+                            bos.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+        return urls;
+    }
+
 
 
 

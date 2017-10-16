@@ -22,4 +22,24 @@
         LEFT JOIN t_menu m ON b.t_banner_menu_pkid = m.t_menu_pkid
         WHERE b.t_banner_delete = 0 AND m.t_menu_delete = 0
     </select>
+
+
+    <select id="getMenuLast" resultType="integer">
+        SELECT t_menu_pkid FROM t_menu  ORDER BY t_menu_pkid DESC LIMIT 1
+    </select>
+
+
+
+    <insert id="insertMenuMaterials" parameterType="com.menu.wgf.model.Material" useGeneratedKeys="true" keyProperty="t_material_pkid">
+        insert into t_material (t_material_name, t_material_menu_pkid, t_material_cdt, t_material_udt) values
+        <foreach item="material" collection="list" separator=",">
+            (#{material.tMaterialName}, #{material.tMaterialMenuPkid}, #{material.tMaterialCdt}, #{material.tMaterialUdt})
+        </foreach>
+    </insert>
+    <insert id="insertMenuSteps" parameterType="com.menu.wgf.model.Step" useGeneratedKeys="true" keyProperty="t_step_pkid">
+        insert into t_step (t_step_menu_pkid, t_step_pic_address, t_step_description, t_step_cdt,t_step_udt) values
+        <foreach item="step" collection="list" separator=",">
+            (#{step.tStepMenuPkid}, #{step.tStepPicAddress}, #{step.tStepDescription}, #{step.tStepCdt},#{step.tStepUdt})
+        </foreach>
+    </insert>
 </mapper>

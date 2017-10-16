@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -460,6 +462,91 @@ public class MenuServiceImpl implements MenuService {
         return ResultMsg.failed().addContent("content","上传失败");
     }
 
+
+    @Override
+    public ResultMsg upStepPicture(List<MultipartFile> stepPicture) {
+        List<Map<String,Object>> urls = IOUtils.uploadMenuStepPicture(stepPicture);
+        if(urls!=null){
+            return ResultMsg.success().addContent("content",urls);
+        }
+        return ResultMsg.failed().addContent("content","上传失败");
+    }
+
+    @Override
+    public ResultMsg upMenuContent(MenuContentDataObject menuContentDataObject) {
+        System.out.println("menuContentDataObject:"+menuContentDataObject.toString());
+
+        int userPkId  = jwtUtil.getLoginPkid();
+
+        //菜谱信息
+        Map<String,Object> menuInfo = menuContentDataObject.menuInfo;
+
+        String mainIcon = (String) menuInfo.get("mainIcon");
+        String menuName = (String) menuInfo.get("menuName");
+        String menuDesc = (String) menuInfo.get("menuDesc");
+        Integer menuType = (Integer) menuInfo.get("menuType");
+        Integer menuTypeSun = (Integer) menuInfo.get("menuTypeSun");
+        Menu menu = new Menu();
+        menu.settMenuUserPkid(userPkId);
+        menu.settMenuMainIcon(mainIcon);
+        menu.settMenuName(menuName);
+        menu.settMenuDescription(menuDesc);
+        menu.settMenuType(menuType);
+        menu.settMenuTypeSun(menuTypeSun);
+        Date dateMenu = new Date();
+        menu.settMenuCdt(dateMenu);
+        menu.settMenuUdt(dateMenu);
+
+        int result = menuMapper.insertSelective(menu);
+        if(result == 1){
+            int menuPkId = menu.gettMenuPkid();
+            //材料信息
+            List<Map<String,Object>> materialses = menuContentDataObject.materialses;
+            List<Material> materials = new ArrayList<>();
+            for(Map<String,Object> map:materialses){
+                String materialsName = (String) map.get("materialsName");
+                String materialsdose = (String) map.get("materialsDose");
+                Material material = new Material();
+                material.settMaterialMenuPkid(menuPkId);
+                material.settMaterialName(materialsName+"     "+materialsdose);
+                Date date = new Date();
+                material.settMaterialCdt(date);
+                material.settMaterialUdt(date);
+                materials.add(material);
+            }
+            int materialsId = menuQuery.insertMenuMaterials(materials);
+            if(materialsId <= 0){
+                System.out.println("materialsId ...<= 0."+materialsId);
+            }else {
+                System.out.println("materialsId ....>0 "+materialsId);
+            }
+            //步骤信息
+            List<Map<String,Object>> steps = menuContentDataObject.steps;
+            List<Step> stepList = new ArrayList<>();
+            for (Map<String,Object> map:steps){
+                String desc = (String) map.get("desc");
+                String url = (String) map.get("url");
+                Step step = new Step();
+                step.settStepMenuPkid(menuPkId);
+                step.settStepDescription(desc);
+                step.settStepPicAddress(url);
+                Date date = new Date();
+                step.settStepCdt(date);
+                step.settStepUdt(date);
+                stepList.add(step);
+            }
+            int stepId = menuQuery.insertMenuSteps(stepList);
+            if(stepId <= 0){
+                System.out.println("stepId ...<= 0."+stepId);
+            }else {
+                System.out.println("stepId ....>0 "+stepId);
+            }
+
+            return ResultMsg.success().addContent("content","上传菜谱成功");
+        }
+
+        return ResultMsg.failed().addContent("content","上传菜谱失败");
+    }
 
     @Override
     public ResultMsg getUserCommentMenuList(int userPkId, int pageSize, int pageNo) {

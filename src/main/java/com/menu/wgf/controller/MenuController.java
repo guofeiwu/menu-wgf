@@ -3,6 +3,8 @@ package com.menu.wgf.controller;
 
 import com.menu.wgf.dto.CommentDataObject;
 import com.menu.wgf.dto.MenuConditionDataObject;
+import com.menu.wgf.dto.MenuContentDataObject;
+import com.menu.wgf.dto.UpMenuDataObject;
 import com.menu.wgf.model.ResultMsg;
 import com.menu.wgf.service.MenuService;
 import com.menu.wgf.util.IOUtils;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @Author guofei_wu
@@ -123,12 +126,46 @@ public class MenuController {
 
 
 
-
     @ApiOperation(value ="获取banner菜谱",httpMethod = "GET")
     @GetMapping(value = "/banner")
     @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
     public ResultMsg getMenuBanners(){
         return menuService.getBannerMenu();
+    }
+
+
+    @ApiOperation(value ="上传菜谱封面图片",httpMethod = "POST")
+    @PostMapping(value = "/upCover")
+    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
+//    @ApiParam(value = "上传菜谱dto",name ="upMenuDataObject",required = true)
+//    @RequestBody  UpMenuDataObject upMenuDataObject,
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "menuName",value = "菜谱名称",paramType = "query",dataType = "string",required = true),
+            @ApiImplicitParam(name = "menuDesc",value = "菜谱描述",paramType = "query",dataType = "string",required = true),
+            @ApiImplicitParam(name = "menuType",value = "菜谱类型",paramType = "query",dataType = "int",required = true),
+            @ApiImplicitParam(name = "menuTypeSun",value = "菜谱子类型",paramType = "query",dataType = "int",required = true)
+    })
+    public ResultMsg upMenuCover(@RequestParam(value = "menuName") String menuName,@RequestParam(value = "menuDesc")
+            String menuDesc,@RequestParam(value = "menuType")Integer menuType,
+                                 @RequestParam(value = "menuTypeSun")Integer menuTypeSun,
+           @ApiParam(value = "菜谱封面图", name = "cover") @RequestParam(value = "cover") MultipartFile cover){
+        return menuService.uploadMenuCover(menuName,menuDesc,menuType,menuTypeSun,cover);
+        //return null;
+    }
+
+    @ApiOperation(value ="上传菜谱封面图片",httpMethod = "POST")
+    @PostMapping(value = "/upCoverTwo")
+    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
+    public ResultMsg upMenuCover(@ApiParam(value = "菜谱封面图", name = "cover") @RequestParam(value = "cover") MultipartFile cover){
+        return menuService.uploadMenuCover(cover);
+    }
+
+    @ApiOperation(value = "上传菜谱(多张图片)", httpMethod = "POST")
+    @PostMapping(value = "/upStepPicture")
+    @ApiResponse(code = 500,message = "服务器相应出错",response = Integer.class)
+    public ResultMsg uploadMenu(@ApiParam(value = "http请求", name = "stepPicture", required = true)
+                                    @RequestParam(value = "stepPicture") List<MultipartFile> stepPicture) {
+        return menuService.upStepPicture(stepPicture);
     }
 
 
@@ -154,6 +191,7 @@ public class MenuController {
 
 
 
+
     @ApiOperation(value ="获取用户收藏的菜谱列表",httpMethod = "GET")
     @GetMapping(value = "/collect/user/{userPkId}")
     @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
@@ -170,17 +208,12 @@ public class MenuController {
 
 
 
-
-    @ApiOperation(value = "上传菜谱(单张图片)", httpMethod = "POST")
-    @PostMapping(value = "/one/{userPkId}/{type}")
-    @ApiImplicitParams({
-            @ApiImplicitParam(value = "用户主键", name = "userPkId", required = true, dataType = "int", paramType = "path"),
-    })
+    @ApiOperation(value = "上传菜谱内容", httpMethod = "POST")
+    @PostMapping(value = "/upContent")
     @ApiResponse(code = 500,message = "服务器相应出错",response = Integer.class)
-    public ResultMsg uploadMenu(@PathVariable(value = "userPkId") Integer userPkId,@PathVariable("type") Integer type,
-                                    @ApiParam(value = "菜谱", name = "menu") @RequestParam("menu") MultipartFile menu) {
-        //return IOUtils.uploadFile(userPkId,type,menu);
-        return null;
+    public ResultMsg upMenuContent(@ApiParam(value = "菜谱内容dto" ,name = "menuContentDataObject",required = true)
+                                       @RequestBody MenuContentDataObject menuContentDataObject) {
+        return menuService.upMenuContent(menuContentDataObject);
     }
 
 
