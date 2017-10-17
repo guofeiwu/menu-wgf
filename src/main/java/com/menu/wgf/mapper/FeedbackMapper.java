@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
@@ -25,48 +26,50 @@ public interface FeedbackMapper {
 
     @Delete({
         "delete from t_feedback",
-        "where \"t_feedback _pkid\" = #{tFeedbackPkid,jdbcType=INTEGER}"
+        "where t_feedback_pkid = #{tFeedbackPkid,jdbcType=INTEGER}"
     })
     int deleteByPrimaryKey(Integer tFeedbackPkid);
 
     @Insert({
-        "insert into t_feedback (\"t_feedback _pkid\", \"t_feedback _user_pkid\", ",
-        "\"t_feedback _content\", \"t_feedback _cdt\", ",
-        "\"t_feedback _udt\", \"t_feedback _delete\")",
-        "values (#{tFeedbackPkid,jdbcType=INTEGER}, #{tFeedbackUserPkid,jdbcType=INTEGER}, ",
-        "#{tFeedbackContent,jdbcType=VARCHAR}, #{tFeedbackCdt,jdbcType=TIMESTAMP}, ",
-        "#{tFeedbackUdt,jdbcType=TIMESTAMP}, #{tFeedbackDelete,jdbcType=INTEGER})"
+        "insert into t_feedback (t_feedback_user_pkid, t_feedback_content, ",
+        "t_feedback_cdt, t_feedback_udt, ",
+        "t_feedback_delete)",
+        "values (#{tFeedbackUserPkid,jdbcType=INTEGER}, #{tFeedbackContent,jdbcType=VARCHAR}, ",
+        "#{tFeedbackCdt,jdbcType=TIMESTAMP}, #{tFeedbackUdt,jdbcType=TIMESTAMP}, ",
+        "#{tFeedbackDelete,jdbcType=INTEGER})"
     })
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="tFeedbackPkid", before=false, resultType=Integer.class)
     int insert(Feedback record);
 
     @InsertProvider(type=FeedbackSqlProvider.class, method="insertSelective")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="tFeedbackPkid", before=false, resultType=Integer.class)
     int insertSelective(Feedback record);
 
     @SelectProvider(type=FeedbackSqlProvider.class, method="selectByExample")
     @Results({
-        @Result(column="t_feedback _pkid", property="tFeedbackPkid", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="t_feedback _user_pkid", property="tFeedbackUserPkid", jdbcType=JdbcType.INTEGER),
-        @Result(column="t_feedback _content", property="tFeedbackContent", jdbcType=JdbcType.VARCHAR),
-        @Result(column="t_feedback _cdt", property="tFeedbackCdt", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="t_feedback _udt", property="tFeedbackUdt", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="t_feedback _delete", property="tFeedbackDelete", jdbcType=JdbcType.INTEGER)
+        @Result(column="t_feedback_pkid", property="tFeedbackPkid", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="t_feedback_user_pkid", property="tFeedbackUserPkid", jdbcType=JdbcType.INTEGER),
+        @Result(column="t_feedback_content", property="tFeedbackContent", jdbcType=JdbcType.VARCHAR),
+        @Result(column="t_feedback_cdt", property="tFeedbackCdt", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="t_feedback_udt", property="tFeedbackUdt", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="t_feedback_delete", property="tFeedbackDelete", jdbcType=JdbcType.INTEGER)
     })
     List<Feedback> selectByExample(FeedbackCriteria example);
 
     @Select({
         "select",
-        "\"t_feedback _pkid\", \"t_feedback _user_pkid\", \"t_feedback _content\", \"t_feedback _cdt\", ",
-        "\"t_feedback _udt\", \"t_feedback _delete\"",
+        "t_feedback_pkid, t_feedback_user_pkid, t_feedback_content, t_feedback_cdt, t_feedback_udt, ",
+        "t_feedback_delete",
         "from t_feedback",
-        "where \"t_feedback _pkid\" = #{tFeedbackPkid,jdbcType=INTEGER}"
+        "where t_feedback_pkid = #{tFeedbackPkid,jdbcType=INTEGER}"
     })
     @Results({
-        @Result(column="t_feedback _pkid", property="tFeedbackPkid", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="t_feedback _user_pkid", property="tFeedbackUserPkid", jdbcType=JdbcType.INTEGER),
-        @Result(column="t_feedback _content", property="tFeedbackContent", jdbcType=JdbcType.VARCHAR),
-        @Result(column="t_feedback _cdt", property="tFeedbackCdt", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="t_feedback _udt", property="tFeedbackUdt", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="t_feedback _delete", property="tFeedbackDelete", jdbcType=JdbcType.INTEGER)
+        @Result(column="t_feedback_pkid", property="tFeedbackPkid", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="t_feedback_user_pkid", property="tFeedbackUserPkid", jdbcType=JdbcType.INTEGER),
+        @Result(column="t_feedback_content", property="tFeedbackContent", jdbcType=JdbcType.VARCHAR),
+        @Result(column="t_feedback_cdt", property="tFeedbackCdt", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="t_feedback_udt", property="tFeedbackUdt", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="t_feedback_delete", property="tFeedbackDelete", jdbcType=JdbcType.INTEGER)
     })
     Feedback selectByPrimaryKey(Integer tFeedbackPkid);
 
@@ -81,12 +84,12 @@ public interface FeedbackMapper {
 
     @Update({
         "update t_feedback",
-        "set \"t_feedback _user_pkid\" = #{tFeedbackUserPkid,jdbcType=INTEGER},",
-          "\"t_feedback _content\" = #{tFeedbackContent,jdbcType=VARCHAR},",
-          "\"t_feedback _cdt\" = #{tFeedbackCdt,jdbcType=TIMESTAMP},",
-          "\"t_feedback _udt\" = #{tFeedbackUdt,jdbcType=TIMESTAMP},",
-          "\"t_feedback _delete\" = #{tFeedbackDelete,jdbcType=INTEGER}",
-        "where \"t_feedback _pkid\" = #{tFeedbackPkid,jdbcType=INTEGER}"
+        "set t_feedback_user_pkid = #{tFeedbackUserPkid,jdbcType=INTEGER},",
+          "t_feedback_content = #{tFeedbackContent,jdbcType=VARCHAR},",
+          "t_feedback_cdt = #{tFeedbackCdt,jdbcType=TIMESTAMP},",
+          "t_feedback_udt = #{tFeedbackUdt,jdbcType=TIMESTAMP},",
+          "t_feedback_delete = #{tFeedbackDelete,jdbcType=INTEGER}",
+        "where t_feedback_pkid = #{tFeedbackPkid,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Feedback record);
 }

@@ -28,28 +28,24 @@ public class FeedbackSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("t_feedback");
         
-        if (record.gettFeedbackPkid() != null) {
-            sql.VALUES("\"t_feedback _pkid\"", "#{tFeedbackPkid,jdbcType=INTEGER}");
-        }
-        
         if (record.gettFeedbackUserPkid() != null) {
-            sql.VALUES("\"t_feedback _user_pkid\"", "#{tFeedbackUserPkid,jdbcType=INTEGER}");
+            sql.VALUES("t_feedback_user_pkid", "#{tFeedbackUserPkid,jdbcType=INTEGER}");
         }
         
         if (record.gettFeedbackContent() != null) {
-            sql.VALUES("\"t_feedback _content\"", "#{tFeedbackContent,jdbcType=VARCHAR}");
+            sql.VALUES("t_feedback_content", "#{tFeedbackContent,jdbcType=VARCHAR}");
         }
         
         if (record.gettFeedbackCdt() != null) {
-            sql.VALUES("\"t_feedback _cdt\"", "#{tFeedbackCdt,jdbcType=TIMESTAMP}");
+            sql.VALUES("t_feedback_cdt", "#{tFeedbackCdt,jdbcType=TIMESTAMP}");
         }
         
         if (record.gettFeedbackUdt() != null) {
-            sql.VALUES("\"t_feedback _udt\"", "#{tFeedbackUdt,jdbcType=TIMESTAMP}");
+            sql.VALUES("t_feedback_udt", "#{tFeedbackUdt,jdbcType=TIMESTAMP}");
         }
         
         if (record.gettFeedbackDelete() != null) {
-            sql.VALUES("\"t_feedback _delete\"", "#{tFeedbackDelete,jdbcType=INTEGER}");
+            sql.VALUES("t_feedback_delete", "#{tFeedbackDelete,jdbcType=INTEGER}");
         }
         
         return sql.toString();
@@ -58,15 +54,15 @@ public class FeedbackSqlProvider {
     public String selectByExample(FeedbackCriteria example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
-            sql.SELECT_DISTINCT("\"t_feedback _pkid\"");
+            sql.SELECT_DISTINCT("t_feedback_pkid");
         } else {
-            sql.SELECT("\"t_feedback _pkid\"");
+            sql.SELECT("t_feedback_pkid");
         }
-        sql.SELECT("\"t_feedback _user_pkid\"");
-        sql.SELECT("\"t_feedback _content\"");
-        sql.SELECT("\"t_feedback _cdt\"");
-        sql.SELECT("\"t_feedback _udt\"");
-        sql.SELECT("\"t_feedback _delete\"");
+        sql.SELECT("t_feedback_user_pkid");
+        sql.SELECT("t_feedback_content");
+        sql.SELECT("t_feedback_cdt");
+        sql.SELECT("t_feedback_udt");
+        sql.SELECT("t_feedback_delete");
         sql.FROM("t_feedback");
         applyWhere(sql, example, false);
         
@@ -85,27 +81,27 @@ public class FeedbackSqlProvider {
         sql.UPDATE("t_feedback");
         
         if (record.gettFeedbackPkid() != null) {
-            sql.SET("\"t_feedback _pkid\" = #{record.tFeedbackPkid,jdbcType=INTEGER}");
+            sql.SET("t_feedback_pkid = #{record.tFeedbackPkid,jdbcType=INTEGER}");
         }
         
         if (record.gettFeedbackUserPkid() != null) {
-            sql.SET("\"t_feedback _user_pkid\" = #{record.tFeedbackUserPkid,jdbcType=INTEGER}");
+            sql.SET("t_feedback_user_pkid = #{record.tFeedbackUserPkid,jdbcType=INTEGER}");
         }
         
         if (record.gettFeedbackContent() != null) {
-            sql.SET("\"t_feedback _content\" = #{record.tFeedbackContent,jdbcType=VARCHAR}");
+            sql.SET("t_feedback_content = #{record.tFeedbackContent,jdbcType=VARCHAR}");
         }
         
         if (record.gettFeedbackCdt() != null) {
-            sql.SET("\"t_feedback _cdt\" = #{record.tFeedbackCdt,jdbcType=TIMESTAMP}");
+            sql.SET("t_feedback_cdt = #{record.tFeedbackCdt,jdbcType=TIMESTAMP}");
         }
         
         if (record.gettFeedbackUdt() != null) {
-            sql.SET("\"t_feedback _udt\" = #{record.tFeedbackUdt,jdbcType=TIMESTAMP}");
+            sql.SET("t_feedback_udt = #{record.tFeedbackUdt,jdbcType=TIMESTAMP}");
         }
         
         if (record.gettFeedbackDelete() != null) {
-            sql.SET("\"t_feedback _delete\" = #{record.tFeedbackDelete,jdbcType=INTEGER}");
+            sql.SET("t_feedback_delete = #{record.tFeedbackDelete,jdbcType=INTEGER}");
         }
         
         applyWhere(sql, example, true);
@@ -116,12 +112,12 @@ public class FeedbackSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("t_feedback");
         
-        sql.SET("\"t_feedback _pkid\" = #{record.tFeedbackPkid,jdbcType=INTEGER}");
-        sql.SET("\"t_feedback _user_pkid\" = #{record.tFeedbackUserPkid,jdbcType=INTEGER}");
-        sql.SET("\"t_feedback _content\" = #{record.tFeedbackContent,jdbcType=VARCHAR}");
-        sql.SET("\"t_feedback _cdt\" = #{record.tFeedbackCdt,jdbcType=TIMESTAMP}");
-        sql.SET("\"t_feedback _udt\" = #{record.tFeedbackUdt,jdbcType=TIMESTAMP}");
-        sql.SET("\"t_feedback _delete\" = #{record.tFeedbackDelete,jdbcType=INTEGER}");
+        sql.SET("t_feedback_pkid = #{record.tFeedbackPkid,jdbcType=INTEGER}");
+        sql.SET("t_feedback_user_pkid = #{record.tFeedbackUserPkid,jdbcType=INTEGER}");
+        sql.SET("t_feedback_content = #{record.tFeedbackContent,jdbcType=VARCHAR}");
+        sql.SET("t_feedback_cdt = #{record.tFeedbackCdt,jdbcType=TIMESTAMP}");
+        sql.SET("t_feedback_udt = #{record.tFeedbackUdt,jdbcType=TIMESTAMP}");
+        sql.SET("t_feedback_delete = #{record.tFeedbackDelete,jdbcType=INTEGER}");
         
         FeedbackCriteria example = (FeedbackCriteria) parameter.get("example");
         applyWhere(sql, example, true);
@@ -133,26 +129,26 @@ public class FeedbackSqlProvider {
         sql.UPDATE("t_feedback");
         
         if (record.gettFeedbackUserPkid() != null) {
-            sql.SET("\"t_feedback _user_pkid\" = #{tFeedbackUserPkid,jdbcType=INTEGER}");
+            sql.SET("t_feedback_user_pkid = #{tFeedbackUserPkid,jdbcType=INTEGER}");
         }
         
         if (record.gettFeedbackContent() != null) {
-            sql.SET("\"t_feedback _content\" = #{tFeedbackContent,jdbcType=VARCHAR}");
+            sql.SET("t_feedback_content = #{tFeedbackContent,jdbcType=VARCHAR}");
         }
         
         if (record.gettFeedbackCdt() != null) {
-            sql.SET("\"t_feedback _cdt\" = #{tFeedbackCdt,jdbcType=TIMESTAMP}");
+            sql.SET("t_feedback_cdt = #{tFeedbackCdt,jdbcType=TIMESTAMP}");
         }
         
         if (record.gettFeedbackUdt() != null) {
-            sql.SET("\"t_feedback _udt\" = #{tFeedbackUdt,jdbcType=TIMESTAMP}");
+            sql.SET("t_feedback_udt = #{tFeedbackUdt,jdbcType=TIMESTAMP}");
         }
         
         if (record.gettFeedbackDelete() != null) {
-            sql.SET("\"t_feedback _delete\" = #{tFeedbackDelete,jdbcType=INTEGER}");
+            sql.SET("t_feedback_delete = #{tFeedbackDelete,jdbcType=INTEGER}");
         }
         
-        sql.WHERE("\"t_feedback _pkid\" = #{tFeedbackPkid,jdbcType=INTEGER}");
+        sql.WHERE("t_feedback_pkid = #{tFeedbackPkid,jdbcType=INTEGER}");
         
         return sql.toString();
     }

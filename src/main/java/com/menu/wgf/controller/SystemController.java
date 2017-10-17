@@ -1,23 +1,32 @@
 package com.menu.wgf.controller;
 
-import com.menu.wgf.dto.FeedbackDataObject;
 import com.menu.wgf.model.ResultMsg;
+import com.menu.wgf.service.SystemService;
 import io.swagger.annotations.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 /**
- * @Author guofei_wu
+ * @author guofei_wu
  */
 @Api
 @RestController
 @RequestMapping(value = "/app/system")
 public class SystemController {
+    private static final String FEEDBACK_BODY = "{\n" +
+            " \"feedback\":\"feedbackContent\"\n" +
+            "}";
+    @Autowired
+    private SystemService systemService;
 
     @ApiOperation(value ="意见反馈",httpMethod = "POST")
     @PostMapping(value = "/feedback")
     @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
-    public ResultMsg saveFeedback(@ApiParam(value = "意见反馈对象", name = "feedbackDateObject") @RequestBody FeedbackDataObject feedbackDateObject){
-        return ResultMsg.success();
+    public ResultMsg saveFeedback(@ApiParam(value = FEEDBACK_BODY, name = "map")
+                                      @RequestBody Map map){
+        return systemService.feedback(map);
     }
 
 
@@ -30,7 +39,7 @@ public class SystemController {
     }
 
 
-    @ApiOperation(value ="关于我们",httpMethod = "GET")
+    @ApiOperation(value ="版本更新",httpMethod = "GET")
     @GetMapping(value = "/updateVer/{oldVer}")
     @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
     public ResultMsg updateVersion(@PathVariable int oldVer){

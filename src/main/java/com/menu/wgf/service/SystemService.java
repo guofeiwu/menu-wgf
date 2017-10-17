@@ -2,6 +2,8 @@ package com.menu.wgf.service;
 
 import com.menu.wgf.model.ResultMsg;
 
+import java.util.Map;
+
 /**
  * @Author guofei_wu
  * @Date 2017/9/25 17:15
@@ -9,11 +11,10 @@ import com.menu.wgf.model.ResultMsg;
 public interface SystemService {
     /**
      * 意见反馈
-     * @param userPkId
-     * @param content
+     * @param map
      * @return
      */
-    ResultMsg feedback(int userPkId,String content);
+    ResultMsg feedback(Map map);
 
     /**
      * 关于我们
