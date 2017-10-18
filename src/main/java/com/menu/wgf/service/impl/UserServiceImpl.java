@@ -112,7 +112,8 @@ public class UserServiceImpl implements UserService {
         }
 
         User user = new User();
-        user.settUserName("用户"+password.substring(0,2)+phone.substring(7));//拼接
+        //拼接
+        user.settUserName("用户"+password.substring(0,2)+phone.substring(7));
         user.settUserPhone(phone);
         user.settUserPassword(password);
         Date date = new Date();
@@ -124,8 +125,9 @@ public class UserServiceImpl implements UserService {
         user.settUserBirthday(birthday);
 
         int result = userMapper.insertSelective(user);
-        if(result == 1)
-        return ResultMsg.success().addContent("content",Constants.REGISTER_SUCCESS);
+        if(result == 1){
+            return ResultMsg.success().addContent("content",Constants.REGISTER_SUCCESS);
+        }
         return ResultMsg.failed();
     }
 
@@ -177,11 +179,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultMsg downloadUserIcon(HttpServletResponse response, int userPkId, String pictureName) {
-        return null;
-    }
-
-    @Override
     public ResultMsg uploadUserIcon(Integer userPkId, Integer type,MultipartFile icon) {
         User user = userMapper.selectByPrimaryKey(userPkId);
         String iconPath = user.gettUserIcon();
@@ -227,7 +224,41 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResultMsg modifyPhone(Map param) {
-        return null;
+        Map<String,Object> map = new HashMap<>();
+        map.put("sonCode",-1);
+        Integer userPkId = jwtUtil.getLoginPkid();
+        if(userPkId == null){
+            return ResultMsg.failed().addContent("content",map);
+        }
+        String newPhone = (String) param.get("newPhone");
+        //判断该手机号是否存在
+        UserCriteria criteria = new UserCriteria();
+        criteria.createCriteria()
+                .andTUserPhoneIsNotNull()
+                .andTUserPhoneEqualTo(newPhone);
+        List<User> users = userMapper.selectByExample(criteria);
+        if(users.size()>0){
+            //手机号已经存在,0表示存在且不是旧号码，-1表示不存在
+            map.put("sonCode",0);
+            Integer pkId = users.get(0).gettUserPkid();
+            if(userPkId.equals(pkId)){
+                //表示是当前自己旧手机
+                map.put("sonCode",1);
+            }
+            return ResultMsg.failed().addContent("content",map);
+        }
+        User user = new User();
+        user.settUserPkid(userPkId);
+        user.settUserPhone(newPhone);
+        Date date = new Date();
+        user.settUserUdt(date);
+        int result = userMapper.updateByPrimaryKeySelective(user);
+        if(result == 1){
+            map.put("sonCode",2);
+            return ResultMsg.success().addContent("content",map);
+        }
+        map.put("sonCode",-1);
+        return ResultMsg.failed().addContent("content",map);
     }
 
     @Override
@@ -235,7 +266,8 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.selectByPrimaryKey(userPkId);
         user.settUserPoint(user.gettUserPoint()+1);
         user.settUserPkid(userPkId);
-        user.settUserSign(1);//签到
+        //签到
+        user.settUserSign(1);
         user.settUserUdt(new Date());
         int result = userMapper.updateByPrimaryKeySelective(user);
         if(result == 1){

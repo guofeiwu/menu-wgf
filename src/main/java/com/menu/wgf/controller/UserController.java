@@ -19,7 +19,7 @@ import java.util.Map;
 
 
 /**
- * @Author guofei_wu
+ * @author guofei_wu
  */
 @RestController
 @RequestMapping(value = "/app/user")
@@ -39,8 +39,7 @@ public class UserController {
             "}";
 
     private static final String MODIFY_PHONE_PARAM_EXAMPLE = "{\n" +
-            "    \"oldPhone\":\"oldPhone\",\n" +
-            "    \"oldPhone\":\"oldPhone\"\n" +
+            "    \"newPhone\":\"newPhone\"\n" +
             "}";
 
 
@@ -53,7 +52,7 @@ public class UserController {
     @PostMapping(value = "/modifyPhone")
     @ApiResponses(@ApiResponse(code = 500,message = "修改手机号码失败",response = Integer.class))
     public ResultMsg modifyPhone(@RequestBody Map param){
-        return ResultMsg.success();
+        return userService.modifyPhone(param);
     }
 
 
@@ -87,59 +86,6 @@ public class UserController {
     }
 
 
-    /**
-     * 现在暂时没用
-     * @param response
-     * @param userPkId
-     * @param pictureName
-     * @return
-     */
-    @ApiOperation(value = "下载用户头像",httpMethod = "GET",response = ResultMsg.class)
-    @GetMapping(value = "/{userName}/download")
-    @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userPkId",value = "用户主键",required = true,paramType = "path",dataType = "int"),
-            @ApiImplicitParam(name = "pictureName",value = "图片名称",required = true,paramType = "query",dataType = "string")
-    })
-    public ResultMsg downloadPicture(HttpServletResponse response,@PathVariable("userPkId") int userPkId,@RequestParam("pictureName") String pictureName){
-        response.setHeader("content-type", "application/octet-stream");
-        response.setContentType("application/octet-stream");
-        response.setHeader("Content-Disposition", "attachment;filename=" + pictureName);
-//        // TODO: 2017/9/25  根据userPkId 获取用户名
-//        String userName = null;
-        BufferedInputStream bis = null;
-
-        File file = new File("D://Work//idea//menu-wgf//file//user"+jwtUtil.getLoginPkid()+File.separator+pictureName);
-        if(!file.exists()){
-            return ResultMsg.failed();//文件不存在直接返回
-        }
-        try {
-            FileInputStream fis = new FileInputStream(file);
-            bis = new BufferedInputStream(fis);
-
-            OutputStream os = response.getOutputStream();
-            int len;
-            byte buff[] = new byte[1024];
-            while ((len=bis.read(buff))!=-1){
-                os.write(buff,0,len);
-            }
-            os.flush();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
-            if(bis!=null){
-                try {
-                    bis.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return ResultMsg.success();
-    }
-
 
     @ApiOperation(value = "用户签到",httpMethod = "GET",response = ResultMsg.class)
     @GetMapping(value = "/sign")
@@ -147,13 +93,6 @@ public class UserController {
     public ResultMsg userSign(){
         return userService.userSign(jwtUtil.getLoginPkid());
     }
-
-
-
-
-
-
-
 
 
 //    @RequestMapping(value = "/upload", method = RequestMethod.POST)

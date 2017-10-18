@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
- * @Author guofei_wu
+ * @author guofei_wu
  * 用户相关接口
  */
 
@@ -60,19 +60,12 @@ public interface UserService {
      */
     ResultMsg modifyUserInfo(Integer userPkId ,UserInfoDataObject userInfoDataObject);
 
-    /**
-     * 下载用户头像
-     * @param response
-     * @param userPkId
-     * @param pictureName
-     * @return
-     */
-    ResultMsg downloadUserIcon(HttpServletResponse response, int userPkId, String pictureName);
-
 
     /**
      * 上传用户头像
+     *
      * @param userPkId
+     * @param type
      * @param icon
      * @return
      */

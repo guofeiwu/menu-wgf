@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * @author guofei_wu
  */
-@Api
+@Api(value = "SystemController",description = "系统接口")
 @RestController
 @RequestMapping(value = "/app/system")
 public class SystemController {

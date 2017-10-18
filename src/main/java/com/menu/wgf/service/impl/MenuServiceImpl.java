@@ -8,19 +8,16 @@ import com.menu.wgf.model.*;
 import com.menu.wgf.query.MenuQuery;
 import com.menu.wgf.service.MenuService;
 import com.menu.wgf.util.IOUtils;
-import com.menu.wgf.util.RandonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * author guofei_wu
+ * @author guofei_wu
  * email guofei_wu@163.com
  */
 @Service
@@ -104,7 +101,8 @@ public class MenuServiceImpl implements MenuService {
             menuDataObject.userName = user.gettUserName();
 
             if (userPkId != null && userPkId == userPkId1) {
-                menuDataObject.currentUser = 0;//是当前用户，-1表示不是当前用户
+                //是当前用户，-1表示不是当前用户
+                menuDataObject.currentUser = 0;
             } else {
                 menuDataObject.currentUser = -1;
             }
@@ -132,7 +130,8 @@ public class MenuServiceImpl implements MenuService {
             if (currentUserPkId != null && userPkId == currentUserPkId) {
                 menuDataObject.currentUser = 0;
             } else {
-                menuDataObject.currentUser = -1;//not current user
+                //not current user
+                menuDataObject.currentUser = -1;
             }
 
             // step
@@ -176,7 +175,7 @@ public class MenuServiceImpl implements MenuService {
             if (likeTotal > 0) {
                 for (Like like : likes) {
                     Integer uPkId = like.gettLikeUserPkid();
-                    if (currentUserPkId != null && uPkId == currentUserPkId) {
+                    if (currentUserPkId != null && Objects.equals(uPkId, currentUserPkId)) {
                         menuDataObject.currentLike = 0;
                         menuDataObject.likePkId = like.gettLikePkid();
                         break;
@@ -256,7 +255,8 @@ public class MenuServiceImpl implements MenuService {
                 commentDataObject.commentPkId = comment.gettCommentPkid();
                 Integer currentUserPkId = jwtUtil.getLoginPkid();
                 if (currentUserPkId != null && currentUserPkId == userPkId) {
-                    commentDataObject.currentUser = 0;//是当前用户
+                    //是当前用户
+                    commentDataObject.currentUser = 0;
                 } else {
                     commentDataObject.currentUser = -1;
                 }
@@ -390,7 +390,8 @@ public class MenuServiceImpl implements MenuService {
             commentDataObject1.commentTime = sdf.format(comment.gettCommentCdt());
             commentDataObject1.content = comment.gettCommentContent();
             commentDataObject1.commentPkId = comment.gettCommentPkid();
-            commentDataObject1.currentUser = 0;//是当前用户
+            //是当前用户
+            commentDataObject1.currentUser = 0;
             return ResultMsg.success().addContent("content",commentDataObject1);
         }
         return ResultMsg.failed().addContent("content","评论失败");
@@ -422,8 +423,10 @@ public class MenuServiceImpl implements MenuService {
         String menuName1 = menuName;
         String menuDesc1 = menuDesc;
         String menuIconPath;
-        int menuType1 = menuType;//父类型
-        int menuTypeSun1 = menuTypeSun;//子类型
+        //父类型
+        int menuType1 = menuType;
+        //子类型
+        int menuTypeSun1 = menuTypeSun;
         if(menuPkId!=0){
             menuIconPath= "menu"+menuPkId;
         }else{
@@ -434,7 +437,8 @@ public class MenuServiceImpl implements MenuService {
         menu.settMenuDescription(menuDesc1);
         menu.settMenuMainIcon(menuIconPath);
         menu.settMenuUserPkid(userPkId);
-        menu.settMenuDelete(-1);//表示还未全部完成
+        //表示还未全部完成
+        menu.settMenuDelete(-1);
         menu.settMenuType(menuType1);
         menu.settMenuTypeSun(menuTypeSun1);
         Date date= new Date();
