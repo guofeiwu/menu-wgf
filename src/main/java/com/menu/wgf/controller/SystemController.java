@@ -34,16 +34,14 @@ public class SystemController {
     @GetMapping(value = "/about")
     @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
     public ResultMsg aboutUs(){
-        // TODO: 2017/9/25  返回反馈
         return ResultMsg.success();
     }
 
 
     @ApiOperation(value ="版本更新",httpMethod = "GET")
-    @GetMapping(value = "/updateVer/{oldVer}")
+    @GetMapping(value = "/checkUpdate")
     @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
-    public ResultMsg updateVersion(@PathVariable int oldVer){
-        // TODO: 2017/9/25  返回更新信息
-        return ResultMsg.success();
+    public ResultMsg updateVersion(){
+        return systemService.updateVersion();
     }
 }

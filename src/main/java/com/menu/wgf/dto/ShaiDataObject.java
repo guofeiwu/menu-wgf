@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 
 /**
- * author guofei_wu
+ * @author guofei_wu
  * email guofei_wu@163.com
  */
 public class ShaiDataObject {

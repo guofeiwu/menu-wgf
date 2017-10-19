@@ -5,7 +5,7 @@ import com.menu.wgf.model.ResultMsg;
 import java.util.Map;
 
 /**
- * @Author guofei_wu
+ * @author guofei_wu
  * @Date 2017/9/25 17:15
  */
 public interface SystemService {
@@ -24,8 +24,7 @@ public interface SystemService {
 
     /**
      * 更新版本
-     * @param oldVer
      * @return
      */
-    ResultMsg updateVersion(int oldVer);
+    ResultMsg updateVersion();
 }

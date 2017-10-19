@@ -1,7 +1,11 @@
 package com.menu.wgf.service.impl;
 
 import com.menu.wgf.config.jwt.JwtUtil;
+import com.menu.wgf.dto.AppInfoDataObject;
+import com.menu.wgf.mapper.AppInfoMapper;
 import com.menu.wgf.mapper.FeedbackMapper;
+import com.menu.wgf.model.AppInfo;
+import com.menu.wgf.model.AppInfoCriteria;
 import com.menu.wgf.model.Feedback;
 import com.menu.wgf.model.ResultMsg;
 import com.menu.wgf.service.SystemService;
@@ -11,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,6 +28,9 @@ public class SystemServiceImpl implements SystemService {
 
     @Autowired
     private FeedbackMapper feedbackMapper;
+
+    @Autowired
+    private AppInfoMapper appInfoMapper;
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -54,9 +62,20 @@ public class SystemServiceImpl implements SystemService {
     public ResultMsg getAboutUs() {
         return null;
     }
-
     @Override
-    public ResultMsg updateVersion(int oldVer) {
-        return null;
+    public ResultMsg updateVersion() {
+        AppInfoCriteria criteria = new AppInfoCriteria();
+        criteria.createCriteria()
+                .andTAppDeleteEqualTo(0);
+        List<AppInfo> appInfos = appInfoMapper.selectByExample(criteria);
+        if(appInfos.size()>0){
+            AppInfo appInfo = appInfos.get(0);
+            AppInfoDataObject appInfoDataObject = new AppInfoDataObject();
+            appInfoDataObject.versionCode = appInfo.gettAppVer();
+            appInfoDataObject.downloadUrl = appInfo.gettAppDownloadUrl();
+            appInfoDataObject.verDesc = appInfo.gettAppVerDesc();
+            return ResultMsg.success().addContent("content",appInfoDataObject);
+        }
+        return ResultMsg.failed().addContent("content","获取失败");
     }
 }

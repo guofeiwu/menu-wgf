@@ -85,6 +85,9 @@
         <table tableName="t_banner" domainObjectName="Banners">
             <generatedKey column="t_banner_pkid" sqlStatement="MySql" identity="true" />
         </table>
+        <table tableName="t_app" domainObjectName="AppInfo">
+            <generatedKey column="t_app_pkid" sqlStatement="MySql" identity="true" />
+        </table>
         <!-- enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"-->
     </context>
