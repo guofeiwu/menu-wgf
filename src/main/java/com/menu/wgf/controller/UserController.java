@@ -68,9 +68,6 @@ public class UserController {
     @ApiOperation(value = "获取用户的信息",httpMethod = "GET",response = ResultMsg.class)
     @GetMapping(value = "")
     @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(value = "用户主键", name = "userPkId", required = true, dataType = "int", paramType = "path")
-//    })
     public ResultMsg getUserInfo(){
         return userService.getUserInfo(jwtUtil.getLoginPkid());
     }

@@ -18,7 +18,7 @@ import java.util.*;
 
 /**
  * @author guofei_wu
- * email guofei_wu@163.com
+ *         email guofei_wu@163.com
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -50,7 +50,6 @@ public class MenuServiceImpl implements MenuService {
     @Autowired
     private CollectMapper collectMapper;
 
-
     @Override
     public ResultMsg getMenuList(MenuConditionDataObject menuConditionDataObject) {
 
@@ -63,25 +62,25 @@ public class MenuServiceImpl implements MenuService {
         Integer userPkId = jwtUtil.getLoginPkid();
 
         Map map = new HashMap();
-        if(type!=null){
+        if (type != null) {
             map.put("pType", String.valueOf(type));
-        }else{
+        } else {
             map.put("sunType", type);
         }
 
-        if(sunType!=null){
+        if (sunType != null) {
             map.put("sunType", String.valueOf(sunType));
-        }else{
+        } else {
             map.put("sunType", sunType);
         }
-        if(keyword!=null){
-            if(keyword.contains("早")){
+        if (keyword != null) {
+            if (keyword.contains("早")) {
                 map.put("sunType", 0);
-            }else if(keyword.contains("中")){
+            } else if (keyword.contains("中")) {
                 map.put("sunType", 1);
-            }else if(keyword.contains("晚")){
+            } else if (keyword.contains("晚")) {
                 map.put("sunType", 2);
-            }else if(keyword.contains("夜")){
+            } else if (keyword.contains("夜")) {
                 map.put("sunType", 3);
             }
         }
@@ -339,11 +338,11 @@ public class MenuServiceImpl implements MenuService {
         collect.settCollectUdt(date);
         collect.settCollectCancel(0);
         int result = collectMapper.insertSelective(collect);
-        if(result == 1){
+        if (result == 1) {
             Map map = new HashMap();
-            map.put("pkId",collect.gettCollectPkid());
-            return ResultMsg.success().addContent("content",map);
-        }else{
+            map.put("pkId", collect.gettCollectPkid());
+            return ResultMsg.success().addContent("content", map);
+        } else {
             Map map = new HashMap();
             map.put("pkId", -1);
             return ResultMsg.failed().addContent("content", map);
@@ -352,7 +351,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public ResultMsg notCollectMenu(int collectPkId) {
-        Collect collect= new Collect();
+        Collect collect = new Collect();
         collect.settCollectCancel(-1);
         collect.settCollectUdt(new Date());
         collect.settCollectPkid(collectPkId);
@@ -378,10 +377,10 @@ public class MenuServiceImpl implements MenuService {
         comment.settCommentCdt(date);
         comment.settCommentUdt(date);
         int result = commentMapper.insertSelective(comment);
-        if(result == 1){
+        if (result == 1) {
             //返回一个评论对象
             User user = userMapper.selectByPrimaryKey(userPkId);
-            String userIconUrl =user.gettUserIcon();
+            String userIconUrl = user.gettUserIcon();
             String username = user.gettUserName();
             CommentDataObject commentDataObject1 = new CommentDataObject();
             commentDataObject1.userIconUrl = userIconUrl;
@@ -392,34 +391,33 @@ public class MenuServiceImpl implements MenuService {
             commentDataObject1.commentPkId = comment.gettCommentPkid();
             //是当前用户
             commentDataObject1.currentUser = 0;
-            return ResultMsg.success().addContent("content",commentDataObject1);
+            return ResultMsg.success().addContent("content", commentDataObject1);
         }
-        return ResultMsg.failed().addContent("content","评论失败");
+        return ResultMsg.failed().addContent("content", "评论失败");
     }
 
     @Override
     public ResultMsg getBannerMenu() {
         List<Map> maps = menuQuery.getBanners();
-        if(maps.size()>0){
+        if (maps.size() > 0) {
             List<BannerDataObject> bannerDataObjects = new ArrayList<>();
-            for (Map map:maps){
+            for (Map map : maps) {
                 BannerDataObject bannerDataObject = new BannerDataObject();
                 bannerDataObject.menuPkId = (int) map.get("menuPkId");
                 bannerDataObject.menuDesc = (String) map.get("menuDesc");
                 bannerDataObject.mainIcon = (String) map.get("mainIcon");
                 bannerDataObjects.add(bannerDataObject);
             }
-            return ResultMsg.success().addContent("content",bannerDataObjects);
+            return ResultMsg.success().addContent("content", bannerDataObjects);
         }
-        return ResultMsg.failed().addContent("content","获取banner失败");
+        return ResultMsg.failed().addContent("content", "获取banner失败");
     }
 
-
     @Override
-    public ResultMsg uploadMenuCover(String menuName,String menuDesc,Integer menuType, Integer menuTypeSun,MultipartFile cover) {
+    public ResultMsg uploadMenuCover(String menuName, String menuDesc, Integer menuType, Integer menuTypeSun, MultipartFile cover) {
         int lastPkId = menuQuery.getMenuLast();
-        int menuPkId = IOUtils.uploadMenuCover(lastPkId,cover);
-        int userPkId =jwtUtil.getLoginPkid();
+        int menuPkId = IOUtils.uploadMenuCover(lastPkId, cover);
+        int userPkId = jwtUtil.getLoginPkid();
         String menuName1 = menuName;
         String menuDesc1 = menuDesc;
         String menuIconPath;
@@ -427,10 +425,10 @@ public class MenuServiceImpl implements MenuService {
         int menuType1 = menuType;
         //子类型
         int menuTypeSun1 = menuTypeSun;
-        if(menuPkId!=0){
-            menuIconPath= "menu"+menuPkId;
-        }else{
-            return ResultMsg.failed().addContent("content","上传失败");
+        if (menuPkId != 0) {
+            menuIconPath = "menu" + menuPkId;
+        } else {
+            return ResultMsg.failed().addContent("content", "上传失败");
         }
         Menu menu = new Menu();
         menu.settMenuName(menuName1);
@@ -441,49 +439,49 @@ public class MenuServiceImpl implements MenuService {
         menu.settMenuDelete(-1);
         menu.settMenuType(menuType1);
         menu.settMenuTypeSun(menuTypeSun1);
-        Date date= new Date();
+        Date date = new Date();
         menu.settMenuCdt(date);
         menu.settMenuUdt(date);
         //int result = menuMapper.insertSelective(menu);
         int result = 1;
-        if(result == 1){
-            Map<String,Object> map = new HashMap<>();
-            map.put("menuPkId",menuPkId);
-            return ResultMsg.success().addContent("content",map);
+        if (result == 1) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("menuPkId", menuPkId);
+            return ResultMsg.success().addContent("content", map);
         }
-        return ResultMsg.failed().addContent("content","上传失败");
+        return ResultMsg.failed().addContent("content", "上传失败");
     }
 
 
     @Override
-    public ResultMsg uploadMenuCover(MultipartFile cover){
+    public ResultMsg uploadMenuCover(MultipartFile cover) {
         String coverName = IOUtils.uploadMenuCover(cover);
-        if(coverName!=null){
-            Map<String,Object> map = new HashMap<>();
-            map.put("mainIcon",coverName);
-                return ResultMsg.success().addContent("content",map);
+        if (coverName != null) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("mainIcon", coverName);
+            return ResultMsg.success().addContent("content", map);
         }
-        return ResultMsg.failed().addContent("content","上传失败");
+        return ResultMsg.failed().addContent("content", "上传失败");
     }
 
 
     @Override
     public ResultMsg upStepPicture(List<MultipartFile> stepPicture) {
-        List<Map<String,Object>> urls = IOUtils.uploadMenuStepPicture(stepPicture);
-        if(urls!=null){
-            return ResultMsg.success().addContent("content",urls);
+        List<Map<String, Object>> urls = IOUtils.uploadMenuStepPicture(stepPicture);
+        if (urls != null) {
+            return ResultMsg.success().addContent("content", urls);
         }
-        return ResultMsg.failed().addContent("content","上传失败");
+        return ResultMsg.failed().addContent("content", "上传失败");
     }
 
     @Override
     public ResultMsg upMenuContent(MenuContentDataObject menuContentDataObject) {
-        System.out.println("menuContentDataObject:"+menuContentDataObject.toString());
+        System.out.println("menuContentDataObject:" + menuContentDataObject.toString());
 
-        int userPkId  = jwtUtil.getLoginPkid();
+        int userPkId = jwtUtil.getLoginPkid();
 
         //菜谱信息
-        Map<String,Object> menuInfo = menuContentDataObject.menuInfo;
+        Map<String, Object> menuInfo = menuContentDataObject.menuInfo;
 
         String mainIcon = (String) menuInfo.get("mainIcon");
         String menuName = (String) menuInfo.get("menuName");
@@ -502,32 +500,27 @@ public class MenuServiceImpl implements MenuService {
         menu.settMenuUdt(dateMenu);
 
         int result = menuMapper.insertSelective(menu);
-        if(result == 1){
+        if (result == 1) {
             int menuPkId = menu.gettMenuPkid();
             //材料信息
-            List<Map<String,Object>> materialses = menuContentDataObject.materialses;
+            List<Map<String, Object>> materialses = menuContentDataObject.materialses;
             List<Material> materials = new ArrayList<>();
-            for(Map<String,Object> map:materialses){
+            for (Map<String, Object> map : materialses) {
                 String materialsName = (String) map.get("materialsName");
-                String materialsdose = (String) map.get("materialsDose");
+                String materialsDose = (String) map.get("materialsDose");
                 Material material = new Material();
                 material.settMaterialMenuPkid(menuPkId);
-                material.settMaterialName(materialsName+"     "+materialsdose);
+                material.settMaterialName(materialsName + "     " + materialsDose);
                 Date date = new Date();
                 material.settMaterialCdt(date);
                 material.settMaterialUdt(date);
                 materials.add(material);
             }
-            int materialsId = menuQuery.insertMenuMaterials(materials);
-            if(materialsId <= 0){
-                System.out.println("materialsId ...<= 0."+materialsId);
-            }else {
-                System.out.println("materialsId ....>0 "+materialsId);
-            }
+            menuQuery.insertMenuMaterials(materials);
             //步骤信息
-            List<Map<String,Object>> steps = menuContentDataObject.steps;
+            List<Map<String, Object>> steps = menuContentDataObject.steps;
             List<Step> stepList = new ArrayList<>();
-            for (Map<String,Object> map:steps){
+            for (Map<String, Object> map : steps) {
                 String desc = (String) map.get("desc");
                 String url = (String) map.get("url");
                 Step step = new Step();
@@ -539,17 +532,41 @@ public class MenuServiceImpl implements MenuService {
                 step.settStepUdt(date);
                 stepList.add(step);
             }
-            int stepId = menuQuery.insertMenuSteps(stepList);
-            if(stepId <= 0){
-                System.out.println("stepId ...<= 0."+stepId);
-            }else {
-                System.out.println("stepId ....>0 "+stepId);
-            }
+            menuQuery.insertMenuSteps(stepList);
+            User user = userMapper.selectByPrimaryKey(userPkId);
+            Integer point = user.gettUserPoint();
+            int p = (int) ((Math.random() * 20) + 1);
+            int lastPoint = p + point;
 
-            return ResultMsg.success().addContent("content","上传菜谱成功");
+            int level1 = 31, level2 = 101, level3 = 201, level4 = 501, level5 = 1001, level6 = 3001;
+            //一级
+            if (lastPoint >= 0 && lastPoint < level1) {
+                user.settUserLevel("1级");
+                //两级
+            } else if (lastPoint >= level1 && lastPoint < level2) {
+                user.settUserLevel("2级");
+                //三级
+            } else if (lastPoint > level2 && lastPoint < level3) {
+                user.settUserLevel("3级");
+            } else if (lastPoint > level3 && lastPoint < level4) {
+                user.settUserLevel("4级");
+            } else if (lastPoint > level4 && lastPoint < level5) {
+                user.settUserLevel("5级");
+            } else if (lastPoint > level5 && lastPoint < level6) {
+                user.settUserLevel("6级");
+            } else {
+                //七级
+                user.settUserLevel("7级");
+            }
+            user.settUserPoint(lastPoint);
+            user.settUserUdt(new Date());
+            int pointResult = userMapper.insertSelective(user);
+            if (pointResult == 1) {
+                return ResultMsg.success().addContent("content", "上传菜谱成功");
+            }
         }
 
-        return ResultMsg.failed().addContent("content","上传菜谱失败");
+        return ResultMsg.failed().addContent("content", "上传菜谱失败");
     }
 
     @Override

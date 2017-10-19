@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * @Author guofei_wu
+ * @author guofei_wu
  */
 @RestController
 @RequestMapping(value = "/app/menu")

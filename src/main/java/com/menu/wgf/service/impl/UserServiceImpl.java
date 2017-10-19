@@ -264,7 +264,28 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResultMsg userSign(Integer userPkId) {
         User user = userMapper.selectByPrimaryKey(userPkId);
-        user.settUserPoint(user.gettUserPoint()+1);
+
+        int userPoint = user.gettUserPoint();
+        int lastPoint = userPoint+1;
+
+        int level1 = 31, level2 = 101, level3 = 201, level4 = 501, level5 = 1001, level6 = 3001;
+        if (lastPoint >= 0 && lastPoint < level1) {
+            user.settUserLevel("1级");
+        } else if (lastPoint >= level1 && lastPoint < level2) {
+            user.settUserLevel("2级");
+        } else if (lastPoint > level2 && lastPoint < level3) {
+            user.settUserLevel("3级");
+        } else if (lastPoint > level3 && lastPoint < level4) {
+            user.settUserLevel("4级");
+        }else if (lastPoint > level4 && lastPoint < level5) {
+            user.settUserLevel("5级");
+        }else if (lastPoint > level5 && lastPoint < level6) {
+            user.settUserLevel("6级");
+        }else{
+            user.settUserLevel("7级");
+        }
+
+        user.settUserPoint(lastPoint);
         user.settUserPkid(userPkId);
         //签到
         user.settUserSign(1);

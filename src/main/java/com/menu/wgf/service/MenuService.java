@@ -160,6 +160,7 @@ public interface MenuService {
      * @param cover
      * @return
      */
+    @Deprecated
     ResultMsg uploadMenuCover(String menuName,String menuDesc,Integer menuType, Integer menuTypeSun,MultipartFile cover);
 
     /**
