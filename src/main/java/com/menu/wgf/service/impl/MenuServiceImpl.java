@@ -53,6 +53,7 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public ResultMsg getMenuList(MenuConditionDataObject menuConditionDataObject) {
 
+        String zao = "早";String zhong = "中";String wan = "晚"; String yeXiao = "夜";
         int pageNo = menuConditionDataObject.pageNo;
         Integer type = menuConditionDataObject.pType;
         Integer sunType = menuConditionDataObject.sunType;
@@ -61,11 +62,12 @@ public class MenuServiceImpl implements MenuService {
 
         Integer userPkId = jwtUtil.getLoginPkid();
 
-        Map map = new HashMap();
+        Map map = new HashMap(4);
+
         if (type != null) {
             map.put("pType", String.valueOf(type));
         } else {
-            map.put("sunType", type);
+            map.put("pType", type);
         }
 
         if (sunType != null) {
@@ -74,13 +76,13 @@ public class MenuServiceImpl implements MenuService {
             map.put("sunType", sunType);
         }
         if (keyword != null) {
-            if (keyword.contains("早")) {
+            if (keyword.contains(zao)) {
                 map.put("sunType", 0);
-            } else if (keyword.contains("中")) {
+            } else if (keyword.contains(zhong)) {
                 map.put("sunType", 1);
-            } else if (keyword.contains("晚")) {
+            } else if (keyword.contains(wan)) {
                 map.put("sunType", 2);
-            } else if (keyword.contains("夜")) {
+            } else if (keyword.contains(yeXiao)) {
                 map.put("sunType", 3);
             }
         }
@@ -569,19 +571,86 @@ public class MenuServiceImpl implements MenuService {
         return ResultMsg.failed().addContent("content", "上传菜谱失败");
     }
 
+
+
     @Override
-    public ResultMsg getUserCommentMenuList(int userPkId, int pageSize, int pageNo) {
-        return null;
+    public ResultMsg getUserCollectMenuList(int pageNo) {
+
+        Integer userPkId = jwtUtil.getLoginPkid();
+        PageHelper.startPage(pageNo, 6);
+        //获取用户收藏菜谱的列表
+        List<Map> maps = menuQuery.getUserCollectList(userPkId);
+        if (maps.size()>0) {
+            List<MenuDataObject> menuDataObjects = new ArrayList<>();
+            for (Map m : maps) {
+                MenuDataObject menuDataObject = new MenuDataObject();
+                menuDataObject.collectPkId = (int) m.get("collectPkId");
+                menuDataObject.menuPkId = (int) m.get("menuPkId");
+                menuDataObject.menuName = (String) m.get("menuName");
+                menuDataObject.introduce = (String) m.get("descr");
+                menuDataObject.mainIcon = (String) m.get("mainIcon");
+                User user = userMapper.selectByPrimaryKey(userPkId);
+                menuDataObject.userIconUrl = user.gettUserIcon();
+                menuDataObject.userName = user.gettUserName();
+                //是当前用户
+                menuDataObject.currentUser = 0;
+                menuDataObjects.add(menuDataObject);
+            }
+            return ResultMsg.success().addContent("content", menuDataObjects);
+        }
+        return ResultMsg.failed().addContent("content", "获取用户收藏菜谱失败");
     }
 
 
+
     @Override
-    public ResultMsg deleteCollectMenu(int collectPkId) {
-        return null;
+    public ResultMsg getUserMenuList(int pageNo) {
+        Integer userPkId = jwtUtil.getLoginPkid();
+        PageHelper.startPage(pageNo, 6);
+        List<Map> maps = menuQuery.getUserMenuList(userPkId);
+        if (maps.size()>0) {
+            List<MenuDataObject> menuDataObjects =getMenus(userPkId,maps);
+            return ResultMsg.success().addContent("content", menuDataObjects);
+        }
+        return ResultMsg.failed().addContent("content", "获取用户发布的菜谱失败");
     }
 
     @Override
-    public ResultMsg getUserCollectMenuList(int userPkId, int pageSize, int pageNo) {
+    public ResultMsg getUserCommentMenuList(int pageNo) {
+        Integer userPkId = jwtUtil.getLoginPkid();
+        PageHelper.startPage(pageNo, 6);
+        List<Map> maps = menuQuery.getUserCommentMenuList(userPkId);
+        if (maps.size()>0) {
+            List<MenuDataObject> menuDataObjects =getMenus(userPkId,maps);
+            return ResultMsg.success().addContent("content", menuDataObjects);
+        }
+        return ResultMsg.failed().addContent("content", "获取用户发布的菜谱失败");
+    }
+
+    /**
+     * 获取菜谱
+     * @param userPkId
+     * @param maps
+     * @return
+     */
+    private List<MenuDataObject> getMenus(Integer userPkId,List<Map> maps){
+        List<MenuDataObject> menuDataObjects = new ArrayList<>();
+        if (maps.size()>0) {
+            for (Map m : maps) {
+                MenuDataObject menuDataObject = new MenuDataObject();
+                menuDataObject.menuPkId = (int) m.get("menuPkId");
+                menuDataObject.menuName = (String) m.get("menuName");
+                menuDataObject.introduce = (String) m.get("descr");
+                menuDataObject.mainIcon = (String) m.get("mainIcon");
+                User user = userMapper.selectByPrimaryKey(userPkId);
+                menuDataObject.userIconUrl = user.gettUserIcon();
+                menuDataObject.userName = user.gettUserName();
+                //是当前用户
+                menuDataObject.currentUser = 0;
+                menuDataObjects.add(menuDataObject);
+            }
+            return menuDataObjects;
+        }
         return null;
     }
 
