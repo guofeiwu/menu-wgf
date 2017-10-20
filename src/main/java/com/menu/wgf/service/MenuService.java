@@ -50,12 +50,10 @@ public interface MenuService {
 
     /**
      * 获取用户评论的菜谱列表
-     * @param userPkId
-     * @param pageSize
      * @param pageNo
      * @return
      */
-    ResultMsg getUserCommentMenuList(int userPkId,int pageSize,int pageNo);
+    ResultMsg getUserCommentMenuList(int pageNo);
 
     /**
      * 收藏菜谱
@@ -64,24 +62,20 @@ public interface MenuService {
      */
     ResultMsg collectMenu(int menuPkId);
 
-    /**
-     * 取消收藏菜谱
-     * @param collectPkId
-     * @return
-     */
-    ResultMsg deleteCollectMenu(int collectPkId);
-
 
     /**
      * 获取用户收藏的菜谱列表
-     * @param userPkId
-     * @param pageSize
      * @param pageNo
      * @return
      */
-    ResultMsg getUserCollectMenuList(int userPkId,int pageSize,int pageNo);
+    ResultMsg getUserCollectMenuList(int pageNo);
 
-
+    /**
+     * 获取用户发布的菜谱列表
+     * @param pageNo
+     * @return
+     */
+    ResultMsg getUserMenuList(int pageNo);
     /**
      * 搜索菜谱
      * @param keyword 关键字

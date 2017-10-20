@@ -29,17 +29,39 @@
     </select>
 
 
-
-    <insert id="insertMenuMaterials" parameterType="com.menu.wgf.model.Material" useGeneratedKeys="true" keyProperty="t_material_pkid">
+    <insert id="insertMenuMaterials" parameterType="com.menu.wgf.model.Material" useGeneratedKeys="true"
+            keyProperty="t_material_pkid">
         insert into t_material (t_material_name, t_material_menu_pkid, t_material_cdt, t_material_udt) values
         <foreach item="material" collection="list" separator=",">
-            (#{material.tMaterialName}, #{material.tMaterialMenuPkid}, #{material.tMaterialCdt}, #{material.tMaterialUdt})
+            (#{material.tMaterialName}, #{material.tMaterialMenuPkid}, #{material.tMaterialCdt},
+            #{material.tMaterialUdt})
         </foreach>
     </insert>
-    <insert id="insertMenuSteps" parameterType="com.menu.wgf.model.Step" useGeneratedKeys="true" keyProperty="t_step_pkid">
+    <insert id="insertMenuSteps" parameterType="com.menu.wgf.model.Step" useGeneratedKeys="true"
+            keyProperty="t_step_pkid">
         insert into t_step (t_step_menu_pkid, t_step_pic_address, t_step_description, t_step_cdt,t_step_udt) values
         <foreach item="step" collection="list" separator=",">
-            (#{step.tStepMenuPkid}, #{step.tStepPicAddress}, #{step.tStepDescription}, #{step.tStepCdt},#{step.tStepUdt})
+            (#{step.tStepMenuPkid}, #{step.tStepPicAddress}, #{step.tStepDescription},
+            #{step.tStepCdt},#{step.tStepUdt})
         </foreach>
     </insert>
+
+
+    <select id="getUserMenuList" parameterType="integer" resultType="java.util.LinkedHashMap">
+        SELECT m.t_menu_pkid menuPkId, m.t_menu_name menuName, m.t_menu_description descr,m.t_menu_main_icon mainIcon FROM t_menu m WHERE
+        m.t_menu_delete = 0 AND m.t_menu_user_pkid = #{userPkId}
+    </select>
+
+    <select id="getUserCollectList"  parameterType="integer" resultType="java.util.LinkedHashMap">
+        SELECT  c.t_collect_pkid collectPkId ,c.t_collect_menu_pkid menuPkId,m.t_menu_name menuName,m.t_menu_main_icon mainIcon,
+        m.t_menu_description descr  FROM t_collect c LEFT JOIN t_menu m ON c.t_collect_menu_pkid = m.t_menu_pkid
+        WHERE c.t_collect_cancel = 0 AND m.t_menu_delete = 0 AND c.t_collect_user_pkid = #{userPkId}
+    </select>
+
+    <select id="getUserCommentMenuList" parameterType="integer" resultType="java.util.LinkedHashMap">
+        SELECT DISTINCT m.t_menu_pkid menuPkId, m.t_menu_name menuName, m.t_menu_description descr ,m.t_menu_user_pkid userPkId,m.t_menu_main_icon mainIcon ,m.t_menu_udt udt
+        FROM t_menu m LEFT JOIN t_comment c ON c.t_comment_menu_pkid = m.t_menu_pkid
+        WHERE m.t_menu_delete = 0 AND m.t_menu_user_pkid = #{userPkId}
+        ORDER BY udt DESC
+    </select>
 </mapper>

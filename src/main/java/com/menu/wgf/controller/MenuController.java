@@ -170,61 +170,44 @@ public class MenuController {
 
 
 
-
-
-
-
-
-
-    @ApiOperation(value ="获取用户评论的菜谱列表",httpMethod = "GET")
-    @GetMapping(value = "/comment/user/{userPkId}")
-    @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userPkId",value = "用户的主键",paramType = "path",dataType = "int",required = true),
-            @ApiImplicitParam(name = "pageSize",value = "每页返回的大小",paramType = "com/menu/wgf/query",dataType = "int",required = true),
-            @ApiImplicitParam(name = "pageNo",value = "第几页",paramType = "com/menu/wgf/query",dataType = "int",required = true)
-    })
-    public ResultMsg getUserCommentMenuList(@PathVariable Integer userPkId,@RequestParam("pageSize") Integer pageSize,
-                                            @RequestParam("pageNo") Integer pageNo){
-        return ResultMsg.success().addContent("commentMenuList",null);
-    }
-
-
-
-
     @ApiOperation(value ="获取用户收藏的菜谱列表",httpMethod = "GET")
-    @GetMapping(value = "/collect/user/{userPkId}")
+    @GetMapping(value = "/collect/user/{pageNo}")
     @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userPkId",value = "用户的主键",paramType = "path",dataType = "int",required = true),
-            @ApiImplicitParam(name = "pageSize",value = "每页返回的大小",paramType = "com/menu/wgf/query",dataType = "int",required = true),
-            @ApiImplicitParam(name = "pageNo",value = "第几页",paramType = "com/menu/wgf/query",dataType = "int",required = true)
+            @ApiImplicitParam(name = "pageNo",value = "第几页",paramType = "path",dataType = "int",required = true)
     })
-    public ResultMsg getUserCollectMenuList(@PathVariable Integer userPkId,@RequestParam("pageSize") Integer pageSize,
-                                            @RequestParam("pageNo") Integer pageNo){
-        return ResultMsg.success().addContent("collectMenuList",null);
+    public ResultMsg getUserCollectMenuList(@PathVariable(value = "pageNo") Integer pageNo){
+        return menuService.getUserCollectMenuList(pageNo);
     }
-
-
-
 
     @ApiOperation(value = "上传菜谱内容", httpMethod = "POST")
     @PostMapping(value = "/upContent")
     @ApiResponse(code = 500,message = "服务器相应出错",response = Integer.class)
     public ResultMsg upMenuContent(@ApiParam(value = "菜谱内容dto" ,name = "menuContentDataObject",required = true)
-                                       @RequestBody MenuContentDataObject menuContentDataObject) {
+                                   @RequestBody MenuContentDataObject menuContentDataObject) {
         return menuService.upMenuContent(menuContentDataObject);
     }
 
 
-    @ApiOperation(value = "上传菜谱(多张图片)", httpMethod = "POST")
-    @PostMapping(value = "/multi/{userPkId}/{type}")
+
+    @ApiOperation(value ="获取用户发布的菜谱列表",httpMethod = "GET")
+    @GetMapping(value = "/user/{pageNo}")
+    @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
     @ApiImplicitParams({
-            @ApiImplicitParam(value = "用户主键", name = "userPkId", required = true, dataType = "int", paramType = "path"),
+            @ApiImplicitParam(name = "pageNo",value = "第几页",paramType = "path",dataType = "int",required = true)
     })
-    @ApiResponse(code = 500,message = "服务器相应出错",response = Integer.class)
-    public ResultMsg uploadMenu(@PathVariable(value = "userPkId") Integer userPkId,@PathVariable("type") Integer type,
-                                    @ApiParam(value = "菜谱", name = "menu") @RequestParam("menu") HttpServletRequest menu) {
-        return IOUtils.multifileUpload(userPkId,type,menu);
+    public ResultMsg getUserMenuList(@PathVariable("pageNo") Integer pageNo){
+        return menuService.getUserMenuList(pageNo);
     }
+
+    @ApiOperation(value ="获取用户评论的菜谱列表",httpMethod = "GET")
+    @GetMapping(value = "/comment/user/{pageNo}")
+    @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNo",value = "第几页",paramType = "path",dataType = "int",required = true)
+    })
+    public ResultMsg getUserCommentMenuList(@PathVariable("pageNo") Integer pageNo){
+        return menuService.getUserCommentMenuList(pageNo);
+    }
+
 }
