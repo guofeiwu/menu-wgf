@@ -1,9 +1,6 @@
 package com.menu.wgf.service.impl;
 
-import ch.qos.logback.core.pattern.util.RegularEscapeUtil;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.menu.wgf.config.jwt.JwtUtil;
 import com.menu.wgf.dto.CommentDataObject;
 import com.menu.wgf.dto.ShaiDataObject;
@@ -15,25 +12,24 @@ import com.menu.wgf.model.*;
 import com.menu.wgf.query.ShaiQuery;
 import com.menu.wgf.service.ShaiService;
 import com.menu.wgf.util.IOUtils;
-import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static com.menu.wgf.Constants.FILE_TYPE_SHAI;
-
 /**
- * author guofei_wu
+ * @author guofei_wu
  * email guofei_wu@163.com
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class ShaiServiceImpl implements ShaiService {
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Autowired
     private ShaiMapper shaiMapper;
@@ -133,7 +129,7 @@ public class ShaiServiceImpl implements ShaiService {
     }
 
     @Override
-    public ResultMsg getCommentShaiList(JwtUtil jwtUtil,int shaiPkId,int pageNo) {
+    public ResultMsg getShaiCommentList(int shaiPkId, int pageNo) {
         CommentCriteria commentCriteria = new CommentCriteria();
         commentCriteria.createCriteria()
                 .andTCommentDeleteEqualTo(0)
@@ -225,11 +221,6 @@ public class ShaiServiceImpl implements ShaiService {
     }
 
     @Override
-    public ResultMsg getShai(int userPkId) {
-        return null;
-    }
-
-    @Override
     public ResultMsg getLikeShai(int userPkId) {
         LikeCriteria criteria = new LikeCriteria();
         criteria.createCriteria()
@@ -247,57 +238,19 @@ public class ShaiServiceImpl implements ShaiService {
     }
 
 
-
     @Override
     public ResultMsg getShaiList(int pageNo) {
-
         PageHelper.startPage(pageNo,6);
-        //List<Shai> shais =  shaiMapper.selectByExample(null);
         List<Map> maps = shaiQuery.getAllShaiList();
-        List<ShaiDataObject> shais = new ArrayList<>();
-        //PageInfo<Shai> pageInfo = new PageInfo<>(shais);
-
-        if(maps.size()>0){
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            for(Map map:maps){
-                ShaiDataObject shaiDataObject = new ShaiDataObject();
-                int pkid = (int) map.get("pkid");
-                shaiDataObject.pkid = pkid;
-                shaiDataObject.address = (String) map.get("address");
-                shaiDataObject.userName = (String) map.get("userName");
-                shaiDataObject.icon = (String) map.get("icon");
-                shaiDataObject.descr = (String) map.get("descr");
-                String date = sdf.format(map.get("cTime"));
-                shaiDataObject.cTime = date;
-                shaiDataObject.lookTotal = (int) map.get("look");
-
-
-                //点赞总数
-                LikeCriteria criteria = new LikeCriteria();
-                criteria.createCriteria()
-                        .andTLikeDeleteEqualTo(0)
-                        .andTLikeShaiPkidEqualTo(pkid);
-                int count = (int) likeMapper.countByExample(criteria);
-
-                shaiDataObject.shaiLike = count;
-
-                //评论总数
-                CommentCriteria commentCriteria = new CommentCriteria();
-                commentCriteria.createCriteria()
-                        .andTCommentDeleteEqualTo(0)
-                        .andTCommentShaiPkidEqualTo(pkid);
-                int commentTotal = (int) commentMapper.countByExample(commentCriteria);
-                shaiDataObject.commentTotal = commentTotal;
-
-                shais.add(shaiDataObject);
-            }
-            return ResultMsg.success().addContent("content",shais);
+        List<ShaiDataObject> shais = getShais(maps);
+        if(shais.size()>0) {
+            return ResultMsg.success().addContent("content", shais);
         }
         return ResultMsg.failed().addContent("content","获取失败");
     }
 
     @Override
-    public ResultMsg getShaiDetail(JwtUtil jwtUtil, int shaiPkId) {
+    public ResultMsg getShaiDetail(int shaiPkId) {
         Map map = shaiQuery.getShaiDetail(shaiPkId);
         if(map == null){
             return ResultMsg.failed().addContent("content","获取详情失败");
@@ -331,13 +284,7 @@ public class ShaiServiceImpl implements ShaiService {
                 .andTCommentShaiPkidEqualTo(pkid);
         int commentTotal = (int) commentMapper.countByExample(commentCriteria);
         shaiDataObject.commentTotal = commentTotal;
-        Integer userPkId = null;
-        try{
-            userPkId = jwtUtil.getLoginPkid();
-        }catch (Exception e){
-            //e.printStackTrace();
-            userPkId = null;
-        }
+        Integer userPkId = jwtUtil.getLoginPkid();
         if(userPkId!=null){
             ShaiCriteria criteria1 = new ShaiCriteria();
             criteria1.createCriteria()
@@ -368,5 +315,78 @@ public class ShaiServiceImpl implements ShaiService {
             return ResultMsg.success().addContent("content","更新成功");
         }
         return ResultMsg.failed().addContent("content","更新失败");
+    }
+
+    @Override
+    public ResultMsg getUserShai(int pageNo) {
+
+        Integer userPkId = jwtUtil.getLoginPkid();
+        PageHelper.startPage(pageNo,6);
+        List<Map> maps = shaiQuery.getUserShaiList(userPkId);
+        List<ShaiDataObject> shais = getShais(maps);
+        if(shais.size()>0) {
+            return ResultMsg.success().addContent("content", shais);
+        }
+        return ResultMsg.failed().addContent("content","获取失败");
+    }
+
+    /**
+     * 得到晒列表
+     * @param maps
+     * @return
+     */
+    private List<ShaiDataObject> getShais(List<Map> maps){
+        List<ShaiDataObject> shais = new ArrayList<>();
+        if(maps.size()>0){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            for(Map map:maps){
+                ShaiDataObject shaiDataObject = new ShaiDataObject();
+                int pkid = (int) map.get("pkid");
+                shaiDataObject.pkid = pkid;
+                shaiDataObject.address = (String) map.get("address");
+                shaiDataObject.userName = (String) map.get("userName");
+                shaiDataObject.icon = (String) map.get("icon");
+                shaiDataObject.descr = (String) map.get("descr");
+                String date = sdf.format(map.get("cTime"));
+                shaiDataObject.cTime = date;
+                shaiDataObject.lookTotal = (int) map.get("look");
+
+
+                //点赞总数
+                LikeCriteria criteria = new LikeCriteria();
+                criteria.createCriteria()
+                        .andTLikeDeleteEqualTo(0)
+                        .andTLikeShaiPkidEqualTo(pkid);
+                int count = (int) likeMapper.countByExample(criteria);
+
+                shaiDataObject.shaiLike = count;
+
+                //评论总数
+                CommentCriteria commentCriteria = new CommentCriteria();
+                commentCriteria.createCriteria()
+                        .andTCommentDeleteEqualTo(0)
+                        .andTCommentShaiPkidEqualTo(pkid);
+                int commentTotal = (int) commentMapper.countByExample(commentCriteria);
+                shaiDataObject.commentTotal = commentTotal;
+                shais.add(shaiDataObject);
+            }
+            return shais;
+        }
+        return null;
+    }
+
+
+    @Override
+    public ResultMsg getUserCommentShaiList(int pageNo) {
+        Integer userPkId = jwtUtil.getLoginPkid();
+
+        PageHelper.startPage(pageNo,6);
+        List<Map> maps = shaiQuery.getUserCommentShaiList(userPkId);
+
+        List<ShaiDataObject> shais = getShais(maps);
+        if(shais.size()>0) {
+            return ResultMsg.success().addContent("content", shais);
+        }
+        return ResultMsg.failed().addContent("content","获取失败");
     }
 }

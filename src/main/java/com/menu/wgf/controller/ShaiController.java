@@ -4,7 +4,6 @@ import com.menu.wgf.config.jwt.JwtUtil;
 import com.menu.wgf.dto.CommentDataObject;
 import com.menu.wgf.model.ResultMsg;
 import com.menu.wgf.service.ShaiService;
-import com.menu.wgf.util.IOUtils;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -50,7 +49,7 @@ public class ShaiController {
             @ApiImplicitParam(name = "pageNo",value = "获取第几页",paramType = "path",dataType = "int",required = true)
     })
     public ResultMsg getCommentsShai(@PathVariable("shaiPkId")int shaiPkId,@PathVariable("pageNo")int pageNo) {
-        return shaiService.getCommentShaiList(jwtUtil,shaiPkId,pageNo);
+        return shaiService.getShaiCommentList(shaiPkId,pageNo);
     }
 
 
@@ -77,14 +76,13 @@ public class ShaiController {
     }
 
     @ApiOperation(value ="获取某个用户的晒一晒",httpMethod = "GET")
-    @GetMapping(value = "/{userPkId}")
+    @GetMapping(value = "/user/{pageNo}")
     @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userPkId",value = "用户主键",paramType = "path",dataType = "int",required = true),
+            @ApiImplicitParam(name = "pageNo",value = "第几页",paramType = "path",dataType = "int",required = true),
     })
-    public ResultMsg getUserShai(@PathVariable("userPkId") int userPkId) {
-
-        return ResultMsg.success();
+    public ResultMsg getUserShai(@PathVariable("pageNo") int pageNo) {
+        return shaiService.getUserShai(pageNo);
     }
 
 
@@ -94,7 +92,6 @@ public class ShaiController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNo",value = "第几页",paramType = "path",dataType = "int",required = true),
     })
-    // TODO: 2017/9/25 使用pageHelper
     public ResultMsg getShaiList(@PathVariable int pageNo) {
         return shaiService.getShaiList(pageNo);
     }
@@ -136,7 +133,7 @@ public class ShaiController {
             @ApiImplicitParam(name = "shaiPkId",value = "晒一晒主键",paramType = "path",dataType = "int",required = true),
     })
     public ResultMsg getShaiDetail(@PathVariable("shaiPkId") int shaiPkId){
-        return shaiService.getShaiDetail(jwtUtil,shaiPkId);
+        return shaiService.getShaiDetail(shaiPkId);
     }
 
 
@@ -150,5 +147,19 @@ public class ShaiController {
     public ResultMsg updateShaiLook(@PathVariable("lookTotal") int lookTotal,@PathVariable("shaiPkId") int shaiPkId){
         return shaiService.updateShaiLook(lookTotal,shaiPkId);
     }
+
+
+
+    @ApiOperation(value ="获取用户评论的晒一晒",httpMethod = "GET",notes = "")
+    @GetMapping(value = "/comment/user/{pageNo}")
+    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNo",value = "第几页",paramType = "path",dataType = "int",required = true)
+    })
+    public ResultMsg getUserCommentShaiList(@PathVariable("pageNo") int pageNo){
+        return shaiService.getUserCommentShaiList(pageNo);
+    }
+
+
 
 }

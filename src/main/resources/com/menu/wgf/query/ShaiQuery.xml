@@ -2,16 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.menu.wgf.query.ShaiQuery">
     <select id="getAllShaiList" resultType="java.util.LinkedHashMap">
-     SELECT s.t_shai_pkid pkid ,s.t_shai_picture_address address ,s.t_shai_cdt cTime, u.t_user_icon icon,u.t_user_name userName,s.t_shai_desc descr,s.t_shai_look look
-     FROM t_shai s  LEFT JOIN t_user u
-     ON s.t_shai_user_pkid = u.t_user_pkid
-     WHERE s.t_shai_delete = 0
-     ORDER BY s.t_shai_cdt DESC
+         SELECT s.t_shai_pkid pkid ,s.t_shai_picture_address address ,s.t_shai_cdt cTime, u.t_user_icon icon,u.t_user_name userName,s.t_shai_desc descr,s.t_shai_look look
+         FROM t_shai s  LEFT JOIN t_user u
+         ON s.t_shai_user_pkid = u.t_user_pkid
+         WHERE s.t_shai_delete = 0
+         ORDER BY s.t_shai_cdt DESC
   </select>
     <select id="getShaiDetail" resultType="java.util.LinkedHashMap">
-    SELECT s.t_shai_pkid pkid ,s.t_shai_picture_address address ,s.t_shai_cdt cTime, u.t_user_icon icon,u.t_user_name userName,s.t_shai_desc descr,s.t_shai_look look
-    FROM t_shai s  LEFT JOIN t_user u
-    ON s.t_shai_user_pkid = u.t_user_pkid
-    WHERE s.t_shai_Pkid = #{shaiPkId}
+        SELECT s.t_shai_pkid pkid ,s.t_shai_picture_address address ,s.t_shai_cdt cTime, u.t_user_icon icon,u.t_user_name userName,s.t_shai_desc descr,s.t_shai_look look
+        FROM t_shai s  LEFT JOIN t_user u
+        ON s.t_shai_user_pkid = u.t_user_pkid
+        WHERE s.t_shai_Pkid = #{shaiPkId}
+    </select>
+
+
+    <select id="getUserShaiList" parameterType="integer" resultType="java.util.LinkedHashMap">
+        SELECT s.t_shai_pkid pkid ,s.t_shai_picture_address address ,s.t_shai_cdt cTime, u.t_user_icon icon,u.t_user_name userName,s.t_shai_desc descr,s.t_shai_look look
+        FROM t_shai s  LEFT JOIN t_user u
+        ON s.t_shai_user_pkid = u.t_user_pkid
+        WHERE s.t_shai_delete = 0 AND u.t_user_pkid = #{userPkId}
+        ORDER BY s.t_shai_cdt DESC
+    </select>
+
+    <select id="getUserCommentShaiList" parameterType="integer" resultType="java.util.LinkedHashMap" >
+        SELECT DISTINCT s.t_shai_pkid pkid ,s.t_shai_picture_address address ,s.t_shai_cdt cTime,s.t_shai_desc descr,s.t_shai_look look,u.t_user_icon icon,u.t_user_name userName
+        FROM t_comment c LEFT JOIN t_shai s ON c.t_comment_shai_pkid = s.t_shai_Pkid
+        LEFT JOIN t_user u ON c.t_comment_user_pkid = u.t_user_pkid
+        WHERE s.t_shai_delete = 0  AND c.t_comment_delete = 0 AND c.t_comment_user_pkid = #{userPkId}
+        ORDER BY s.t_shai_cdt DESC
     </select>
 </mapper>

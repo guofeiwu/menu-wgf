@@ -57,7 +57,7 @@ public interface ShaiService {
      * @param shaiPkId
      * @return
      */
-    ResultMsg getCommentShaiList(JwtUtil jwtUtil,int shaiPkId,int pageNo);
+    ResultMsg getShaiCommentList(int shaiPkId, int pageNo);
 
     /**
      * 上传晒一晒
@@ -79,10 +79,10 @@ public interface ShaiService {
 
     /**
      * 获取某个用户的晒一晒
-     * @param userPkId
+     * @param pageNo
      * @return
      */
-    ResultMsg getShai(int userPkId);
+    ResultMsg getUserShai(int pageNo);
 
     /**
      * 获取所有的晒一晒，分页
@@ -96,7 +96,7 @@ public interface ShaiService {
      * @param shaiPkId
      * @return
      */
-    ResultMsg getShaiDetail(JwtUtil jwtUtil, int shaiPkId);
+    ResultMsg getShaiDetail(int shaiPkId);
 
 
     /**
@@ -105,4 +105,12 @@ public interface ShaiService {
      * @return
      */
     ResultMsg updateShaiLook(int lookTotal,int shaiPkId);
+
+
+    /**
+     * 获取某个用户评论的晒一晒
+     * @param pageNo
+     * @return
+     */
+    ResultMsg getUserCommentShaiList(int pageNo);
 }
