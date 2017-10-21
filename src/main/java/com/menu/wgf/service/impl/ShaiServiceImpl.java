@@ -243,7 +243,7 @@ public class ShaiServiceImpl implements ShaiService {
         PageHelper.startPage(pageNo,6);
         List<Map> maps = shaiQuery.getAllShaiList();
         List<ShaiDataObject> shais = getShais(maps);
-        if(shais.size()>0) {
+        if(shais != null && shais.size()>0) {
             return ResultMsg.success().addContent("content", shais);
         }
         return ResultMsg.failed().addContent("content","获取失败");
@@ -324,7 +324,7 @@ public class ShaiServiceImpl implements ShaiService {
         PageHelper.startPage(pageNo,6);
         List<Map> maps = shaiQuery.getUserShaiList(userPkId);
         List<ShaiDataObject> shais = getShais(maps);
-        if(shais.size()>0) {
+        if(shais != null && shais.size()>0) {
             return ResultMsg.success().addContent("content", shais);
         }
         return ResultMsg.failed().addContent("content","获取失败");
@@ -384,7 +384,7 @@ public class ShaiServiceImpl implements ShaiService {
         List<Map> maps = shaiQuery.getUserCommentShaiList(userPkId);
 
         List<ShaiDataObject> shais = getShais(maps);
-        if(shais.size()>0) {
+        if(shais != null && shais.size()>0) {
             return ResultMsg.success().addContent("content", shais);
         }
         return ResultMsg.failed().addContent("content","获取失败");
