@@ -8,6 +8,7 @@ import com.menu.wgf.model.*;
 import com.menu.wgf.query.MenuQuery;
 import com.menu.wgf.service.MenuService;
 import com.menu.wgf.util.IOUtils;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,6 +50,9 @@ public class MenuServiceImpl implements MenuService {
 
     @Autowired
     private CollectMapper collectMapper;
+
+    @Autowired
+    private RecordMapper recordMapper;
 
     @Override
     public ResultMsg getMenuList(MenuConditionDataObject menuConditionDataObject) {
@@ -669,6 +673,64 @@ public class MenuServiceImpl implements MenuService {
         }
         return ResultMsg.failed().addContent("content","无评论");
     }
+
+
+    @Override
+    public ResultMsg addUserMenuRecord(int menuPkId) {
+
+        Integer userPkId = jwtUtil.getLoginPkid();
+
+        Menu menu = menuMapper.selectByPrimaryKey(menuPkId);
+        Date menuDate = new Date();
+        menu.settMenuUdt(menuDate);
+        menu.settMenuLookTimes(menu.gettMenuLookTimes()+1);
+        int menuResult = menuMapper.updateByPrimaryKeySelective(menu);
+
+        //用户未登录，则只做增加浏览次数
+        if(userPkId ==null){
+            if(menuResult == 1) {
+                return ResultMsg.success().addContent("content", "增加菜谱浏览次数");
+            }else{
+                return ResultMsg.success().addContent("content", "未增加菜谱浏览次数");
+            }
+        }
+        RecordCriteria criteria = new RecordCriteria();
+        criteria.createCriteria()
+                .andTRecordUserPkidEqualTo(userPkId)
+                .andTRecordMenuPkidEqualTo(menuPkId)
+                .andTRecordDeleteEqualTo(0);
+        List<Record> records = recordMapper.selectByExample(criteria);
+        int result = 0;
+        Record record = new Record();
+        Date date= new Date();
+        if(records!=null && records.size()>0){
+            record.settRecordPkid(records.get(0).gettRecordPkid());
+            record.settRecordUdt(date);
+            result = recordMapper.updateByPrimaryKeySelective(record);
+        }else{
+            record.settRecordMenuPkid(menuPkId);
+            record.settRecordUserPkid(userPkId);
+            record.settRecordCdt(date);
+            record.settRecordUdt(date);
+            result = recordMapper.insertSelective(record);
+        }
+
+        if(result == 1){
+            return ResultMsg.success().addContent("content","添加美食记录成功");
+        }
+        return ResultMsg.success().addContent("content","添加美食记录失败");
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public ResultMsg searchMenu(String keyword) {

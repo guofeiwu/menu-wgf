@@ -40,12 +40,12 @@ public class RecordSqlProvider {
             sql.VALUES("t_record_cdt", "#{tRecordCdt,jdbcType=TIMESTAMP}");
         }
         
-        if (record.gettRecordDelete() != null) {
-            sql.VALUES("t_record_delete", "#{tRecordDelete,jdbcType=INTEGER}");
-        }
-        
         if (record.gettRecordUdt() != null) {
             sql.VALUES("t_record_udt", "#{tRecordUdt,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.gettRecordDelete() != null) {
+            sql.VALUES("t_record_delete", "#{tRecordDelete,jdbcType=INTEGER}");
         }
         
         return sql.toString();
@@ -61,8 +61,8 @@ public class RecordSqlProvider {
         sql.SELECT("t_record_user_pkid");
         sql.SELECT("t_record_menu_pkid");
         sql.SELECT("t_record_cdt");
-        sql.SELECT("t_record_delete");
         sql.SELECT("t_record_udt");
+        sql.SELECT("t_record_delete");
         sql.FROM("t_record");
         applyWhere(sql, example, false);
         
@@ -96,12 +96,12 @@ public class RecordSqlProvider {
             sql.SET("t_record_cdt = #{record.tRecordCdt,jdbcType=TIMESTAMP}");
         }
         
-        if (record.gettRecordDelete() != null) {
-            sql.SET("t_record_delete = #{record.tRecordDelete,jdbcType=INTEGER}");
-        }
-        
         if (record.gettRecordUdt() != null) {
             sql.SET("t_record_udt = #{record.tRecordUdt,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.gettRecordDelete() != null) {
+            sql.SET("t_record_delete = #{record.tRecordDelete,jdbcType=INTEGER}");
         }
         
         applyWhere(sql, example, true);
@@ -116,8 +116,8 @@ public class RecordSqlProvider {
         sql.SET("t_record_user_pkid = #{record.tRecordUserPkid,jdbcType=INTEGER}");
         sql.SET("t_record_menu_pkid = #{record.tRecordMenuPkid,jdbcType=INTEGER}");
         sql.SET("t_record_cdt = #{record.tRecordCdt,jdbcType=TIMESTAMP}");
-        sql.SET("t_record_delete = #{record.tRecordDelete,jdbcType=INTEGER}");
         sql.SET("t_record_udt = #{record.tRecordUdt,jdbcType=TIMESTAMP}");
+        sql.SET("t_record_delete = #{record.tRecordDelete,jdbcType=INTEGER}");
         
         RecordCriteria example = (RecordCriteria) parameter.get("example");
         applyWhere(sql, example, true);
@@ -140,12 +140,12 @@ public class RecordSqlProvider {
             sql.SET("t_record_cdt = #{tRecordCdt,jdbcType=TIMESTAMP}");
         }
         
-        if (record.gettRecordDelete() != null) {
-            sql.SET("t_record_delete = #{tRecordDelete,jdbcType=INTEGER}");
-        }
-        
         if (record.gettRecordUdt() != null) {
             sql.SET("t_record_udt = #{tRecordUdt,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.gettRecordDelete() != null) {
+            sql.SET("t_record_delete = #{tRecordDelete,jdbcType=INTEGER}");
         }
         
         sql.WHERE("t_record_pkid = #{tRecordPkid,jdbcType=INTEGER}");

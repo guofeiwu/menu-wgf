@@ -32,11 +32,11 @@ public interface RecordMapper {
 
     @Insert({
         "insert into t_record (t_record_user_pkid, t_record_menu_pkid, ",
-        "t_record_cdt, t_record_delete, ",
-        "t_record_udt)",
+        "t_record_cdt, t_record_udt, ",
+        "t_record_delete)",
         "values (#{tRecordUserPkid,jdbcType=INTEGER}, #{tRecordMenuPkid,jdbcType=INTEGER}, ",
-        "#{tRecordCdt,jdbcType=TIMESTAMP}, #{tRecordDelete,jdbcType=INTEGER}, ",
-        "#{tRecordUdt,jdbcType=TIMESTAMP})"
+        "#{tRecordCdt,jdbcType=TIMESTAMP}, #{tRecordUdt,jdbcType=TIMESTAMP}, ",
+        "#{tRecordDelete,jdbcType=INTEGER})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="tRecordPkid", before=false, resultType=Integer.class)
     int insert(Record record);
@@ -51,15 +51,15 @@ public interface RecordMapper {
         @Result(column="t_record_user_pkid", property="tRecordUserPkid", jdbcType=JdbcType.INTEGER),
         @Result(column="t_record_menu_pkid", property="tRecordMenuPkid", jdbcType=JdbcType.INTEGER),
         @Result(column="t_record_cdt", property="tRecordCdt", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="t_record_delete", property="tRecordDelete", jdbcType=JdbcType.INTEGER),
-        @Result(column="t_record_udt", property="tRecordUdt", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="t_record_udt", property="tRecordUdt", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="t_record_delete", property="tRecordDelete", jdbcType=JdbcType.INTEGER)
     })
     List<Record> selectByExample(RecordCriteria example);
 
     @Select({
         "select",
-        "t_record_pkid, t_record_user_pkid, t_record_menu_pkid, t_record_cdt, t_record_delete, ",
-        "t_record_udt",
+        "t_record_pkid, t_record_user_pkid, t_record_menu_pkid, t_record_cdt, t_record_udt, ",
+        "t_record_delete",
         "from t_record",
         "where t_record_pkid = #{tRecordPkid,jdbcType=INTEGER}"
     })
@@ -68,8 +68,8 @@ public interface RecordMapper {
         @Result(column="t_record_user_pkid", property="tRecordUserPkid", jdbcType=JdbcType.INTEGER),
         @Result(column="t_record_menu_pkid", property="tRecordMenuPkid", jdbcType=JdbcType.INTEGER),
         @Result(column="t_record_cdt", property="tRecordCdt", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="t_record_delete", property="tRecordDelete", jdbcType=JdbcType.INTEGER),
-        @Result(column="t_record_udt", property="tRecordUdt", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="t_record_udt", property="tRecordUdt", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="t_record_delete", property="tRecordDelete", jdbcType=JdbcType.INTEGER)
     })
     Record selectByPrimaryKey(Integer tRecordPkid);
 
@@ -87,8 +87,8 @@ public interface RecordMapper {
         "set t_record_user_pkid = #{tRecordUserPkid,jdbcType=INTEGER},",
           "t_record_menu_pkid = #{tRecordMenuPkid,jdbcType=INTEGER},",
           "t_record_cdt = #{tRecordCdt,jdbcType=TIMESTAMP},",
-          "t_record_delete = #{tRecordDelete,jdbcType=INTEGER},",
-          "t_record_udt = #{tRecordUdt,jdbcType=TIMESTAMP}",
+          "t_record_udt = #{tRecordUdt,jdbcType=TIMESTAMP},",
+          "t_record_delete = #{tRecordDelete,jdbcType=INTEGER}",
         "where t_record_pkid = #{tRecordPkid,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Record record);

@@ -11,6 +11,8 @@ public class Menu {
 
     private String tMenuDescription;
 
+    private Integer tMenuLookTimes;
+
     private Integer tMenuUserPkid;
 
     private Integer tMenuType;
@@ -53,6 +55,14 @@ public class Menu {
 
     public void settMenuDescription(String tMenuDescription) {
         this.tMenuDescription = tMenuDescription == null ? null : tMenuDescription.trim();
+    }
+
+    public Integer gettMenuLookTimes() {
+        return tMenuLookTimes;
+    }
+
+    public void settMenuLookTimes(Integer tMenuLookTimes) {
+        this.tMenuLookTimes = tMenuLookTimes;
     }
 
     public Integer gettMenuUserPkid() {

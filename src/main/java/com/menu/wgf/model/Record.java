@@ -11,9 +11,9 @@ public class Record {
 
     private Date tRecordCdt;
 
-    private Integer tRecordDelete;
-
     private Date tRecordUdt;
+
+    private Integer tRecordDelete;
 
     public Integer gettRecordPkid() {
         return tRecordPkid;
@@ -47,19 +47,19 @@ public class Record {
         this.tRecordCdt = tRecordCdt;
     }
 
-    public Integer gettRecordDelete() {
-        return tRecordDelete;
-    }
-
-    public void settRecordDelete(Integer tRecordDelete) {
-        this.tRecordDelete = tRecordDelete;
-    }
-
     public Date gettRecordUdt() {
         return tRecordUdt;
     }
 
     public void settRecordUdt(Date tRecordUdt) {
         this.tRecordUdt = tRecordUdt;
+    }
+
+    public Integer gettRecordDelete() {
+        return tRecordDelete;
+    }
+
+    public void settRecordDelete(Integer tRecordDelete) {
+        this.tRecordDelete = tRecordDelete;
     }
 }

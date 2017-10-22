@@ -345,66 +345,6 @@ public class RecordCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andTRecordDeleteIsNull() {
-            addCriterion("t_record_delete is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTRecordDeleteIsNotNull() {
-            addCriterion("t_record_delete is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTRecordDeleteEqualTo(Integer value) {
-            addCriterion("t_record_delete =", value, "tRecordDelete");
-            return (Criteria) this;
-        }
-
-        public Criteria andTRecordDeleteNotEqualTo(Integer value) {
-            addCriterion("t_record_delete <>", value, "tRecordDelete");
-            return (Criteria) this;
-        }
-
-        public Criteria andTRecordDeleteGreaterThan(Integer value) {
-            addCriterion("t_record_delete >", value, "tRecordDelete");
-            return (Criteria) this;
-        }
-
-        public Criteria andTRecordDeleteGreaterThanOrEqualTo(Integer value) {
-            addCriterion("t_record_delete >=", value, "tRecordDelete");
-            return (Criteria) this;
-        }
-
-        public Criteria andTRecordDeleteLessThan(Integer value) {
-            addCriterion("t_record_delete <", value, "tRecordDelete");
-            return (Criteria) this;
-        }
-
-        public Criteria andTRecordDeleteLessThanOrEqualTo(Integer value) {
-            addCriterion("t_record_delete <=", value, "tRecordDelete");
-            return (Criteria) this;
-        }
-
-        public Criteria andTRecordDeleteIn(List<Integer> values) {
-            addCriterion("t_record_delete in", values, "tRecordDelete");
-            return (Criteria) this;
-        }
-
-        public Criteria andTRecordDeleteNotIn(List<Integer> values) {
-            addCriterion("t_record_delete not in", values, "tRecordDelete");
-            return (Criteria) this;
-        }
-
-        public Criteria andTRecordDeleteBetween(Integer value1, Integer value2) {
-            addCriterion("t_record_delete between", value1, value2, "tRecordDelete");
-            return (Criteria) this;
-        }
-
-        public Criteria andTRecordDeleteNotBetween(Integer value1, Integer value2) {
-            addCriterion("t_record_delete not between", value1, value2, "tRecordDelete");
-            return (Criteria) this;
-        }
-
         public Criteria andTRecordUdtIsNull() {
             addCriterion("t_record_udt is null");
             return (Criteria) this;
@@ -462,6 +402,66 @@ public class RecordCriteria {
 
         public Criteria andTRecordUdtNotBetween(Date value1, Date value2) {
             addCriterion("t_record_udt not between", value1, value2, "tRecordUdt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTRecordDeleteIsNull() {
+            addCriterion("t_record_delete is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTRecordDeleteIsNotNull() {
+            addCriterion("t_record_delete is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTRecordDeleteEqualTo(Integer value) {
+            addCriterion("t_record_delete =", value, "tRecordDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andTRecordDeleteNotEqualTo(Integer value) {
+            addCriterion("t_record_delete <>", value, "tRecordDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andTRecordDeleteGreaterThan(Integer value) {
+            addCriterion("t_record_delete >", value, "tRecordDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andTRecordDeleteGreaterThanOrEqualTo(Integer value) {
+            addCriterion("t_record_delete >=", value, "tRecordDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andTRecordDeleteLessThan(Integer value) {
+            addCriterion("t_record_delete <", value, "tRecordDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andTRecordDeleteLessThanOrEqualTo(Integer value) {
+            addCriterion("t_record_delete <=", value, "tRecordDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andTRecordDeleteIn(List<Integer> values) {
+            addCriterion("t_record_delete in", values, "tRecordDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andTRecordDeleteNotIn(List<Integer> values) {
+            addCriterion("t_record_delete not in", values, "tRecordDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andTRecordDeleteBetween(Integer value1, Integer value2) {
+            addCriterion("t_record_delete between", value1, value2, "tRecordDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andTRecordDeleteNotBetween(Integer value1, Integer value2) {
+            addCriterion("t_record_delete not between", value1, value2, "tRecordDelete");
             return (Criteria) this;
         }
     }

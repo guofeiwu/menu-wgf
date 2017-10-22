@@ -32,15 +32,15 @@ public interface MenuMapper {
 
     @Insert({
         "insert into t_menu (t_menu_name, t_menu_main_icon, ",
-        "t_menu_description, t_menu_user_pkid, ",
-        "t_menu_type, t_menu_type_sun, ",
-        "t_menu_delete, t_menu_cdt, ",
-        "t_menu_udt)",
+        "t_menu_description, t_menu_look_times, ",
+        "t_menu_user_pkid, t_menu_type, ",
+        "t_menu_type_sun, t_menu_delete, ",
+        "t_menu_cdt, t_menu_udt)",
         "values (#{tMenuName,jdbcType=VARCHAR}, #{tMenuMainIcon,jdbcType=VARCHAR}, ",
-        "#{tMenuDescription,jdbcType=VARCHAR}, #{tMenuUserPkid,jdbcType=INTEGER}, ",
-        "#{tMenuType,jdbcType=INTEGER}, #{tMenuTypeSun,jdbcType=INTEGER}, ",
-        "#{tMenuDelete,jdbcType=INTEGER}, #{tMenuCdt,jdbcType=TIMESTAMP}, ",
-        "#{tMenuUdt,jdbcType=TIMESTAMP})"
+        "#{tMenuDescription,jdbcType=VARCHAR}, #{tMenuLookTimes,jdbcType=INTEGER}, ",
+        "#{tMenuUserPkid,jdbcType=INTEGER}, #{tMenuType,jdbcType=INTEGER}, ",
+        "#{tMenuTypeSun,jdbcType=INTEGER}, #{tMenuDelete,jdbcType=INTEGER}, ",
+        "#{tMenuCdt,jdbcType=TIMESTAMP}, #{tMenuUdt,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="tMenuPkid", before=false, resultType=Integer.class)
     int insert(Menu record);
@@ -55,6 +55,7 @@ public interface MenuMapper {
         @Result(column="t_menu_name", property="tMenuName", jdbcType=JdbcType.VARCHAR),
         @Result(column="t_menu_main_icon", property="tMenuMainIcon", jdbcType=JdbcType.VARCHAR),
         @Result(column="t_menu_description", property="tMenuDescription", jdbcType=JdbcType.VARCHAR),
+        @Result(column="t_menu_look_times", property="tMenuLookTimes", jdbcType=JdbcType.INTEGER),
         @Result(column="t_menu_user_pkid", property="tMenuUserPkid", jdbcType=JdbcType.INTEGER),
         @Result(column="t_menu_type", property="tMenuType", jdbcType=JdbcType.INTEGER),
         @Result(column="t_menu_type_sun", property="tMenuTypeSun", jdbcType=JdbcType.INTEGER),
@@ -66,8 +67,8 @@ public interface MenuMapper {
 
     @Select({
         "select",
-        "t_menu_pkid, t_menu_name, t_menu_main_icon, t_menu_description, t_menu_user_pkid, ",
-        "t_menu_type, t_menu_type_sun, t_menu_delete, t_menu_cdt, t_menu_udt",
+        "t_menu_pkid, t_menu_name, t_menu_main_icon, t_menu_description, t_menu_look_times, ",
+        "t_menu_user_pkid, t_menu_type, t_menu_type_sun, t_menu_delete, t_menu_cdt, t_menu_udt",
         "from t_menu",
         "where t_menu_pkid = #{tMenuPkid,jdbcType=INTEGER}"
     })
@@ -76,6 +77,7 @@ public interface MenuMapper {
         @Result(column="t_menu_name", property="tMenuName", jdbcType=JdbcType.VARCHAR),
         @Result(column="t_menu_main_icon", property="tMenuMainIcon", jdbcType=JdbcType.VARCHAR),
         @Result(column="t_menu_description", property="tMenuDescription", jdbcType=JdbcType.VARCHAR),
+        @Result(column="t_menu_look_times", property="tMenuLookTimes", jdbcType=JdbcType.INTEGER),
         @Result(column="t_menu_user_pkid", property="tMenuUserPkid", jdbcType=JdbcType.INTEGER),
         @Result(column="t_menu_type", property="tMenuType", jdbcType=JdbcType.INTEGER),
         @Result(column="t_menu_type_sun", property="tMenuTypeSun", jdbcType=JdbcType.INTEGER),
@@ -99,6 +101,7 @@ public interface MenuMapper {
         "set t_menu_name = #{tMenuName,jdbcType=VARCHAR},",
           "t_menu_main_icon = #{tMenuMainIcon,jdbcType=VARCHAR},",
           "t_menu_description = #{tMenuDescription,jdbcType=VARCHAR},",
+          "t_menu_look_times = #{tMenuLookTimes,jdbcType=INTEGER},",
           "t_menu_user_pkid = #{tMenuUserPkid,jdbcType=INTEGER},",
           "t_menu_type = #{tMenuType,jdbcType=INTEGER},",
           "t_menu_type_sun = #{tMenuTypeSun,jdbcType=INTEGER},",

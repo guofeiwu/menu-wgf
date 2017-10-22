@@ -220,5 +220,14 @@ public class MenuController {
         return menuService.judgeHasComment(menuPkId);
     }
 
+    @ApiOperation(value ="增加美食足迹",httpMethod = "GET")
+    @GetMapping(value = "/record/{menuPkId}")
+    @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "menuPkId",value = "菜谱主键",paramType = "path",dataType = "int",required = true)
+    })
+    public ResultMsg addUserMenuRecord(@PathVariable("menuPkId") Integer menuPkId){
+        return menuService.addUserMenuRecord(menuPkId);
+    }
 
 }

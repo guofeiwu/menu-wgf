@@ -40,6 +40,10 @@ public class MenuSqlProvider {
             sql.VALUES("t_menu_description", "#{tMenuDescription,jdbcType=VARCHAR}");
         }
         
+        if (record.gettMenuLookTimes() != null) {
+            sql.VALUES("t_menu_look_times", "#{tMenuLookTimes,jdbcType=INTEGER}");
+        }
+        
         if (record.gettMenuUserPkid() != null) {
             sql.VALUES("t_menu_user_pkid", "#{tMenuUserPkid,jdbcType=INTEGER}");
         }
@@ -77,6 +81,7 @@ public class MenuSqlProvider {
         sql.SELECT("t_menu_name");
         sql.SELECT("t_menu_main_icon");
         sql.SELECT("t_menu_description");
+        sql.SELECT("t_menu_look_times");
         sql.SELECT("t_menu_user_pkid");
         sql.SELECT("t_menu_type");
         sql.SELECT("t_menu_type_sun");
@@ -116,6 +121,10 @@ public class MenuSqlProvider {
             sql.SET("t_menu_description = #{record.tMenuDescription,jdbcType=VARCHAR}");
         }
         
+        if (record.gettMenuLookTimes() != null) {
+            sql.SET("t_menu_look_times = #{record.tMenuLookTimes,jdbcType=INTEGER}");
+        }
+        
         if (record.gettMenuUserPkid() != null) {
             sql.SET("t_menu_user_pkid = #{record.tMenuUserPkid,jdbcType=INTEGER}");
         }
@@ -152,6 +161,7 @@ public class MenuSqlProvider {
         sql.SET("t_menu_name = #{record.tMenuName,jdbcType=VARCHAR}");
         sql.SET("t_menu_main_icon = #{record.tMenuMainIcon,jdbcType=VARCHAR}");
         sql.SET("t_menu_description = #{record.tMenuDescription,jdbcType=VARCHAR}");
+        sql.SET("t_menu_look_times = #{record.tMenuLookTimes,jdbcType=INTEGER}");
         sql.SET("t_menu_user_pkid = #{record.tMenuUserPkid,jdbcType=INTEGER}");
         sql.SET("t_menu_type = #{record.tMenuType,jdbcType=INTEGER}");
         sql.SET("t_menu_type_sun = #{record.tMenuTypeSun,jdbcType=INTEGER}");
@@ -178,6 +188,10 @@ public class MenuSqlProvider {
         
         if (record.gettMenuDescription() != null) {
             sql.SET("t_menu_description = #{tMenuDescription,jdbcType=VARCHAR}");
+        }
+        
+        if (record.gettMenuLookTimes() != null) {
+            sql.SET("t_menu_look_times = #{tMenuLookTimes,jdbcType=INTEGER}");
         }
         
         if (record.gettMenuUserPkid() != null) {

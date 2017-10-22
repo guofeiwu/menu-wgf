@@ -375,6 +375,66 @@ public class MenuCriteria {
             return (Criteria) this;
         }
 
+        public Criteria andTMenuLookTimesIsNull() {
+            addCriterion("t_menu_look_times is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuLookTimesIsNotNull() {
+            addCriterion("t_menu_look_times is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuLookTimesEqualTo(Integer value) {
+            addCriterion("t_menu_look_times =", value, "tMenuLookTimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuLookTimesNotEqualTo(Integer value) {
+            addCriterion("t_menu_look_times <>", value, "tMenuLookTimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuLookTimesGreaterThan(Integer value) {
+            addCriterion("t_menu_look_times >", value, "tMenuLookTimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuLookTimesGreaterThanOrEqualTo(Integer value) {
+            addCriterion("t_menu_look_times >=", value, "tMenuLookTimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuLookTimesLessThan(Integer value) {
+            addCriterion("t_menu_look_times <", value, "tMenuLookTimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuLookTimesLessThanOrEqualTo(Integer value) {
+            addCriterion("t_menu_look_times <=", value, "tMenuLookTimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuLookTimesIn(List<Integer> values) {
+            addCriterion("t_menu_look_times in", values, "tMenuLookTimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuLookTimesNotIn(List<Integer> values) {
+            addCriterion("t_menu_look_times not in", values, "tMenuLookTimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuLookTimesBetween(Integer value1, Integer value2) {
+            addCriterion("t_menu_look_times between", value1, value2, "tMenuLookTimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andTMenuLookTimesNotBetween(Integer value1, Integer value2) {
+            addCriterion("t_menu_look_times not between", value1, value2, "tMenuLookTimes");
+            return (Criteria) this;
+        }
+
         public Criteria andTMenuUserPkidIsNull() {
             addCriterion("t_menu_user_pkid is null");
             return (Criteria) this;

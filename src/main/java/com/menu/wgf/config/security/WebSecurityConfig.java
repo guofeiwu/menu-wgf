@@ -69,7 +69,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/app/menu/detail/*",
                         "/app/menu/comment/*/page/*",
                         "/app/menu/banner",
-                        "/app/system/checkUpdate"
+                        "/app/system/checkUpdate",
+                        "/app/menu/record/*"
                 ).permitAll()
                 .antMatchers(
                         HttpMethod.POST,

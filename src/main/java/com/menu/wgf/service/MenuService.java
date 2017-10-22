@@ -186,4 +186,12 @@ public interface MenuService {
      */
     ResultMsg judgeHasComment(int menuPkId);
 
+
+    /**
+     * 添加用户足迹
+     * @param menuPkId
+     * @return
+     */
+    ResultMsg addUserMenuRecord(int menuPkId);
+
 }
