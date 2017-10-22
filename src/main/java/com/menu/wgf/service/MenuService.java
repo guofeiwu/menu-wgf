@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * @Author guofei_wu
+ * @author guofei_wu
  * 菜谱相关接口
  */
 public interface MenuService {
@@ -177,5 +177,13 @@ public interface MenuService {
      * @return
      */
     ResultMsg upMenuContent(MenuContentDataObject menuContentDataObject);
+
+
+    /**
+     * 判断当前用户在此菜谱中是否还有评论
+     * @param menuPkId
+     * @return
+     */
+    ResultMsg judgeHasComment(int menuPkId);
 
 }

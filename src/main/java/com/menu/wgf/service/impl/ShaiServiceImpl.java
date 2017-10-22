@@ -389,4 +389,20 @@ public class ShaiServiceImpl implements ShaiService {
         }
         return ResultMsg.failed().addContent("content","获取失败");
     }
+
+    @Override
+    public ResultMsg judgeHasComment(Integer shaiPkId) {
+        Integer userPkId = jwtUtil.getLoginPkid();
+        CommentCriteria commentCriteria = new CommentCriteria();
+        commentCriteria.createCriteria()
+                .andTCommentShaiPkidEqualTo(shaiPkId)
+                .andTCommentUserPkidEqualTo(userPkId)
+                .andTCommentDeleteEqualTo(0);
+
+        List<Comment> comments = commentMapper.selectByExample(commentCriteria);
+        if(comments!=null && comments.size()>0){
+            return ResultMsg.success().addContent("content","还有评论");
+        }
+        return ResultMsg.failed().addContent("content","无评论");
+    }
 }

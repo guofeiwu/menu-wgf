@@ -113,4 +113,11 @@ public interface ShaiService {
      * @return
      */
     ResultMsg getUserCommentShaiList(int pageNo);
+
+    /**
+     * 判断当前用户在该晒一晒是否还有评论
+     * @param shaiPkId
+     * @return
+     */
+    ResultMsg judgeHasComment(Integer shaiPkId);
 }

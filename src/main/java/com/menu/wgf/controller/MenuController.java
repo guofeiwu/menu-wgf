@@ -210,4 +210,15 @@ public class MenuController {
         return menuService.getUserCommentMenuList(pageNo);
     }
 
+    @ApiOperation(value ="判断当前用户在改菜谱是否还有评论",httpMethod = "GET")
+    @GetMapping(value = "/comment/currentUser/{menuPkId}")
+    @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "menuPkId",value = "菜谱主键",paramType = "path",dataType = "int",required = true)
+    })
+    public ResultMsg judgeHasComment(@PathVariable("menuPkId") Integer menuPkId){
+        return menuService.judgeHasComment(menuPkId);
+    }
+
+
 }

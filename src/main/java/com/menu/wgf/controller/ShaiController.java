@@ -162,4 +162,17 @@ public class ShaiController {
 
 
 
+    @ApiOperation(value ="判断当前用户在该晒一晒是否还有评论",httpMethod = "GET")
+    @GetMapping(value = "/comment/currentUser/{shaiPkId}")
+    @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "shaiPkId",value = "晒一晒主键",paramType = "path",dataType = "int",required = true)
+    })
+    public ResultMsg judgeHasComment(@PathVariable("shaiPkId") Integer shaiPkId){
+        return shaiService.judgeHasComment(shaiPkId);
+    }
+
+
+
+
 }

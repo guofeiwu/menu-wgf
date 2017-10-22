@@ -624,7 +624,7 @@ public class MenuServiceImpl implements MenuService {
             List<MenuDataObject> menuDataObjects =getMenus(userPkId,maps);
             return ResultMsg.success().addContent("content", menuDataObjects);
         }
-        return ResultMsg.failed().addContent("content", "获取用户发布的菜谱失败");
+        return ResultMsg.failed().addContent("content", "获取用户评论的菜谱失败");
     }
 
     /**
@@ -652,6 +652,22 @@ public class MenuServiceImpl implements MenuService {
             return menuDataObjects;
         }
         return null;
+    }
+
+    @Override
+    public ResultMsg judgeHasComment(int menuPkId) {
+        Integer userPkId = jwtUtil.getLoginPkid();
+        CommentCriteria commentCriteria = new CommentCriteria();
+        commentCriteria.createCriteria()
+                .andTCommentMenuPkidEqualTo(menuPkId)
+                .andTCommentUserPkidEqualTo(userPkId)
+                .andTCommentDeleteEqualTo(0);
+
+        List<Comment> comments = commentMapper.selectByExample(commentCriteria);
+        if(comments!=null && comments.size()>0){
+            return ResultMsg.success().addContent("content","还有评论");
+        }
+        return ResultMsg.failed().addContent("content","无评论");
     }
 
     @Override
