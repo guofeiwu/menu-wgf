@@ -240,7 +240,23 @@ public class MenuController {
         return menuService.getUserMenuRecord(pageNo);
     }
 
+    @ApiOperation(value ="删除用户美食足迹",httpMethod = "DELETE")
+    @DeleteMapping(value = "/record/{recordPkId}")
+    @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "recordPkId",value = "美食足迹主键",paramType = "path",dataType = "int",required = true)
+    })
+    public ResultMsg deleteUserRecord(@PathVariable("recordPkId") Integer recordPkId){
+        return menuService.deleteUserRecord(recordPkId);
+    }
 
+
+    @ApiOperation(value ="删除用户所有的美食足迹",httpMethod = "DELETE")
+    @DeleteMapping(value = "/record/all")
+    @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
+    public ResultMsg deleteUserRecord(){
+        return menuService.deleteUserAllRecord();
+    }
 
 
 }

@@ -201,4 +201,17 @@ public interface MenuService {
      */
     ResultMsg getUserMenuRecord(int pageNo);
 
+    /**
+     * 删除用户美食足迹（单个删除）
+     * @param recordPkId
+     * @return
+     */
+    ResultMsg deleteUserRecord(Integer recordPkId);
+
+    /**
+     * 删除用户所有美食足迹
+     * @return
+     */
+    ResultMsg deleteUserAllRecord();
+
 }

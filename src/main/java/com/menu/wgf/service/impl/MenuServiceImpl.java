@@ -752,6 +752,41 @@ public class MenuServiceImpl implements MenuService {
         return ResultMsg.failed().addContent("content","获取用户记录失败");
     }
 
+
+    @Override
+    public ResultMsg deleteUserRecord(Integer recordPkId) {
+        Record record = new Record();
+        record.settRecordPkid(recordPkId);
+        record.settRecordDelete(-1);
+        int result = recordMapper.updateByPrimaryKeySelective(record);
+        if (result == 1){
+            return ResultMsg.success().addContent("content","删除记录成功");
+        }
+
+        return ResultMsg.failed().addContent("content","删除记录失败");
+    }
+
+
+    @Override
+    public ResultMsg deleteUserAllRecord() {
+        Integer userPkId = jwtUtil.getLoginPkid();
+
+        Record record = new Record();
+        record.settRecordDelete(-1);
+
+        RecordCriteria criteria = new RecordCriteria();
+        criteria.createCriteria()
+                .andTRecordDeleteEqualTo(0)
+                .andTRecordUserPkidEqualTo(userPkId);
+
+        int row = recordMapper.updateByExampleSelective(record,criteria);
+
+        if (row !=0 ){
+            return ResultMsg.success().addContent("content","删除所有记录成功");
+        }
+        return ResultMsg.failed().addContent("content","删除所有记录失败");
+    }
+
     @Override
     public ResultMsg searchMenu(String keyword) {
         return null;
