@@ -70,4 +70,11 @@ public interface MenuQuery {
      * @return
      */
     List<Map> getUserCommentMenuList(int userPkId);
+
+    /**
+     * 获取用户的美食足迹
+     * @param userPkId
+     * @return
+     */
+    List<Map> getUserMenuRecordList(Integer userPkId);
 }

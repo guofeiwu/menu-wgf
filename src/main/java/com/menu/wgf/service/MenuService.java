@@ -194,4 +194,11 @@ public interface MenuService {
      */
     ResultMsg addUserMenuRecord(int menuPkId);
 
+    /**
+     * 获取用户的美食足迹
+     * @param pageNo
+     * @return
+     */
+    ResultMsg getUserMenuRecord(int pageNo);
+
 }

@@ -722,15 +722,35 @@ public class MenuServiceImpl implements MenuService {
     }
 
 
+    @Override
+    public ResultMsg getUserMenuRecord(int pageNo) {
+        Integer userPkId = jwtUtil.getLoginPkid();
 
-
-
-
-
-
-
-
-
+        PageHelper.startPage(pageNo,6);
+        List<Map> maps = menuQuery.getUserMenuRecordList(userPkId);
+        List<Map<String,Object>> listMaps = new ArrayList<>();
+        if (maps.size()>0) {
+            for (Map m : maps) {
+                MenuDataObject menuDataObject = new MenuDataObject();
+                menuDataObject.menuPkId = (int) m.get("menuPkId");
+                menuDataObject.menuName = (String) m.get("menuName");
+                menuDataObject.introduce = (String) m.get("descr");
+                menuDataObject.mainIcon = (String) m.get("mainIcon");
+                User user = userMapper.selectByPrimaryKey(userPkId);
+                menuDataObject.userIconUrl = user.gettUserIcon();
+                menuDataObject.userName = user.gettUserName();
+                //是当前用户
+                menuDataObject.currentUser = 0;
+                Integer recordPkId = (Integer) m.get("recordPkId");
+                Map<String,Object> map = new HashMap<>();
+                map.put("menuDataObject",menuDataObject);
+                map.put("recordPkId",recordPkId);
+                listMaps.add(map);
+            }
+            return ResultMsg.success().addContent("content",listMaps);
+        }
+        return ResultMsg.failed().addContent("content","获取用户记录失败");
+    }
 
     @Override
     public ResultMsg searchMenu(String keyword) {

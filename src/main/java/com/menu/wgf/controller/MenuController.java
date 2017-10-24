@@ -230,4 +230,17 @@ public class MenuController {
         return menuService.addUserMenuRecord(menuPkId);
     }
 
+    @ApiOperation(value ="获取用户美食足迹",httpMethod = "GET")
+    @GetMapping(value = "/getRecord/{pageNo}")
+    @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNo",value = "第几页",paramType = "path",dataType = "int",required = true)
+    })
+    public ResultMsg getUserMenuRecordList(@PathVariable("pageNo") Integer pageNo){
+        return menuService.getUserMenuRecord(pageNo);
+    }
+
+
+
+
 }
