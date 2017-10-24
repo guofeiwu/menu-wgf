@@ -4,11 +4,11 @@ import com.menu.wgf.Constants;
 import com.menu.wgf.config.jwt.JwtUtil;
 import com.menu.wgf.dto.UserInfoDataObject;
 import com.menu.wgf.mapper.UserMapper;
-import com.menu.wgf.model.ResultMsg;
-import com.menu.wgf.model.User;
-import com.menu.wgf.model.UserCriteria;
+import com.menu.wgf.mapper.UserSignMapper;
+import com.menu.wgf.model.*;
 import com.menu.wgf.service.UserService;
 import com.menu.wgf.ErrorCode;
+import com.menu.wgf.util.DateUtils;
 import com.menu.wgf.util.ErrorMessageUtils;
 import com.menu.wgf.util.IOUtils;
 import com.mysql.jdbc.StringUtils;
@@ -23,10 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * author guofei_wu
@@ -41,8 +38,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
     @Autowired
-    UserDetailsService userDetailsService;
+    private UserSignMapper userSignMapper;
 
     @Override
     public ResultMsg login(Map param) {
@@ -262,7 +260,34 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultMsg userSign(Integer userPkId) {
+    public ResultMsg userSign(Integer flag) {
+        Integer userPkId = jwtUtil.getLoginPkid();
+        Map map = new HashMap(1);
+        UserSignCriteria criteria = new UserSignCriteria();
+        criteria.createCriteria()
+                .andTSignUserPkidEqualTo(userPkId)
+                .andTSignCdtBetween(DateUtils.getStartDate(Calendar.getInstance()).getTime(),DateUtils.getEndDate(Calendar.getInstance()).getTime());
+        List<UserSign> userSigns = userSignMapper.selectByExample(criteria);
+
+        //判断是否已经签到
+        if(flag == 1){
+            if(userSigns!=null && userSigns.size()>0){
+                map.put("sign",1);
+                return ResultMsg.success().addContent("content",map);
+            }else{
+                map.put("sign",2);
+                return ResultMsg.success().addContent("content",map);
+            }
+        }
+
+
+        //下面是flag等于2，进行签到
+        if(userSigns!=null && userSigns.size()>0){
+            map.put("sign",1);
+            return ResultMsg.success().addContent("content",map);
+        }
+
+        //进行签到
         User user = userMapper.selectByPrimaryKey(userPkId);
 
         int userPoint = user.gettUserPoint();
@@ -287,13 +312,22 @@ public class UserServiceImpl implements UserService {
 
         user.settUserPoint(lastPoint);
         user.settUserPkid(userPkId);
-        //签到
-        user.settUserSign(1);
         user.settUserUdt(new Date());
         int result = userMapper.updateByPrimaryKeySelective(user);
-        if(result == 1){
-            return ResultMsg.success().addContent("content","签到成功");
+
+        UserSign sign = new UserSign();
+        sign.settSignUserPkid(userPkId);
+        Date date = new Date();
+        sign.settSignCdt(date);
+        sign.settSignUdt(date);
+
+        int row = userSignMapper.insertSelective(sign);
+
+        if(result == 1 && row == 1){
+            map.put("sign",3);
+            return ResultMsg.success().addContent("content",map);
         }
-        return ResultMsg.failed().addContent("content","签到失败");
+        map.put("sign",4);
+        return ResultMsg.failed().addContent("content",map);
     }
 }
