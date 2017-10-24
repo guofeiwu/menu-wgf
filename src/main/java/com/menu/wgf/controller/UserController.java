@@ -85,10 +85,13 @@ public class UserController {
 
 
     @ApiOperation(value = "用户签到",httpMethod = "GET",response = ResultMsg.class)
-    @GetMapping(value = "/sign")
+    @GetMapping(value = "/sign/{flag}")
     @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
-    public ResultMsg userSign(){
-        return userService.userSign(jwtUtil.getLoginPkid());
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "flag", value = "1表示判断是否已经签到，2表示进行签到操作", dataType = "int", paramType = "path", required = true)
+    })
+    public ResultMsg userSign(@PathVariable("flag") int flag){
+        return userService.userSign(flag);
     }
 
 
