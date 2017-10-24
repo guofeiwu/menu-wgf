@@ -625,7 +625,17 @@ public class MenuServiceImpl implements MenuService {
         PageHelper.startPage(pageNo, 6);
         List<Map> maps = menuQuery.getUserCommentMenuList(userPkId);
         if (maps.size()>0) {
-            List<MenuDataObject> menuDataObjects =getMenus(userPkId,maps);
+            List<MenuDataObject> menuDataObjects = new ArrayList<>();
+            for (Map m : maps) {
+                MenuDataObject menuDataObject = new MenuDataObject();
+                menuDataObject.menuPkId = (int) m.get("menuPkId");
+                menuDataObject.menuName = (String) m.get("menuName");
+                menuDataObject.introduce = (String) m.get("descr");
+                menuDataObject.mainIcon = (String) m.get("mainIcon");
+                //是当前用户
+                menuDataObject.currentUser = 0;
+                menuDataObjects.add(menuDataObject);
+            }
             return ResultMsg.success().addContent("content", menuDataObjects);
         }
         return ResultMsg.failed().addContent("content", "获取用户评论的菜谱失败");
@@ -736,7 +746,8 @@ public class MenuServiceImpl implements MenuService {
                 menuDataObject.menuName = (String) m.get("menuName");
                 menuDataObject.introduce = (String) m.get("descr");
                 menuDataObject.mainIcon = (String) m.get("mainIcon");
-                User user = userMapper.selectByPrimaryKey(userPkId);
+                int recordUserPkId = (int) m.get("userPkId");
+                User user = userMapper.selectByPrimaryKey(recordUserPkId);
                 menuDataObject.userIconUrl = user.gettUserIcon();
                 menuDataObject.userName = user.gettUserName();
                 //是当前用户
