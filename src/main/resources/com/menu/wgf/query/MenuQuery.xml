@@ -66,7 +66,7 @@
     </select>
 
     <select id="getUserMenuRecordList" parameterType="integer" resultType="java.util.LinkedHashMap">
-      SELECT  m.t_menu_pkid menuPkId, m.t_menu_name menuName, m.t_menu_description descr ,m.t_menu_user_pkid userPkId,m.t_menu_main_icon mainIcon ,m.t_menu_udt udt,r.t_record_pkid recordPkId
+      SELECT  m.t_menu_pkid menuPkId, m.t_menu_name menuName, m.t_menu_description descr ,m.t_menu_user_pkid userPkId,m.t_menu_main_icon mainIcon ,m.t_menu_udt udt,r.t_record_pkid recordPkId,r.t_record_user_pkid userPkId
       FROM t_menu m LEFT JOIN t_record r ON m.t_menu_pkid = r.t_record_menu_pkid
       WHERE m.t_menu_delete = 0 AND r.t_record_delete = 0 AND r.t_record_user_pkid = #{userPkId}
     </select>
