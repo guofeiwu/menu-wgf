@@ -70,13 +70,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/app/menu/comment/*/page/*",
                         "/app/menu/banner",
                         "/app/system/checkUpdate",
-                        "/app/menu/record/*"
+                        "/app/menu/record/*",
+                        "/app/menu/likeRank",
+                        "/app/menu/collectRank",
+                        "/app/menu/lookRank"
+
                 ).permitAll()
                 .antMatchers(
                         HttpMethod.POST,
                         "/login/**",
                         "/app/menu/all",
-                        "/app/system/feedback"
+                        "/app/system/feedback",
+                        "/app/menu/thematic"
                 ).permitAll()
                 .anyRequest().authenticated()
                // .anyRequest().fullyAuthenticated()

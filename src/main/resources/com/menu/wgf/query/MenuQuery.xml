@@ -93,4 +93,22 @@
         ORDER BY t_menu_look_times DESC LIMIT 10
     </select>
 
+
+    <select id="getThematicMenuList" parameterType="string" resultType="java.util.LinkedHashMap">
+        SELECT
+        m.t_menu_pkid menuPkId,
+        m.t_menu_name menuName,
+        m.t_menu_description descr,
+        m.t_menu_main_icon mainIcon,
+        m.t_menu_user_pkid userPkId,
+        u.t_user_name userName,
+        u.t_user_icon userIcon
+        FROM
+            t_menu m
+        LEFT JOIN t_user u ON m.t_menu_user_pkid = u.t_user_pkid
+        WHERE
+            m.t_menu_delete = 0 AND  m.t_menu_name LIKE CONCAT('%',#{type},'%')
+        ORDER BY
+         m.t_menu_pkid DESC
+    </select>
 </mapper>

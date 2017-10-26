@@ -861,12 +861,28 @@ public class MenuServiceImpl implements MenuService {
     }
 
 
-
-
-
-
-
-
+    @Override
+    public ResultMsg getThematicMenuList(Map map) {
+        int pageNo = (int) map.get("pageNo");
+        String type = (String) map.get("type");
+        PageHelper.startPage(pageNo,10);
+        List<Map> maps = menuQuery.getThematicMenuList(type);
+        List<MenuDataObject> menuDataObjects = new ArrayList<>();
+        if(maps!=null && maps.size()>0){
+            for(Map m:maps){
+                MenuDataObject menuDataObject = new MenuDataObject();
+                menuDataObject.menuPkId = (int) m.get("menuPkId");
+                menuDataObject.menuName = (String) m.get("menuName");
+                menuDataObject.introduce = (String) m.get("descr");
+                menuDataObject.mainIcon = (String) m.get("mainIcon");
+                menuDataObject.userName = (String) m.get("userName");
+                menuDataObject.userIconUrl = (String) m.get("userIcon");
+                menuDataObjects.add(menuDataObject);
+            }
+            return ResultMsg.success().addContent("content",menuDataObjects);
+        }
+        return ResultMsg.failed().addContent("content","获取专题失败");
+    }
 
     @Override
     public ResultMsg searchMenu(String keyword) {

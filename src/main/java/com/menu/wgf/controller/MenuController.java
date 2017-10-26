@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author guofei_wu
@@ -286,4 +287,12 @@ public class MenuController {
     public ResultMsg getLookRank(){
         return menuService.getLookRankTen();
     }
+
+    @ApiOperation(value ="获取专题菜谱",httpMethod = "POST")
+    @PostMapping(value = "/thematic")
+    @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
+    public ResultMsg getThematicMenu(@ApiParam(value = "{ \"pageNo\":\"pageNo\", \"type\":\"menu\" }",name = "map") @RequestBody Map map){
+        return menuService.getThematicMenuList(map);
+    }
+
 }

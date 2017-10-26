@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author guofei_wu
@@ -238,4 +239,15 @@ public interface MenuService {
      * @return
      */
     ResultMsg getLookRankTen();
+
+
+    /**
+     * 获取专题菜谱列表
+     * @param map 封装了参数
+     * @return
+     */
+    ResultMsg getThematicMenuList(Map map);
+
+
+
 }

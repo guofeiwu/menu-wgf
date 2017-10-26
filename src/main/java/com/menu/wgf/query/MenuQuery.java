@@ -86,6 +86,7 @@ public interface MenuQuery {
 
     /**
      * 获取收藏前10
+     * @return
      */
     List<Map> getCollectRankTen();
 
@@ -94,4 +95,14 @@ public interface MenuQuery {
      * @return
      */
     List<Map> getLookRankTen();
+
+
+    /**
+     * 获取专题菜谱
+     * @param type
+     * @return
+     */
+    List<Map> getThematicMenuList(String type);
+
+
 }
