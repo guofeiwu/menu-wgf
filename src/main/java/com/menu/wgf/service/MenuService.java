@@ -214,4 +214,28 @@ public interface MenuService {
      */
     ResultMsg deleteUserAllRecord();
 
+
+    /**
+     * 判断用户今日是否已经发布菜谱
+     * @return
+     */
+    ResultMsg judgeTodayAlreadyReleaseMenu();
+
+    /**
+     * 获取点赞前10的菜谱
+     * @return
+     */
+    ResultMsg getLikeRankTen();
+
+    /**
+     * 获取收藏前10的菜谱
+     * @return
+     */
+    ResultMsg getCollectRankTen();
+
+    /**
+     * 获取浏览前10的菜谱
+     * @return
+     */
+    ResultMsg getLookRankTen();
 }

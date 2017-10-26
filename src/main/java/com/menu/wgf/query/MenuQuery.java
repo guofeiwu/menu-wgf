@@ -77,4 +77,21 @@ public interface MenuQuery {
      * @return
      */
     List<Map> getUserMenuRecordList(Integer userPkId);
+
+    /**
+     * 获取点赞前10
+     * @return
+     */
+    List<Map> getLikeRankTen();
+
+    /**
+     * 获取收藏前10
+     */
+    List<Map> getCollectRankTen();
+
+    /**
+     * 获取浏览前10
+     * @return
+     */
+    List<Map> getLookRankTen();
 }

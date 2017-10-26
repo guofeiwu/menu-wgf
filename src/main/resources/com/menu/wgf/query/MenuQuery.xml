@@ -52,7 +52,7 @@
         m.t_menu_delete = 0 AND m.t_menu_user_pkid = #{userPkId}
     </select>
 
-    <select id="getUserCollectList"  parameterType="integer" resultType="java.util.LinkedHashMap">
+    <select id="getUserCollectList" parameterType="integer" resultType="java.util.LinkedHashMap">
         SELECT  c.t_collect_pkid collectPkId ,c.t_collect_menu_pkid menuPkId,m.t_menu_name menuName,m.t_menu_main_icon mainIcon,
         m.t_menu_description descr  FROM t_collect c LEFT JOIN t_menu m ON c.t_collect_menu_pkid = m.t_menu_pkid
         WHERE c.t_collect_cancel = 0 AND m.t_menu_delete = 0 AND c.t_collect_user_pkid = #{userPkId}
@@ -71,5 +71,26 @@
       WHERE m.t_menu_delete = 0 AND r.t_record_delete = 0 AND r.t_record_user_pkid = #{userPkId}
     </select>
 
+
+    <select id="getLikeRankTen" resultType="java.util.LinkedHashMap">
+        SELECT COUNT(t_like_menu_pkid) likes ,t_like_menu_pkid menuPkId ,m.t_menu_name menuName ,m.t_menu_description descr,
+        m.t_menu_main_icon mainIcon,m.t_menu_user_pkid userPkId FROM t_like l LEFT JOIN t_menu m ON l.t_like_menu_pkid = m.t_menu_pkid
+        WHERE t_like_menu_pkid > 0 AND t_like_delete = 0
+        GROUP BY menuPkId
+        ORDER BY likes DESC LIMIT 10
+      </select>
+
+    <select id="getCollectRankTen" resultType="java.util.LinkedHashMap">
+        SELECT COUNT(t_collect_menu_pkid) collects ,c.t_collect_menu_pkid menuPkId,m.t_menu_name menuName ,m.t_menu_description descr,
+        m.t_menu_main_icon mainIcon,m.t_menu_user_pkid userPkId FROM t_collect c LEFT JOIN t_menu m ON m.t_menu_pkid = c.t_collect_menu_pkid
+        WHERE t_collect_cancel =0
+        GROUP BY menuPkId
+        ORDER BY collects DESC
+        LIMIT 10
+    </select>
+    <select id="getLookRankTen" resultType="java.util.LinkedHashMap">
+        SELECT t_menu_pkid menuPkId,t_menu_name menuName ,t_menu_description descr ,t_menu_main_icon mainIcon,t_menu_user_pkid userPkId FROM t_menu
+        ORDER BY t_menu_look_times DESC LIMIT 10
+    </select>
 
 </mapper>

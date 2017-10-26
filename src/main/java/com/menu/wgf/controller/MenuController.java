@@ -250,7 +250,6 @@ public class MenuController {
         return menuService.deleteUserRecord(recordPkId);
     }
 
-
     @ApiOperation(value ="删除用户所有的美食足迹",httpMethod = "DELETE")
     @DeleteMapping(value = "/record/all")
     @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
@@ -259,4 +258,32 @@ public class MenuController {
     }
 
 
+    @ApiOperation(value ="查看用户今日是否已经发布菜谱",httpMethod = "GET")
+    @GetMapping(value = "/release")
+    @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
+    public ResultMsg judgeReleaseMenu(){
+        return menuService.judgeTodayAlreadyReleaseMenu();
+    }
+
+    @ApiOperation(value ="获取点赞前10",httpMethod = "GET")
+    @GetMapping(value = "/likeRank")
+    @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
+    public ResultMsg getLikeRank(){
+        return menuService.getLikeRankTen();
+    }
+
+    @ApiOperation(value ="获取收藏前10",httpMethod = "GET")
+    @GetMapping(value = "/collectRank")
+    @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
+    public ResultMsg getCollectRank(){
+        return menuService.getCollectRankTen();
+    }
+
+
+    @ApiOperation(value ="获取浏览前10",httpMethod = "GET")
+    @GetMapping(value = "/lookRank")
+    @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
+    public ResultMsg getLookRank(){
+        return menuService.getLookRankTen();
+    }
 }

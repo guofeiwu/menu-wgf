@@ -7,6 +7,7 @@ import com.menu.wgf.mapper.*;
 import com.menu.wgf.model.*;
 import com.menu.wgf.query.MenuQuery;
 import com.menu.wgf.service.MenuService;
+import com.menu.wgf.util.DateUtils;
 import com.menu.wgf.util.IOUtils;
 import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -594,6 +595,7 @@ public class MenuServiceImpl implements MenuService {
                 menuDataObject.introduce = (String) m.get("descr");
                 menuDataObject.mainIcon = (String) m.get("mainIcon");
                 User user = userMapper.selectByPrimaryKey(userPkId);
+                //下面两没用，为了客户端方便，暂加上
                 menuDataObject.userIconUrl = user.gettUserIcon();
                 menuDataObject.userName = user.gettUserName();
                 //是当前用户
@@ -797,6 +799,74 @@ public class MenuServiceImpl implements MenuService {
         }
         return ResultMsg.failed().addContent("content","删除所有记录失败");
     }
+
+    @Override
+    public ResultMsg judgeTodayAlreadyReleaseMenu() {
+        Integer userPkId = jwtUtil.getLoginPkid();
+        MenuCriteria criteria = new MenuCriteria();
+        criteria.createCriteria()
+                .andTMenuUserPkidEqualTo(userPkId)
+                .andTMenuDeleteEqualTo(0)
+                .andTMenuCdtBetween(DateUtils.getStartDate(Calendar.getInstance()).getTime(),DateUtils.getEndDate(Calendar.getInstance()).getTime());
+        List<Menu> menus = menuMapper.selectByExample(criteria);
+        if(menus !=null && menus.size()>0){
+            return ResultMsg.success().addContent("content","今日已发布菜谱");
+        }
+        return ResultMsg.failed().addContent("content","今日还未发布菜谱");
+    }
+
+    @Override
+    public ResultMsg getLikeRankTen() {
+        List<Map> maps = menuQuery.getLikeRankTen();
+        return getMenuRank(maps);
+    }
+
+    @Override
+    public ResultMsg getCollectRankTen() {
+        List<Map> maps = menuQuery.getCollectRankTen();
+        return getMenuRank(maps);
+    }
+
+    @Override
+    public ResultMsg getLookRankTen() {
+        List<Map> maps = menuQuery.getLookRankTen();
+        return getMenuRank(maps);
+    }
+
+    /**
+     * 获取排行 转化方法
+     * @param maps
+     * @return
+     */
+    private ResultMsg getMenuRank(List<Map> maps){
+        List<MenuDataObject> menuDataObjects = new ArrayList<>();
+        if (maps!=null && maps.size() > 0) {
+            for (Map m : maps) {
+                MenuDataObject menuDataObject = new MenuDataObject();
+                menuDataObject.menuPkId = (int) m.get("menuPkId");
+                menuDataObject.menuName = (String) m.get("menuName");
+                menuDataObject.introduce = (String) m.get("descr");
+                menuDataObject.mainIcon = (String) m.get("mainIcon");
+                Integer userPkId = (Integer) m.get("userPkId");
+                User user = userMapper.selectByPrimaryKey(userPkId);
+                menuDataObject.userIconUrl = user.gettUserIcon();
+                menuDataObject.userName = user.gettUserName();
+                //是当前用户
+                menuDataObject.currentUser = 0;
+                menuDataObjects.add(menuDataObject);
+            }
+            return ResultMsg.success().addContent("content",menuDataObjects);
+        }
+        return ResultMsg.failed().addContent("content","获取排行失败");
+    }
+
+
+
+
+
+
+
+
 
     @Override
     public ResultMsg searchMenu(String keyword) {
