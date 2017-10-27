@@ -91,6 +91,9 @@
         <table tableName="t_user_sign" domainObjectName="UserSign">
             <generatedKey column="t_sign_pkid" sqlStatement="MySql" identity="true" />
         </table>
+        <table tableName="t_thematic" domainObjectName="Thematic">
+            <generatedKey column="t_thematic_pkid" sqlStatement="MySql" identity="true" />
+        </table>
         <!-- enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"-->
     </context>
