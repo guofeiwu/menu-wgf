@@ -91,10 +91,10 @@ public interface MenuQuery {
     List<Map> getCollectRankTen();
 
     /**
-     * 获取浏览前10
+     * 获取浏览前
      * @return
      */
-    List<Map> getLookRankTen();
+    List<Map> getLookRank();
 
 
     /**

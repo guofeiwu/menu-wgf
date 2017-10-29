@@ -73,7 +73,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/app/menu/record/*",
                         "/app/menu/likeRank",
                         "/app/menu/collectRank",
-                        "/app/menu/lookRank",
+                        "/app/menu/lookRank/*",
                         "/app/menu/thematic/*",
                         "/app/menu/random"
                 ).permitAll()

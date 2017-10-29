@@ -202,10 +202,11 @@ public interface MenuService {
     ResultMsg getCollectRankTen();
 
     /**
-     * 获取浏览前10的菜谱
+     * 获取浏览的菜谱
+     * @param pageNo
      * @return
      */
-    ResultMsg getLookRankTen();
+    ResultMsg getLookRank(int pageNo);
 
 
     /**

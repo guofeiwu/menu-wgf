@@ -4,16 +4,13 @@ package com.menu.wgf.controller;
 import com.menu.wgf.dto.CommentDataObject;
 import com.menu.wgf.dto.MenuConditionDataObject;
 import com.menu.wgf.dto.MenuContentDataObject;
-import com.menu.wgf.dto.UpMenuDataObject;
 import com.menu.wgf.model.ResultMsg;
 import com.menu.wgf.service.MenuService;
-import com.menu.wgf.util.IOUtils;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -282,10 +279,13 @@ public class MenuController {
 
 
     @ApiOperation(value ="获取浏览前10",httpMethod = "GET")
-    @GetMapping(value = "/lookRank")
+    @GetMapping(value = "/lookRank/{pageNo}")
     @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
-    public ResultMsg getLookRank(){
-        return menuService.getLookRankTen();
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNo",value = "第几页",dataType = "int",paramType = "path")
+    })
+    public ResultMsg getLookRank(@PathVariable(value = "pageNo") int pageNo){
+        return menuService.getLookRank(pageNo);
     }
 
     @ApiOperation(value ="获取专题菜谱",httpMethod = "POST")
@@ -313,7 +313,5 @@ public class MenuController {
     public ResultMsg getRandomMenuList(){
         return menuService.getRandomMenuList();
     }
-
-
 
 }

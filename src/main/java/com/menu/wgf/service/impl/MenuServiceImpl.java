@@ -831,8 +831,9 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public ResultMsg getLookRankTen() {
-        List<Map> maps = menuQuery.getLookRankTen();
+    public ResultMsg getLookRank(int pageNo) {
+        PageHelper.startPage(pageNo,10);
+        List<Map> maps = menuQuery.getLookRank();
         return getMenuRank(maps);
     }
 
