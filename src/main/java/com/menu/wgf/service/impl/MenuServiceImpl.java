@@ -9,7 +9,7 @@ import com.menu.wgf.query.MenuQuery;
 import com.menu.wgf.service.MenuService;
 import com.menu.wgf.util.DateUtils;
 import com.menu.wgf.util.IOUtils;
-import com.sun.org.apache.regexp.internal.RE;
+import com.menu.wgf.util.RandonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,6 +54,9 @@ public class MenuServiceImpl implements MenuService {
 
     @Autowired
     private RecordMapper recordMapper;
+
+    @Autowired
+    private ThematicMapper thematicMapper;
 
     @Override
     public ResultMsg getMenuList(MenuConditionDataObject menuConditionDataObject) {
@@ -865,7 +868,7 @@ public class MenuServiceImpl implements MenuService {
     public ResultMsg getThematicMenuList(Map map) {
         int pageNo = (int) map.get("pageNo");
         String type = (String) map.get("type");
-        PageHelper.startPage(pageNo,10);
+        PageHelper.startPage(pageNo,1);
         List<Map> maps = menuQuery.getThematicMenuList(type);
         List<MenuDataObject> menuDataObjects = new ArrayList<>();
         if(maps!=null && maps.size()>0){
@@ -882,6 +885,53 @@ public class MenuServiceImpl implements MenuService {
             return ResultMsg.success().addContent("content",menuDataObjects);
         }
         return ResultMsg.failed().addContent("content","获取专题失败");
+    }
+
+    @Override
+    public ResultMsg getThematicTitle(int pageNo) {
+
+        ThematicCriteria criteria = new ThematicCriteria();
+        criteria.createCriteria()
+                .andTThematicDeleteEqualTo(0);
+        PageHelper.startPage(pageNo,2);
+        List<Thematic> thematics = thematicMapper.selectByExample(criteria);
+
+        if(thematics!=null && thematics.size()>0){
+                List<ThematicDataObject> thematicDataObjects = new ArrayList<>();
+                for (Thematic thematic:thematics){
+                    ThematicDataObject  thematicDataObject = new ThematicDataObject();
+                    thematicDataObject.thematicPictureUrl = thematic.gettThematicPictureUrl();
+                    thematicDataObject.thematicName = thematic.gettThematicName();
+                    thematicDataObjects.add(thematicDataObject);
+                }
+                return ResultMsg.success().addContent("content",thematicDataObjects);
+        }
+        return ResultMsg.failed().addContent("content","获取专题内容失败");
+    }
+
+
+    @Override
+    public ResultMsg getRandomMenuList() {
+
+        //菜谱总数
+        int count = (int) menuMapper.countByExample(null);
+        int[] ints = RandonUtils.randomCommon(1, count, 12);
+        List<Map> maps = menuQuery.getRandMenuList(ints);
+        if(maps!=null && maps.size()>0){
+            List<MenuDataObject> menuDataObjects = new ArrayList<>();
+            for (Map m : maps) {
+                MenuDataObject menuDataObject = new MenuDataObject();
+                menuDataObject.menuPkId = (int) m.get("menuPkId");
+                menuDataObject.menuName = (String) m.get("menuName");
+                menuDataObject.introduce = (String) m.get("descr");
+                menuDataObject.mainIcon = (String) m.get("mainIcon");
+                //是当前用户
+                menuDataObject.currentUser = 0;
+                menuDataObjects.add(menuDataObject);
+            }
+            return ResultMsg.success().addContent("content",menuDataObjects);
+        }
+        return ResultMsg.failed().addContent("content","获取随机菜谱失败");
     }
 
     @Override

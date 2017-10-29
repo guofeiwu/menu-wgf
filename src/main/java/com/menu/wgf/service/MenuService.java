@@ -249,5 +249,17 @@ public interface MenuService {
     ResultMsg getThematicMenuList(Map map);
 
 
+    /**
+     * 获取菜谱专题标题（2个）
+     * @param pageNO
+     * @return
+     */
+    ResultMsg getThematicTitle(int pageNO);
+
+    /**
+     * 随机返回菜谱列表
+     * @return
+     */
+    ResultMsg getRandomMenuList();
 
 }

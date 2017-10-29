@@ -104,5 +104,10 @@ public interface MenuQuery {
      */
     List<Map> getThematicMenuList(String type);
 
-
+    /**
+     * 随机获取菜谱
+     * @param ids
+     * @return
+     */
+    List<Map> getRandMenuList(int[] ids);
 }

@@ -295,4 +295,25 @@ public class MenuController {
         return menuService.getThematicMenuList(map);
     }
 
+
+    @ApiOperation(value ="获取菜谱专题标题",httpMethod = "GET")
+    @GetMapping(value = "/thematic/{pageNo}")
+    @ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNo",value = "第几页",paramType = "path",dataType = "int")
+    })
+    public ResultMsg getThematicTitle(@PathVariable(value = "pageNo") int pageNo){
+        return menuService.getThematicTitle(pageNo);
+    }
+
+
+    @ApiOperation(value ="随机菜谱列表",httpMethod = "GET")
+    @GetMapping(value = "/random")
+    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
+    public ResultMsg getRandomMenuList(){
+        return menuService.getRandomMenuList();
+    }
+
+
+
 }

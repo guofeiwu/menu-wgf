@@ -94,6 +94,9 @@
         <table tableName="t_thematic" domainObjectName="Thematic">
             <generatedKey column="t_thematic_pkid" sqlStatement="MySql" identity="true" />
         </table>
+        <table tableName="t_recommend" domainObjectName="Recommend">
+            <generatedKey column="t_recommend_pkid" sqlStatement="MySql" identity="true" />
+        </table>
         <!-- enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"-->
     </context>
