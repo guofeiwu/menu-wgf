@@ -933,26 +933,4 @@ public class MenuServiceImpl implements MenuService {
         }
         return ResultMsg.failed().addContent("content","获取随机菜谱失败");
     }
-
-    @Override
-    public ResultMsg searchMenu(String keyword) {
-        return null;
-    }
-
-    @Override
-    public ResultMsg shareMenu(int userPkId, int menuPkId) {
-        return null;
-    }
-
-    @Override
-    public ResultMsg recordMenu(int userPkId, int menuPkId) {
-        return null;
-    }
-
-    @Override
-    public ResultMsg getMenuRank(int type) {
-        return null;
-    }
-
-
 }
