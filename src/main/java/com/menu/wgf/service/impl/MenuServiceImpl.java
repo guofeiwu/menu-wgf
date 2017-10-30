@@ -530,12 +530,13 @@ public class MenuServiceImpl implements MenuService {
             //步骤信息
             List<Map<String, Object>> steps = menuContentDataObject.steps;
             List<Step> stepList = new ArrayList<>();
-            for (Map<String, Object> map : steps) {
+            for (int i = 0;i<steps.size();i++) {
+                Map<String,Object> map = steps.get(i);
                 String desc = (String) map.get("desc");
                 String url = (String) map.get("url");
                 Step step = new Step();
                 step.settStepMenuPkid(menuPkId);
-                step.settStepDescription(desc);
+                step.settStepDescription((i+1)+desc);
                 step.settStepPicAddress(url);
                 Date date = new Date();
                 step.settStepCdt(date);
