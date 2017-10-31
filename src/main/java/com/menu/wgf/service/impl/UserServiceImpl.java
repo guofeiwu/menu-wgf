@@ -272,9 +272,12 @@ public class UserServiceImpl implements UserService {
         //判断是否已经签到
         if(flag == 1){
             if(userSigns!=null && userSigns.size()>0){
+                User user = userMapper.selectByPrimaryKey(userPkId);
                 map.put("sign",1);
+                map.put("point",user.gettUserPoint());
                 return ResultMsg.success().addContent("content",map);
             }else{
+                //还未进行签到
                 map.put("sign",2);
                 return ResultMsg.success().addContent("content",map);
             }
