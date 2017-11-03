@@ -49,7 +49,7 @@ public class IOUtils {
      */
     public static Map uploadFile(Integer userPkId,Integer type,Integer currentIndex,
                                    MultipartFile multipartFile){
-
+        String filePath = null;
         Map<String,Object> map = new HashMap();
 
         String userName = "user"+userPkId;
@@ -64,19 +64,15 @@ public class IOUtils {
             //TODO 之后可以更改路径
             String setFilePath = null;
              switch (type){
-                 case Constants.FILE_TYPE_SHAI://晒一晒
-                     // TODO: 2017/10/1 需要更换地址
-                     setFilePath = Constants.BASE_URL_FILE_ICON+ userName;//用户的晒一晒的文件夹
-                     break;
                  case Constants.FILE_TYPE_ICON://头像
-                     setFilePath = Constants.BASE_URL_FILE_ICON;//用户的头像的文件夹
+                     setFilePath = Constants.BASE_URL_FILE_ICON+userName;//用户的头像的文件夹
                      break;
              }
             File userFile = new File(setFilePath);
             if (!userFile.exists()){
                 userFile.mkdirs();
             }
-            String filePath = setFilePath+userName+File.separator+fileName+suffix;//文件的路径
+            filePath = setFilePath+File.separator+fileName+suffix;//文件的路径
             File file = new File(filePath);
             FileOutputStream fos = new FileOutputStream(file);
             bos = new BufferedOutputStream(fos);
@@ -95,7 +91,7 @@ public class IOUtils {
         }
         map.put("currentIndex",currentIndex);
         map.put("suffix",suffix);
-
+        map.put("filePath",userName+"/"+fileName+suffix);
         return map;
     }
 

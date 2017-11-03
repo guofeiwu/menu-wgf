@@ -180,25 +180,43 @@ public class UserServiceImpl implements UserService {
     public ResultMsg uploadUserIcon(Integer userPkId, Integer type,MultipartFile icon) {
         User user = userMapper.selectByPrimaryKey(userPkId);
         String iconPath = user.gettUserIcon();
-        int indexP = iconPath.lastIndexOf(".");
-        int indexR = iconPath.lastIndexOf("r");
-        int currentIndex =Integer.parseInt(iconPath.substring(indexR+1,indexP));//用户当前头像的下标
+        if(iconPath !=null && !iconPath.equals("")) {
+            int indexP = iconPath.lastIndexOf(".");
+            int indexR = iconPath.lastIndexOf("r");
+            int currentIndex = Integer.parseInt(iconPath.substring(indexR + 1, indexP));//用户当前头像的下标
 
-        Map map = IOUtils.uploadFile(userPkId,type,currentIndex,icon);
-        int modifyIndex = (int) map.get("currentIndex");
-        if(modifyIndex == 0){
-            return ResultMsg.failed().addContent("content","修改失败");
-        }
-        String suffix = (String) map.get("suffix");
-        if(modifyIndex != 0){
-            String newIconPath = iconPath.substring(0,indexR+1)+modifyIndex+suffix;
-            user.settUserIcon(newIconPath);
-            int result = userMapper.updateByPrimaryKeySelective(user);
-            if(result == 1){
-                return ResultMsg.success().addContent("content","修改成功");
+            Map map = IOUtils.uploadFile(userPkId, type, currentIndex, icon);
+            int modifyIndex = (int) map.get("currentIndex");
+            if (modifyIndex == 0) {
+                return ResultMsg.failed().addContent("content", "修改失败");
             }
+            String suffix = (String) map.get("suffix");
+            if (modifyIndex != 0) {
+                String newIconPath = iconPath.substring(0, indexR + 1) + modifyIndex + suffix;
+                user.settUserIcon(newIconPath);
+                int result = userMapper.updateByPrimaryKeySelective(user);
+                if (result == 1) {
+                    return ResultMsg.success().addContent("content", "修改成功");
+                }
+            }
+            return ResultMsg.failed().addContent("content", "修改失败");
+        }else{
+            // 用户还未上传过头像
+            Map map = IOUtils.uploadFile(userPkId, type, 0, icon);
+            int modifyIndex = (int) map.get("currentIndex");
+            if (modifyIndex == 0) {
+                return ResultMsg.failed().addContent("content", "修改失败");
+            }
+            if (modifyIndex != 0) {
+                String newIconPath = (String) map.get("filePath");
+                user.settUserIcon(newIconPath);
+                int result = userMapper.updateByPrimaryKeySelective(user);
+                if (result == 1) {
+                    return ResultMsg.success().addContent("content", "修改成功");
+                }
+            }
+            return ResultMsg.failed().addContent("content", "修改失败");
         }
-        return ResultMsg.failed().addContent("content","修改失败");
     }
 
     @Override
