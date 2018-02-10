@@ -75,7 +75,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/app/menu/collectRank",
                         "/app/menu/lookRank/*",
                         "/app/menu/thematic/*",
-                        "/app/menu/random"
+                        "/app/menu/random",
+                        "/app/system/about"
                 ).permitAll()
                 .antMatchers(
                         HttpMethod.POST,
