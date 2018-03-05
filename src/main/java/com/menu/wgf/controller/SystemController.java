@@ -10,6 +10,7 @@ import java.util.Map;
 
 /**
  * @author guofei_wu
+ *
  */
 @Api(value = "SystemController",description = "系统接口")
 @RestController
@@ -28,15 +29,6 @@ public class SystemController {
                                       @RequestBody Map map){
         return systemService.feedback(map);
     }
-
-
-    @ApiOperation(value ="关于我们",httpMethod = "GET")
-    @GetMapping(value = "/about")
-    @ApiResponses(@ApiResponse(code = 500,message = "服务器响应出错",response = Integer.class))
-    public ResultMsg aboutUs(){
-        return ResultMsg.success();
-    }
-
 
     @ApiOperation(value ="版本更新",httpMethod = "GET")
     @GetMapping(value = "/checkUpdate")

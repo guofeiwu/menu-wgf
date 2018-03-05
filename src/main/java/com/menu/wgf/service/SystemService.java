@@ -17,12 +17,6 @@ public interface SystemService {
     ResultMsg feedback(Map map);
 
     /**
-     * 关于我们
-     * @return
-     */
-    ResultMsg getAboutUs();
-
-    /**
      * 更新版本
      * @return
      */

@@ -59,10 +59,6 @@ public class SystemServiceImpl implements SystemService {
     }
 
     @Override
-    public ResultMsg getAboutUs() {
-        return null;
-    }
-    @Override
     public ResultMsg updateVersion() {
         AppInfoCriteria criteria = new AppInfoCriteria();
         criteria.createCriteria()
