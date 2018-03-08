@@ -20,10 +20,11 @@ import java.util.*;
 
 /**
  * @author guofei_wu
- *         email guofei_wu@163.com
+ * @email guofei_wu@163.com
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
+@SuppressWarnings("SpringJavaAutowiringInspection")
 public class MenuServiceImpl implements MenuService {
     @Autowired
     private JwtUtil jwtUtil;

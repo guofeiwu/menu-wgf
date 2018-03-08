@@ -20,10 +20,11 @@ import java.util.Map;
 
 /**
  * @author guofei_wu
- * email guofei_wu@163.com
+ * @email guofei_wu@163.com
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
+@SuppressWarnings("SpringJavaAutowiringInspection")
 public class SystemServiceImpl implements SystemService {
 
     @Autowired

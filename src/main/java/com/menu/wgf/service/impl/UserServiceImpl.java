@@ -26,10 +26,13 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * author guofei_wu
+ * @author guofei_wu
+ * @email guofei_wu@163.com
+ *
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
+@SuppressWarnings("SpringJavaAutowiringInspection")
 public class UserServiceImpl implements UserService {
 
 
