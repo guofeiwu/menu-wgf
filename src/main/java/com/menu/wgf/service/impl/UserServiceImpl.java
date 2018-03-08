@@ -93,13 +93,6 @@ public class UserServiceImpl implements UserService {
         return ResultMsg.success().addContent("content",jwtHeader);
     }
 
-
-    // TODO: 2017/9/27 暂时不写
-    @Override
-    public ResultMsg logout(String userPkId) {
-        return null;
-    }
-
     @Override
     public ResultMsg register(Map param) {
         String phone = (String) param.get("phone");

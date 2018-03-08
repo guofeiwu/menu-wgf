@@ -30,13 +30,6 @@ public interface UserService {
     ResultMsg smsLogin(String phone);
 
     /**
-     * 退出登录
-     * @param userPkId
-     * @return
-     */
-    ResultMsg logout(String userPkId);// TODO: 2017/9/25 这个晚点做
-
-    /**
      * 用户注册
      * @param param
      * @return
