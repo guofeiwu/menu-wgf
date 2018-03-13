@@ -39,7 +39,7 @@ public class LoginRegisterController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "param", value = LOGIN_APP_PARAM_EXAMPLE, dataType = "map", paramType = "body", required = true)
     })
-    @PostMapping(value = "")
+    @PostMapping(value = "/login")
     @ApiResponses(@ApiResponse(code = 500,message = "用户登录失败",response = Integer.class))
     public ResultMsg loginApp(@RequestBody Map param){
 
