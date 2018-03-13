@@ -14,7 +14,7 @@ import java.util.Map;
  */
 
 @RestController
-@RequestMapping(value = "/login")
+@RequestMapping(value = "/app")
 @Api(value = "LoginRegisterController", description = "用户登录注册")
 public class LoginRegisterController {
 
