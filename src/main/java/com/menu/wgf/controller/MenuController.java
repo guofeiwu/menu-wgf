@@ -161,7 +161,7 @@ public class MenuController {
     @ApiOperation(value = "上传菜谱(多张图片)", httpMethod = "POST")
     @PostMapping(value = "/upStepPicture")
     @ApiResponse(code = 500,message = "服务器相应出错",response = Integer.class)
-    public ResultMsg uploadMenu(@ApiParam(value = "http请求", name = "stepPicture", required = true)
+    public ResultMsg uploadMenu(@ApiParam(value = "步骤图片", name = "stepPicture", required = true)
                                     @RequestParam(value = "stepPicture") List<MultipartFile> stepPicture) {
         return menuService.upStepPicture(stepPicture);
     }
